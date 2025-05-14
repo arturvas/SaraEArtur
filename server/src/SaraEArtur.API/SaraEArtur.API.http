@@ -1,0 +1,6 @@
+@SaraEArtur.API_HostAddress = http://localhost:5072
+
+GET {{SaraEArtur.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
