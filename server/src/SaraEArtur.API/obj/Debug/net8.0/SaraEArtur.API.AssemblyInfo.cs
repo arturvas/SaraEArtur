@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SaraEArtur.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e00faef9950650c7014e516b26a951b02bd57f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("SaraEArtur.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SaraEArtur.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

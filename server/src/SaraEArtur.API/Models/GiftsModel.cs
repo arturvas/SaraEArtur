@@ -1,0 +1,18 @@
+namespace SaraEArtur.API.Models;
+
+public class GiftsModel
+{
+    public GiftsModel(string name)
+    {
+        Name = name;
+        Id = Guid.NewGuid();
+    }
+    
+    public Guid Id { get; init; }
+    public string Name { get; private set; }
+    public decimal Price { get; set; }
+    public string? ImageUrl { get; set; }
+    public bool IsAvailable { get; set; } = true;
+    public string? ReservedBy { get; set; }
+    public DateTime? ReservedAt { get; set; }
+}

@@ -1,15 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using SaraEArtur.API.Data;
 using SaraEArtur.API.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<WeddingContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// builder.Services.AddScoped<WeddingContext>();
+builder.Services.AddCors(opt =>
+    opt.AddDefaultPolicy(p => p.WithOrigins("http://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -18,13 +25,13 @@ if (app.Environment.IsDevelopment())
 
 app.GiftsRoutes();
 
-// app.MapPost("orders");
-//
-// app.MapGet("orders/{id}/status");
-//
-// app.MapGet("orders");
-//
-// app.MapPatch("gifts/{id}");
+// TODO app.MapPost("orders");
+
+// TODO app.MapGet("orders/{id}/status");
+
+// TODO app.MapGet("orders");
+
+// TODO app.MapPatch("gifts/{id}");
 
 app.UseHttpsRedirection();
 app.Run();
