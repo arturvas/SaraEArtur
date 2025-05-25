@@ -78,7 +78,7 @@ FrontEnd__BaseUrl=http://localhost:4200
 ### 3. Backend
 
 ```bash
-cd server/src/SaraEArtur.API
+cd server/SaraEArtur.API
 # restaura pacotes & aplica migrations
 dotnet build
 dotnet ef database update
