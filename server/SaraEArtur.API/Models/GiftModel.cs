@@ -1,8 +1,8 @@
 namespace SaraEArtur.API.Models;
 
-public class GiftsModel
+public class GiftModel
 {
-    public GiftsModel(string name)
+    public GiftModel(string name)
     {
         Name = name;
         Id = Guid.NewGuid();
@@ -15,4 +15,14 @@ public class GiftsModel
     public bool IsAvailable { get; set; } = true;
     public string? ReservedBy { get; set; }
     public DateTime? ReservedAt { get; set; }
+    
+    public void ChangeName(string newName)
+    {
+        Name = newName;
+    }
+
+    public void SetInactive()
+    {
+        Name = "Inactive";
+    }
 }

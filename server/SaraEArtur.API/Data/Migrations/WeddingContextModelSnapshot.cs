@@ -22,7 +22,7 @@ namespace SaraEArtur.API.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SaraEArtur.API.Models.GiftsModel", b =>
+            modelBuilder.Entity("SaraEArtur.API.Models.GiftModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
