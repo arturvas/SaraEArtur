@@ -2,8 +2,6 @@
 
 > **Um SPA em Angular + .NET 8 pensado para telas pequenas e pagamento simbólico de presentes via MercadoPago.**
 
-![Mobile preview](docs/preview-mobile.png)
-
 ## ✨ Funcionalidades
 
 * **Home** com contagem regressiva animada e atalho para todas as seções.
