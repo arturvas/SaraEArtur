@@ -19,7 +19,13 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 // Endpoints Minimal API
-app.MapGet("/", () => "Hello World!");
-app.MapGet("/gifts", async (AppDbContext db) => await db.Gifts.ToListAsync());
+app.MapGet("/gifts", async (AppDbContext db) =>
+{
+    var gifts = await db.Gifts
+        .Select(gift => new { gift.Id, gift.Name, gift.Price, gift.Taken })
+        .ToListAsync();
+
+    return Results.Ok(gifts);
+});
 
 app.Run();
