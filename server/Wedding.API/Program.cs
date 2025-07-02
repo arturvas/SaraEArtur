@@ -2,9 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using Wedding.API.Data;
 using MercadoPago.Config;
 using MercadoPago.Client.Preference;
-using MercadoPago.Resource.Preference;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Env.Load(".env");
+
+var token = Environment.GetEnvironmentVariable("MERCADO_PAGO_ACCESS_TOKEN");
+MercadoPagoConfig.AccessToken = token;
 
 // Adiciona serviços à injeção de dependência
 builder.Services.AddDbContext<AppDbContext>(
@@ -14,8 +19,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-MercadoPagoConfig.AccessToken = builder.Configuration["MercadoPago:AccessToken"];
 
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSwagger();
@@ -49,7 +52,12 @@ app.MapPost("/checkout/{id}", async (int id, AppDbContext db) =>
     };
 
     var client = new PreferenceClient();
-    var preference = await client.CreateAsync(request);
+    var preferenceRequest = new PreferenceRequest()
+    {
+        Items = request
+    };
+    
+    var preference = await client.CreateAsync(preferenceRequest);
 
     return Results.Ok(new { url = preference.InitPoint });
 });
