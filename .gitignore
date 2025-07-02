@@ -1,2 +1,22 @@
+# Dotnet build outputs
+**/bin/
+**/obj/
+
+# EF Core Migrations
+**/Data/Migrations/
+
+# Banco SQLite
+*.db
+
+# Arquivos temporários de execução
+*.db-shm
+*.db-wal
+
+# Configurações locais e secrets
+secrets.json
+
+# Rider
+.idea/
+*.sln.iml
+
 **/.DS_Store
-.idea
