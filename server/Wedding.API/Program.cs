@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Wedding.API.Data;
+using MercadoPago.Config;
+using MercadoPago.Client.Preference;
+using MercadoPago.Resource.Preference;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +15,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Middlewares
+MercadoPagoConfig.AccessToken = builder.Configuration["MercadoPago:AccessToken"];
+
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -26,6 +30,28 @@ app.MapGet("/gifts", async (AppDbContext db) =>
         .ToListAsync();
 
     return Results.Ok(gifts);
+});
+
+app.MapPost("/checkout/{id}", async (int id, AppDbContext db) =>
+{
+    var gift = await db.Gifts.FindAsync(id);
+    if (gift == null) return Results.NotFound();
+
+    var request = new List<PreferenceItemRequest>
+    {
+        new PreferenceItemRequest
+        {
+            Title = gift.Name,
+            Quantity = 1,
+            CurrencyId = "BRL",
+            UnitPrice = gift.Price
+        }
+    };
+
+    var client = new PreferenceClient();
+    var preference = await client.CreateAsync(request);
+
+    return Results.Ok(new { url = preference.InitPoint });
 });
 
 app.Run();
