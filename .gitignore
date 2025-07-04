@@ -20,3 +20,7 @@ secrets.json
 *.sln.iml
 
 **/.DS_Store
+
+server/Wedding.API/.env
+*.DotSettings.user
+identifier.sqlite
