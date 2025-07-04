@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "projects": [
+    {
+      "rootDirectory": "client/wedding-ui",
+      "buildCommand": "npm install && npm run build",
+      "outputDirectory": "dist"
+    }
+  ]
+}
