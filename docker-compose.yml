@@ -12,7 +12,7 @@ services:
         
   client:
     build:
-      context: ./client
+      context: ./client/wedding-ui
     ports:
       - "3000:80"
         
