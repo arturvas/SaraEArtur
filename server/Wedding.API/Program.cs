@@ -27,6 +27,9 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 // Endpoints Minimal API
+
+app.MapGet("/api/heath", () => Results.Ok("Healthy"));
+
 app.MapGet("/api/gifts", async (AppDbContext db) =>
 {
     var gifts = await db.Gifts
@@ -87,6 +90,8 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    
+    db.Database.Migrate();
 
     if (!db.Gifts.Any())
     {
