@@ -1,20 +1,31 @@
-version: "3.9"
 services:
   api:
     build:
-      context: ./server
+      context: ./server/Wedding.API
+      dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
       - sqlite-data:/app/data
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - wedding-network
         
   client:
     build:
       context: ./client/wedding-ui
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
+    environment:
+      - API_URL=http://api:5001
+    networks:
+      - wedding-network
         
 volumes:
   sqlite-data:
+    
+networks:
+  wedding-network:
+    driver: bridge
