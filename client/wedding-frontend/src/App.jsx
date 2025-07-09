@@ -1,55 +1,74 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button.jsx'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
-import { Badge } from '@/components/ui/badge.jsx'
-import { Heart, Calendar, MapPin, Clock, Users, Gift, Camera, Shirt, ChevronDown, Star } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import './App.css'
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button.jsx";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card.jsx";
+import { Badge } from "@/components/ui/badge.jsx";
+import {
+  Heart,
+  Calendar,
+  MapPin,
+  Clock,
+  Users,
+  Gift,
+  Camera,
+  Shirt,
+  ChevronDown,
+  Star,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import "./App.css";
 
 function App() {
-  const [activeSection, setActiveSection] = useState('inicio')
+  const [activeSection, setActiveSection] = useState("inicio");
   const [timeLeft, setTimeLeft] = useState({
     days: 365,
     hours: 24,
     minutes: 60,
-    seconds: 60
-  })
+    seconds: 60,
+  });
 
   // Countdown timer
   useEffect(() => {
-    const targetDate = new Date('2026-06-15T15:00:00')
-    
-    const timer = setInterval(() => {
-      const now = new Date().getTime()
-      const distance = targetDate.getTime() - now
-      
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24))
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-      
-      setTimeLeft({ days, hours, minutes, seconds })
-    }, 1000)
+    const targetDate = new Date("2025-08-27T17:00:00");
 
-    return () => clearInterval(timer)
-  }, [])
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const sections = [
-    { id: 'inicio', label: 'Início', icon: Heart },
-    { id: 'historia', label: 'Nossa História', icon: Star },
-    { id: 'detalhes', label: 'Detalhes', icon: Calendar },
-    { id: 'dresscode', label: 'Dress Code', icon: Shirt },
-    { id: 'galeria', label: 'Galeria', icon: Camera },
-    { id: 'presentes', label: 'Presentes', icon: Gift }
-  ]
+    { id: "inicio", label: "Início", icon: Heart },
+    { id: "historia", label: "Nossa História", icon: Star },
+    { id: "detalhes", label: "Detalhes", icon: Calendar },
+    { id: "dresscode", label: "Dress Code", icon: Shirt },
+    { id: "galeria", label: "Galeria", icon: Camera },
+    { id: "presentes", label: "Presentes", icon: Gift },
+  ];
 
   const scrollToSection = (sectionId) => {
-    setActiveSection(sectionId)
-    const element = document.getElementById(sectionId)
+    setActiveSection(sectionId);
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100">
@@ -57,7 +76,7 @@ function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/50 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <motion.h1 
+            <motion.h1
               className="text-2xl font-light text-slate-700 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
               initial={{ opacity: 0, x: -20 }}
@@ -65,18 +84,18 @@ function App() {
             >
               Artur & Sara
             </motion.h1>
-            
+
             <div className="hidden md:flex space-x-8">
               {sections.map((section, index) => {
-                const Icon = section.icon
+                const Icon = section.icon;
                 return (
                   <motion.button
                     key={section.id}
                     onClick={() => scrollToSection(section.id)}
                     className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                      activeSection === section.id 
-                        ? 'bg-slate-100 text-slate-700' 
-                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                      activeSection === section.id
+                        ? "bg-slate-100 text-slate-700"
+                        : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
                     }`}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -85,7 +104,7 @@ function App() {
                     <Icon size={16} />
                     <span className="text-sm font-medium">{section.label}</span>
                   </motion.button>
-                )
+                );
               })}
             </div>
           </div>
@@ -93,7 +112,10 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="inicio" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      <section
+        id="inicio"
+        className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-slate-100/50 via-blue-50/30 to-slate-200/40"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div
@@ -102,7 +124,7 @@ function App() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 
+            <h1
               className="text-6xl md:text-8xl font-light text-slate-700 mb-6 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
@@ -114,25 +136,25 @@ function App() {
             <div className="flex items-center justify-center space-x-3 mb-12">
               <Calendar className="text-slate-500" size={20} />
               <span className="text-lg md:text-xl font-light text-slate-600 tracking-wide">
-                15 de Junho de 2026
+                27 de Agosto de 2025
               </span>
             </div>
-            
-            <Button 
-              onClick={() => scrollToSection('presentes')}
-              className="bg-slate-600 hover:bg-slate-700 text-white px-8 py-3 text-base rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-light tracking-wide"
-            >
-              Ver Lista de Presentes
-            </Button>
+
+            {/*<Button */}
+            {/*  onClick={() => scrollToSection('presentes')}*/}
+            {/*  className="bg-slate-600 hover:bg-slate-700 text-white px-8 py-3 text-base rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-light tracking-wide"*/}
+            {/*>*/}
+            {/*  Ver Lista de Presentes*/}
+            {/*</Button>*/}
           </motion.div>
         </div>
-        
-        <motion.div 
+
+        <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
           animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
+          transition={{ repeat: Infinity, duration: 1 }}
         >
-          <ChevronDown className="text-slate-400" size={28} />
+          <ChevronDown className="text-slate-400" size={100} />
         </motion.div>
       </section>
 
@@ -145,16 +167,24 @@ function App() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light text-slate-700 mb-8 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
-              Bem-vindo ao Nosso Site de Casamento
+              Bem-vindo ao site do nosso casamento!
             </h2>
             <p className="text-lg text-slate-600 mb-12 leading-relaxed font-light">
-              Estamos animados para celebrar nosso dia especial com você! Como estamos nos preparando para nos mudar para outro país após o casamento, criamos este site para compartilhar nossa jornada e proporcionar uma maneira de você fazer parte do nosso novo começo.
+              Estamos muito felizes em compartilhar esse momento tão especial
+              com você. Enquanto nos preparamos para celebrar nossa união e
+              iniciar uma nova etapa da vida em outro país, criamos este espaço
+              para dividir com carinho os detalhes da nossa história, da
+              cerimônia e da nossa jornada.
             </p>
-            
+            <p className="text-lg text-slate-600 mb-12 leading-relaxed font-light italic">
+              Aqui, você encontrará informações importantes sobre o grande dia e
+              também poderá nos ajudar a construir esse novo começo.
+            </p>
+
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="border border-slate-200 hover:border-slate-300 transition-colors duration-300 shadow-sm hover:shadow-md">
                 <CardHeader>
@@ -165,18 +195,19 @@ function App() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-slate-600 mb-4 font-light">
-                    Junte-se a nós enquanto trocamos votos e celebramos nosso amor.
+                    Junte-se a nós enquanto trocamos votos e celebramos nosso
+                    amor.
                   </p>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => scrollToSection('detalhes')}
+                  <Button
+                    variant="outline"
+                    onClick={() => scrollToSection("detalhes")}
                     className="border-slate-300 text-slate-600 hover:bg-slate-50 font-light"
                   >
                     Ver Detalhes →
                   </Button>
                 </CardContent>
               </Card>
-              
+
               <Card className="border border-slate-200 hover:border-slate-300 transition-colors duration-300 shadow-sm hover:shadow-md">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-3 text-slate-700">
@@ -186,11 +217,12 @@ function App() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-slate-600 mb-4 font-light">
-                    Ajude-nos a começar nossa nova vida no exterior com presentes simbólicos.
+                    Ajude-nos a começar nossa nova vida no exterior com
+                    presentes simbólicos.
                   </p>
-                  <Button 
+                  <Button
                     variant="outline"
-                    onClick={() => scrollToSection('presentes')}
+                    onClick={() => scrollToSection("presentes")}
                     className="border-slate-300 text-slate-600 hover:bg-slate-50 font-light"
                   >
                     Ver Lista →
@@ -211,19 +243,19 @@ function App() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light mb-12 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
               Contagem Regressiva para o Grande Dia
             </h2>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               {[
-                { value: timeLeft.days, label: 'Dias' },
-                { value: timeLeft.hours, label: 'Horas' },
-                { value: timeLeft.minutes, label: 'Minutos' },
-                { value: timeLeft.seconds, label: 'Segundos' }
+                { value: timeLeft.days, label: "Dias" },
+                { value: timeLeft.hours, label: "Horas" },
+                { value: timeLeft.minutes, label: "Minutos" },
+                { value: timeLeft.seconds, label: "Segundos" },
               ].map((item, index) => (
                 <motion.div
                   key={item.label}
@@ -255,14 +287,15 @@ function App() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light text-slate-700 mb-6 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
               Nossa História
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
-              Como nos conhecemos, nos apaixonamos e decidimos passar nossas vidas juntos
+              Como nos conhecemos, nos apaixonamos e decidimos passar nossas
+              vidas juntos
             </p>
           </motion.div>
 
@@ -271,18 +304,21 @@ function App() {
               {
                 title: "Como Nos Conhecemos",
                 date: "Janeiro de 2020",
-                content: "Nos encontramos pela primeira vez na festa de aniversário de um amigo em comum. Sara foi imediatamente atraída pelo senso de humor de Artur, enquanto Artur não conseguia tirar os olhos do sorriso de Sara. Depois de conversarmos por horas naquela noite, soubemos que havia algo especial entre nós."
+                content:
+                  "Nos encontramos pela primeira vez na festa de aniversário de um amigo em comum. Sara foi imediatamente atraída pelo senso de humor de Artur, enquanto Artur não conseguia tirar os olhos do sorriso de Sara. Depois de conversarmos por horas naquela noite, soubemos que havia algo especial entre nós.",
               },
               {
                 title: "Primeiro Encontro",
                 date: "Fevereiro de 2020",
-                content: "Nosso primeiro encontro foi em um pequeno café no centro da cidade. O que deveria ser um café rápido se transformou em uma conversa de cinco horas. Falamos sobre tudo, desde nossos sonhos de infância até nossos livros favoritos. No final da noite, ambos sabíamos que este era o começo de algo maravilhoso."
+                content:
+                  "Nosso primeiro encontro foi em um pequeno café no centro da cidade. O que deveria ser um café rápido se transformou em uma conversa de cinco horas. Falamos sobre tudo, desde nossos sonhos de infância até nossos livros favoritos. No final da noite, ambos sabíamos que este era o começo de algo maravilhoso.",
               },
               {
                 title: "O Pedido",
                 date: "Dezembro de 2024",
-                content: "Artur fez o pedido durante um fim de semana surpresa nas montanhas. Após uma bela caminhada até um mirante cênico, ele se ajoelhou e pediu Sara em casamento. Com lágrimas de alegria, ela disse sim! Celebramos com champanhe enquanto o sol se punha sobre as montanhas, marcando o início de nossa jornada rumo ao casamento."
-              }
+                content:
+                  "Artur fez o pedido durante um fim de semana surpresa nas montanhas. Após uma bela caminhada até um mirante cênico, ele se ajoelhou e pediu Sara em casamento. Com lágrimas de alegria, ela disse sim! Celebramos com champanhe enquanto o sol se punha sobre as montanhas, marcando o início de nossa jornada rumo ao casamento.",
+              },
             ].map((story, index) => (
               <motion.div
                 key={index}
@@ -291,7 +327,7 @@ function App() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
                 className={`flex flex-col md:flex-row items-center gap-8 ${
-                  index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                  index % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
               >
                 <div className="flex-1">
@@ -301,7 +337,10 @@ function App() {
                         <CardTitle className="text-2xl text-slate-700 font-light">
                           {story.title}
                         </CardTitle>
-                        <Badge variant="secondary" className="bg-slate-100 text-slate-600 font-light">
+                        <Badge
+                          variant="secondary"
+                          className="bg-slate-100 text-slate-600 font-light"
+                        >
                           {story.date}
                         </Badge>
                       </div>
@@ -331,7 +370,7 @@ function App() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light text-slate-700 mb-6 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
@@ -352,16 +391,22 @@ function App() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="text-2xl font-light text-slate-700">15 de Junho de 2026</p>
+                  <p className="text-2xl font-light text-slate-700">
+                    15 de Junho de 2026
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Clock size={16} className="text-slate-400" />
-                    <span className="font-light text-slate-600">Cerimônia: 15:00</span>
+                    <span className="font-light text-slate-600">
+                      Cerimônia: 15:00
+                    </span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Users size={16} className="text-slate-400" />
-                    <span className="font-light text-slate-600">Recepção: 17:00</span>
+                    <span className="font-light text-slate-600">
+                      Recepção: 17:00
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -375,7 +420,9 @@ function App() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <p className="text-xl font-light text-slate-700">Jardins de Cristal</p>
+                <p className="text-xl font-light text-slate-700">
+                  Jardins de Cristal
+                </p>
                 <p className="text-slate-600 font-light">Rua dos Noivos, 123</p>
                 <p className="text-slate-600 font-light">Beira-Lago, SP</p>
               </CardContent>
@@ -384,15 +431,33 @@ function App() {
 
           <Card className="max-w-4xl mx-auto border border-slate-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="text-2xl text-center text-slate-700 font-light">Programação do Dia</CardTitle>
+              <CardTitle className="text-2xl text-center text-slate-700 font-light">
+                Programação do Dia
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 {[
-                  { time: "14:30", title: "Chegada dos Convidados", desc: "Por favor, chegue 30 minutos antes do início da cerimônia para ser acomodado." },
-                  { time: "15:00", title: "Cerimônia", desc: "A cerimônia acontecerá no Pavilhão do Jardim." },
-                  { time: "16:00", title: "Coquetel", desc: "Aproveite bebidas e canapés no Terraço à Beira do Lago." },
-                  { time: "17:00", title: "Recepção", desc: "Jantar e dança no Salão Principal." }
+                  {
+                    time: "14:30",
+                    title: "Chegada dos Convidados",
+                    desc: "Por favor, chegue 30 minutos antes do início da cerimônia para ser acomodado.",
+                  },
+                  {
+                    time: "15:00",
+                    title: "Cerimônia",
+                    desc: "A cerimônia acontecerá no Pavilhão do Jardim.",
+                  },
+                  {
+                    time: "16:00",
+                    title: "Coquetel",
+                    desc: "Aproveite bebidas e canapés no Terraço à Beira do Lago.",
+                  },
+                  {
+                    time: "17:00",
+                    title: "Recepção",
+                    desc: "Jantar e dança no Salão Principal.",
+                  },
                 ].map((event, index) => (
                   <motion.div
                     key={index}
@@ -406,7 +471,9 @@ function App() {
                       {event.time}
                     </div>
                     <div>
-                      <h4 className="font-light text-slate-700 mb-1">{event.title}</h4>
+                      <h4 className="font-light text-slate-700 mb-1">
+                        {event.title}
+                      </h4>
                       <p className="text-slate-600 font-light">{event.desc}</p>
                     </div>
                   </motion.div>
@@ -426,7 +493,7 @@ function App() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light text-slate-700 mb-6 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
@@ -440,17 +507,24 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <Card className="border border-slate-200 mb-8 shadow-sm bg-white">
               <CardHeader className="text-center">
-                <CardTitle className="text-3xl font-light text-slate-700">Traje Social</CardTitle>
+                <CardTitle className="text-3xl font-light text-slate-700">
+                  Traje Social
+                </CardTitle>
                 <CardDescription className="text-lg font-light text-slate-600">
-                  Convidamos você a se juntar a nós em traje social para nossa celebração de casamento. 
-                  Queremos que todos se sintam confortáveis, mantendo uma atmosfera elegante para nosso dia especial.
+                  Convidamos você a se juntar a nós em traje social para nossa
+                  celebração de casamento. Queremos que todos se sintam
+                  confortáveis, mantendo uma atmosfera elegante para nosso dia
+                  especial.
                 </CardDescription>
               </CardHeader>
               <CardContent className="text-center">
                 <p className="text-lg font-light text-slate-600 mb-8">
-                  Nossas cores são <span className="font-medium text-slate-700">Azul Serenidade e Branco</span>
+                  Nossas cores são{" "}
+                  <span className="font-medium text-slate-700">
+                    Azul Serenidade e Branco
+                  </span>
                 </p>
-                
+
                 <div className="grid md:grid-cols-2 gap-8">
                   <Card className="border border-slate-200 shadow-sm">
                     <CardHeader>
@@ -467,9 +541,13 @@ function App() {
                         <li>• Sapatos sociais</li>
                       </ul>
                       <div className="bg-slate-50 p-4 rounded-lg">
-                        <h4 className="font-medium mb-2 text-slate-700">Sugestões de Cores</h4>
+                        <h4 className="font-medium mb-2 text-slate-700">
+                          Sugestões de Cores
+                        </h4>
                         <p className="text-sm text-slate-600 font-light">
-                          Ternos/calças em azul marinho, cinza ou preto. Camisas em azul claro ou branco são bem-vindas para complementar nossas cores.
+                          Ternos/calças em azul marinho, cinza ou preto. Camisas
+                          em azul claro ou branco são bem-vindas para
+                          complementar nossas cores.
                         </p>
                       </div>
                     </CardContent>
@@ -485,14 +563,22 @@ function App() {
                     <CardContent className="space-y-4">
                       <ul className="text-left space-y-2 font-light text-slate-600">
                         <li>• Vestido de festa ou macacão elegante</li>
-                        <li>• Conjuntos sociais (saia/calça com blusa elegante)</li>
-                        <li>• Saltos, sapatilhas elegantes ou sandálias sociais</li>
+                        <li>
+                          • Conjuntos sociais (saia/calça com blusa elegante)
+                        </li>
+                        <li>
+                          • Saltos, sapatilhas elegantes ou sandálias sociais
+                        </li>
                         <li>• Xale ou estola leve (opcional, para a noite)</li>
                       </ul>
                       <div className="bg-slate-50 p-4 rounded-lg">
-                        <h4 className="font-medium mb-2 text-slate-700">Sugestões de Cores</h4>
+                        <h4 className="font-medium mb-2 text-slate-700">
+                          Sugestões de Cores
+                        </h4>
                         <p className="text-sm text-slate-600 font-light">
-                          Qualquer cor exceto branco (reservado para a noiva). Azul serenidade, tons pastéis ou cores joia são bem-vindos.
+                          Qualquer cor exceto branco (reservado para a noiva).
+                          Azul serenidade, tons pastéis ou cores joia são
+                          bem-vindos.
                         </p>
                       </div>
                     </CardContent>
@@ -513,7 +599,7 @@ function App() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light text-slate-700 mb-6 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
@@ -526,10 +612,11 @@ function App() {
 
           <div className="max-w-4xl mx-auto mb-12">
             <p className="text-center text-slate-600 mb-8 font-light">
-              Esta galeria será preenchida com nossas fotos favoritas após o casamento. 
-              Por enquanto, aprecie alguns momentos de nossa jornada juntos.
+              Esta galeria será preenchida com nossas fotos favoritas após o
+              casamento. Por enquanto, aprecie alguns momentos de nossa jornada
+              juntos.
             </p>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
                 "Nosso Primeiro Encontro",
@@ -537,7 +624,7 @@ function App() {
                 "Celebração de Fim de Ano",
                 "Aventura de Trilha",
                 "Dia do Noivado",
-                "Reunião Familiar"
+                "Reunião Familiar",
               ].map((title, index) => (
                 <motion.div
                   key={index}
@@ -558,15 +645,17 @@ function App() {
 
           <Card className="max-w-2xl mx-auto border border-slate-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="text-center text-slate-700 font-light">Compartilhe Suas Fotos</CardTitle>
+              <CardTitle className="text-center text-slate-700 font-light">
+                Compartilhe Suas Fotos
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-center space-y-4">
               <p className="text-slate-600 font-light">
-                Adoraríamos ver o casamento através dos seus olhos! Após a celebração, 
-                compartilhe suas fotos conosco usando a hashtag:
+                Adoraríamos ver o casamento através dos seus olhos! Após a
+                celebração, compartilhe suas fotos conosco usando a hashtag:
               </p>
               <div className="bg-slate-50 p-4 rounded-lg">
-                <p 
+                <p
                   className="text-2xl font-light text-slate-700"
                   style={{ fontFamily: "'Dancing Script', cursive" }}
                 >
@@ -574,8 +663,9 @@ function App() {
                 </p>
               </div>
               <p className="text-sm text-slate-500 font-light">
-                Estaremos coletando fotos das redes sociais para adicionar à nossa galeria. 
-                Se preferir compartilhar de forma privada, você pode enviar suas fotos para fotos@exemplo.com
+                Estaremos coletando fotos das redes sociais para adicionar à
+                nossa galeria. Se preferir compartilhar de forma privada, você
+                pode enviar suas fotos para fotos@exemplo.com
               </p>
             </CardContent>
           </Card>
@@ -591,7 +681,7 @@ function App() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 
+            <h2
               className="text-4xl md:text-5xl font-light text-slate-700 mb-6 tracking-wide"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
@@ -605,18 +695,22 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <Card className="border border-slate-200 mb-12 shadow-sm bg-white">
               <CardHeader>
-                <CardTitle className="text-2xl text-center text-slate-700 font-light">Nossa Nova Aventura</CardTitle>
+                <CardTitle className="text-2xl text-center text-slate-700 font-light">
+                  Nossa Nova Aventura
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-center space-y-4">
                 <p className="text-slate-600 leading-relaxed font-light">
-                  Como estamos nos preparando para nos mudar para outro país após o casamento, 
-                  criamos esta lista de presentes simbólicos para nos ajudar a começar nossa nova vida juntos. 
-                  Sua contribuição, independentemente do tamanho, será profundamente apreciada e nos ajudará 
-                  a estabelecer nosso lar no exterior.
+                  Como estamos nos preparando para nos mudar para outro país
+                  após o casamento, criamos esta lista de presentes simbólicos
+                  para nos ajudar a começar nossa nova vida juntos. Sua
+                  contribuição, independentemente do tamanho, será profundamente
+                  apreciada e nos ajudará a estabelecer nosso lar no exterior.
                 </p>
                 <p className="text-sm text-slate-500 font-light">
-                  Todos os pagamentos são processados com segurança através do MercadoPago, 
-                  garantindo que sua transação seja segura e confiável.
+                  Todos os pagamentos são processados com segurança através do
+                  MercadoPago, garantindo que sua transação seja segura e
+                  confiável.
                 </p>
               </CardContent>
             </Card>
@@ -625,28 +719,32 @@ function App() {
               {[
                 {
                   title: "Primeiro Mês de Aluguel",
-                  description: "Ajude-nos a garantir nossa primeira casa em nosso novo país.",
+                  description:
+                    "Ajude-nos a garantir nossa primeira casa em nosso novo país.",
                   price: "R$ 7.500",
-                  available: "5 disponíveis"
+                  available: "5 disponíveis",
                 },
                 {
                   title: "Móveis Novos",
-                  description: "Ajude-nos a mobiliar nossa nova casa com peças essenciais.",
+                  description:
+                    "Ajude-nos a mobiliar nossa nova casa com peças essenciais.",
                   price: "R$ 2.500",
-                  available: "10 disponíveis"
+                  available: "10 disponíveis",
                 },
                 {
                   title: "Essenciais para Cozinha",
-                  description: "Ajude-nos a equipar nossa cozinha com eletrodomésticos e utensílios.",
+                  description:
+                    "Ajude-nos a equipar nossa cozinha com eletrodomésticos e utensílios.",
                   price: "R$ 1.500",
-                  available: "8 disponíveis"
+                  available: "8 disponíveis",
                 },
                 {
                   title: "Valor Personalizado",
-                  description: "Contribua com qualquer valor que desejar para nos ajudar a começar nossa nova vida.",
+                  description:
+                    "Contribua com qualquer valor que desejar para nos ajudar a começar nossa nova vida.",
                   price: "Livre",
-                  available: "Sempre disponível"
-                }
+                  available: "Sempre disponível",
+                },
               ].map((gift, index) => (
                 <motion.div
                   key={index}
@@ -657,13 +755,24 @@ function App() {
                 >
                   <Card className="border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 h-full bg-white">
                     <CardHeader>
-                      <CardTitle className="text-xl text-slate-700 font-light">{gift.title}</CardTitle>
-                      <CardDescription className="font-light">{gift.description}</CardDescription>
+                      <CardTitle className="text-xl text-slate-700 font-light">
+                        {gift.title}
+                      </CardTitle>
+                      <CardDescription className="font-light">
+                        {gift.description}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-2xl font-light text-slate-700">{gift.price}</span>
-                        <Badge variant="secondary" className="bg-slate-100 text-slate-600 font-light">{gift.available}</Badge>
+                        <span className="text-2xl font-light text-slate-700">
+                          {gift.price}
+                        </span>
+                        <Badge
+                          variant="secondary"
+                          className="bg-slate-100 text-slate-600 font-light"
+                        >
+                          {gift.available}
+                        </Badge>
                       </div>
                       <Button className="w-full bg-slate-600 hover:bg-slate-700 text-white font-light">
                         Contribuir
@@ -676,19 +785,24 @@ function App() {
 
             <Card className="border border-slate-200 bg-white shadow-sm">
               <CardHeader>
-                <CardTitle className="text-center text-2xl text-slate-700 font-light">Obrigado</CardTitle>
+                <CardTitle className="text-center text-2xl text-slate-700 font-light">
+                  Obrigado
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-center space-y-4">
                 <p className="text-slate-600 leading-relaxed font-light">
-                  Sua generosidade significa o mundo para nós. Cada contribuição nos ajuda a construir 
-                  nossa nova vida juntos em nosso novo país. Estamos ansiosos para compartilhar atualizações 
-                  com você sobre nossa jornada e como seus presentes nos ajudaram ao longo do caminho.
+                  Sua generosidade significa o mundo para nós. Cada contribuição
+                  nos ajuda a construir nossa nova vida juntos em nosso novo
+                  país. Estamos ansiosos para compartilhar atualizações com você
+                  sobre nossa jornada e como seus presentes nos ajudaram ao
+                  longo do caminho.
                 </p>
-                <p 
+                <p
                   className="text-lg font-light text-slate-700"
                   style={{ fontFamily: "'Dancing Script', cursive" }}
                 >
-                  Com amor e gratidão,<br />
+                  Com amor e gratidão,
+                  <br />
                   Artur & Sara
                 </p>
               </CardContent>
@@ -706,8 +820,7 @@ function App() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
-
+export default App;
