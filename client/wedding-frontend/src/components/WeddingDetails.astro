@@ -1,0 +1,17 @@
+---
+const { id = 'details' } = Astro.props;
+---
+<section id={id} class="py-8 text-center space-y-4">
+    <h2 class="text-2xl font-semibold">Detalhes do Casamento</h2>
+    <p>Data: 12 de Outubro de 2024</p>
+    <p>Horário: 18h00</p>
+    <div class="w-full h-64">
+        <iframe
+                class="w-full h-full border-0"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://maps.google.com/maps?q=Sao%20Paulo&t=&z=13&ie=UTF8&iwloc=&output=embed">
+        </iframe>
+    </div>
+</section>
