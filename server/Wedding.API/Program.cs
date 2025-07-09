@@ -28,7 +28,7 @@ app.UseHttpsRedirection();
 
 // Endpoints Minimal API
 
-app.MapGet("/api/heath", () => Results.Ok("Healthy"));
+app.MapGet("/api/health", () => Results.Ok("Healthy"));
 
 app.MapGet("/api/gifts", async (AppDbContext db) =>
 {
