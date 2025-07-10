@@ -1,0 +1,78 @@
+---
+import { weddingData } from '../../data/wedding-data.js';
+import Card from '../ui/Card.astro';
+---
+
+<section id="dress-code" class="py-20 bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Title -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6" style="font-family: 'Dancing Script', cursive;">
+        {weddingData.dressCode.title}
+      </h2>
+      <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        {weddingData.dressCode.description}
+      </p>
+      <div class="mt-6">
+        <p class="text-base font-medium text-slate-700">
+          Nossas cores são <span class="text-slate-600">{weddingData.colors.primary}</span> e <span class="text-slate-600">{weddingData.colors.secondary}</span>
+        </p>
+      </div>
+    </div>
+    
+    <!-- Dress Code Grid -->
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- For Men -->
+      <Card>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-700 mb-6">Para Homens</h3>
+          
+          <div class="text-left space-y-2 mb-6">
+            {weddingData.dressCode.men.items.map((item) => (
+              <p class="text-slate-600">{item}</p>
+            ))}
+          </div>
+          
+          <div class="bg-slate-100 rounded-lg p-4">
+            <h4 class="font-semibold text-slate-700 mb-2">Sugestões de Cores</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              {weddingData.dressCode.men.colors}
+            </p>
+          </div>
+        </div>
+      </Card>
+      
+      <!-- For Women -->
+      <Card>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-700 mb-6">Para Mulheres</h3>
+          
+          <div class="text-left space-y-2 mb-6">
+            {weddingData.dressCode.women.items.map((item) => (
+              <p class="text-slate-600">{item}</p>
+            ))}
+          </div>
+          
+          <div class="bg-slate-100 rounded-lg p-4">
+            <h4 class="font-semibold text-slate-700 mb-2">Sugestões de Cores</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              {weddingData.dressCode.women.colors}
+            </p>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </div>
+</section>
+
