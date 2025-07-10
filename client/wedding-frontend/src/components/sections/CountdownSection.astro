@@ -1,0 +1,86 @@
+---
+import { weddingData } from '../../data/wedding-data.js';
+---
+
+<section class="py-20 bg-gradient-to-r from-slate-600 to-slate-700">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Section Title -->
+    <h2 class="text-4xl md:text-5xl font-bold text-white mb-12" style="font-family: 'Dancing Script', cursive;">
+      Contagem Regressiva para o Grande Dia
+    </h2>
+    
+    <!-- Countdown Display -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
+      <div class="countdown-item bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+        <div class="countdown-number text-4xl md:text-5xl font-bold text-white mb-2" data-unit="days">
+          342
+        </div>
+        <div class="text-white/80 text-sm md:text-base font-medium">
+          Dias
+        </div>
+      </div>
+      
+      <div class="countdown-item bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+        <div class="countdown-number text-4xl md:text-5xl font-bold text-white mb-2" data-unit="hours">
+          19
+        </div>
+        <div class="text-white/80 text-sm md:text-base font-medium">
+          Horas
+        </div>
+      </div>
+      
+      <div class="countdown-item bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+        <div class="countdown-number text-4xl md:text-5xl font-bold text-white mb-2" data-unit="minutes">
+          12
+        </div>
+        <div class="text-white/80 text-sm md:text-base font-medium">
+          Minutos
+        </div>
+      </div>
+      
+      <div class="countdown-item bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+        <div class="countdown-number text-4xl md:text-5xl font-bold text-white mb-2" data-unit="seconds">
+          30
+        </div>
+        <div class="text-white/80 text-sm md:text-base font-medium">
+          Segundos
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ weddingData }}>
+  function updateCountdown() {
+    const now = new Date();
+    const wedding = new Date(weddingData.date.year, weddingData.date.month - 1, weddingData.date.day);
+    const difference = wedding.getTime() - now.getTime();
+    
+    if (difference <= 0) {
+      document.querySelectorAll('.countdown-number').forEach(el => {
+        el.textContent = '0';
+      });
+      return;
+    }
+    
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    
+    const daysEl = document.querySelector('[data-unit="days"]');
+    const hoursEl = document.querySelector('[data-unit="hours"]');
+    const minutesEl = document.querySelector('[data-unit="minutes"]');
+    const secondsEl = document.querySelector('[data-unit="seconds"]');
+    
+    if (daysEl) daysEl.textContent = days;
+    if (hoursEl) hoursEl.textContent = hours;
+    if (minutesEl) minutesEl.textContent = minutes;
+    if (secondsEl) secondsEl.textContent = seconds;
+  }
+  
+  // Update countdown immediately and then every second
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+

@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tailwindcss/preflight" @tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
+    }
+}
+
+@layer components {
+    .section-padding {
+        @apply py-20;
+    }
+
+    .container-padding {
+        @apply px-4 sm:px-6 lg:px-8;
+    }
+
+    .heading-script {
+        font-family: "Dancing Script", cursive;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

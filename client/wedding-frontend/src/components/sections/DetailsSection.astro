@@ -1,0 +1,94 @@
+---
+import { weddingData } from '../../data/wedding-data.js';
+import { formatWeddingDate } from '../../utils/date-utils.js';
+import Card from '../ui/Card.astro';
+
+const formattedDate = formatWeddingDate(weddingData.date);
+---
+
+<section id="detalhes" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Title -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6" style="font-family: 'Dancing Script', cursive;">
+        Detalhes do Casamento
+      </h2>
+      <p class="text-lg text-slate-600">
+        Todas as informações importantes sobre nosso grande dia
+      </p>
+    </div>
+    
+    <!-- Details Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Date and Time -->
+      <Card>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-700 mb-3">Data e Hora</h3>
+          <p class="text-slate-600 font-medium mb-2">{formattedDate}</p>
+          <div class="space-y-1 text-sm text-slate-500">
+            <p><strong>Cerimônia:</strong> {weddingData.date.ceremony}</p>
+            <p><strong>Recepção:</strong> {weddingData.date.reception}</p>
+          </div>
+        </div>
+      </Card>
+      
+      <!-- Location -->
+      <Card>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-700 mb-3">Local</h3>
+          <div class="text-slate-600 space-y-1">
+            <p class="font-medium">{weddingData.venue.name}</p>
+            <p class="text-sm">{weddingData.venue.address}</p>
+            <p class="text-sm">{weddingData.venue.city}</p>
+          </div>
+        </div>
+      </Card>
+      
+      <!-- Schedule -->
+      <Card class="md:col-span-2 lg:col-span-1">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-700 mb-3">Programação do Dia</h3>
+          <div class="text-left space-y-2 text-sm text-slate-600">
+            <div class="flex justify-between">
+              <span>Chegada dos convidados</span>
+              <span class="font-medium">14:30</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Cerimônia</span>
+              <span class="font-medium">15:00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Cocktail</span>
+              <span class="font-medium">16:00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Recepção</span>
+              <span class="font-medium">17:00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Festa</span>
+              <span class="font-medium">20:00</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </div>
+</section>
+
