@@ -6,45 +6,54 @@ Este é um projeto de site de casamento desenvolvido com Astro e Tailwind CSS pa
 
 Todos os comandos são executados na raiz do projeto, no terminal:
 
-| Comando                   | Ação                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Instala as dependências                        |
-| `npm run dev`             | Inicia o servidor de desenvolvimento local em `localhost:4321`      |
-| `npm run build`           | Constrói o site de produção para `./dist/`          |
+| Comando         | Ação                                                           |
+| :-------------- | :------------------------------------------------------------- |
+| `npm install`   | Instala as dependências                                        |
+| `npm run dev`   | Inicia o servidor de desenvolvimento local em `localhost:4321` |
+| `npm run build` | Constrói o site de produção para `./dist/`                     |
 
 ## 📁 Organização das Pastas
 
 ### `/src/components/`
+
 - **`ui/`**: Componentes reutilizáveis de interface (Button, Card, Navigation)
 - **`sections/`**: Seções específicas da página (Hero, Welcome, Countdown, etc.)
 
 ### `/src/data/`
+
 - Contém dados estruturados do casamento (informações do casal, local, dress code, etc.)
 
 ### `/src/layouts/`
+
 - Templates de layout base para as páginas
 
 ### `/src/pages/`
+
 - Páginas do site (Astro usa roteamento baseado em arquivos)
 
 ### `/src/styles/`
+
 - Estilos globais e configurações do Tailwind CSS
 
 ### `/src/utils/`
+
 - Funções utilitárias (formatação de datas, cálculos, etc.)
 
 ## 🎨 Design System
 
 ### Cores
+
 - **Primária**: Tons de slate (azul acinzentado)
 - **Secundária**: Branco e tons de cinza claro
 - **Accent**: Azul serenity
 
 ### Tipografia
+
 - **Fonte principal**: System fonts (Inter, Segoe UI, etc.)
 - **Fonte decorativa**: Dancing Script (para títulos especiais)
 
 ### Componentes
+
 - **Button**: Variações primary, secondary, outline
 - **Card**: Container com sombra e bordas arredondadas
 - **Navigation**: Menu responsivo com indicadores de seção ativa
@@ -59,6 +68,7 @@ Todos os comandos são executados na raiz do projeto, no terminal:
 ## 📱 Responsividade
 
 O site é totalmente responsivo e otimizado para:
+
 - Desktop (1024px+)
 - Tablet (768px - 1023px)
 - Mobile (320px - 767px)
@@ -76,6 +86,7 @@ O site é totalmente responsivo e otimizado para:
 ## 🎯 Objetivos Educacionais
 
 Este projeto demonstra:
+
 1. **Organização de componentes** em Astro
 2. **Separação de responsabilidades** (UI, sections, data, utils)
 3. **Reutilização de componentes**

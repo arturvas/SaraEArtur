@@ -7,55 +7,76 @@ import Button from '../ui/Button.astro';
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Title -->
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6" style="font-family: 'Dancing Script', cursive;">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-slate-700 mb-6"
+        style="font-family: 'Dancing Script', cursive;"
+      >
         Bem-vindo ao Nosso Site de Casamento
       </h2>
       <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        Estamos animados para celebrar nosso dia especial com você! Como estamos 
-        nos preparando para nos mudar para outro país após o casamento, criamos este 
-        site para compartilhar nossa jornada e proporcionar uma maneira de você fazer 
-        parte do nosso novo começo.
+        Estamos animados para celebrar nosso dia especial com você! Como estamos nos preparando para
+        nos mudar para outro país após o casamento, criamos este site para compartilhar nossa
+        jornada e proporcionar uma maneira de você fazer parte do nosso novo começo.
       </p>
     </div>
-    
+
     <!-- Cards Grid -->
     <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
       <!-- Ceremony Card -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
             </svg>
           </div>
           <h3 class="text-xl font-semibold text-slate-700 mb-3">A Cerimônia</h3>
           <p class="text-slate-600 mb-6">
             Junte-se a nós enquanto trocamos votos e celebramos nosso amor.
           </p>
-          <Button href="#detalhes" variant="outline">
-            Ver Detalhes →
-          </Button>
+          <Button href="#detalhes" variant="outline"> Ver Detalhes → </Button>
         </div>
       </Card>
-      
+
       <!-- Gifts Card -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+              ></path>
             </svg>
           </div>
           <h3 class="text-xl font-semibold text-slate-700 mb-3">Lista de Presentes</h3>
           <p class="text-slate-600 mb-6">
             Ajude-nos a começar nossa nova vida no exterior com presentes simbólicos.
           </p>
-          <Button href="#presentes" variant="secondary">
-            Ver Lista →
-          </Button>
+          <Button href="#presentes" variant="secondary"> Ver Lista → </Button>
         </div>
       </Card>
     </div>
   </div>
 </section>
-

@@ -1,39 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
-@import "tailwindcss";
-@import "tailwindcss/preflight" @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    body {
-        font-family:
-            system-ui,
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            sans-serif;
-    }
+  body {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
+  }
 }
 
 @layer components {
-    .section-padding {
-        @apply py-20;
-    }
+  .section-padding {
+    @apply py-20;
+  }
 
-    .container-padding {
-        @apply px-4 sm:px-6 lg:px-8;
-    }
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
 
-    .heading-script {
-        font-family: "Dancing Script", cursive;
-    }
+  .heading-script {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  .countdown-item {
+    @apply bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20;
+  }
+
+  .countdown-number {
+    @apply text-4xl md:text-5xl font-bold text-white mb-2;
+  }
+
+  .countdown-label {
+    @apply text-white/80 text-sm md:text-base font-medium;
+  }
 }
 
 @layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+  .text-balance {
+    text-wrap: balance;
+  }
 }

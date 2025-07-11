@@ -8,7 +8,10 @@ import Button from '../ui/Button.astro';
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Title -->
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6" style="font-family: 'Dancing Script', cursive;">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-slate-700 mb-6"
+        style="font-family: 'Dancing Script', cursive;"
+      >
         {weddingData.gifts.title}
       </h2>
       <p class="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed mb-6">
@@ -18,15 +21,27 @@ import Button from '../ui/Button.astro';
         {weddingData.gifts.paymentInfo}
       </p>
     </div>
-    
+
     <!-- Gift Options Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
       <!-- Gift Option 1 -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              ></path>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-slate-700 mb-3">Casa Nova</h3>
@@ -34,25 +49,31 @@ import Button from '../ui/Button.astro';
             Ajude-nos a mobiliar nossa nova casa no exterior
           </p>
           <div class="space-y-2">
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 50,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 100,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 200,00
-            </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 50,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 100,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 200,00 </Button>
           </div>
         </div>
       </Card>
-      
+
       <!-- Gift Option 2 -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+              ></path>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-slate-700 mb-3">Mudança</h3>
@@ -60,25 +81,31 @@ import Button from '../ui/Button.astro';
             Contribua para os custos da nossa mudança internacional
           </p>
           <div class="space-y-2">
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 100,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 300,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 500,00
-            </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 100,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 300,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 500,00 </Button>
           </div>
         </div>
       </Card>
-      
+
       <!-- Gift Option 3 -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-slate-700 mb-3">Lua de Mel</h3>
@@ -86,25 +113,31 @@ import Button from '../ui/Button.astro';
             Ajude-nos a criar memórias inesquecíveis em nossa lua de mel
           </p>
           <div class="space-y-2">
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 150,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 400,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 800,00
-            </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 150,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 400,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 800,00 </Button>
           </div>
         </div>
       </Card>
-      
+
       <!-- Gift Option 4 -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+              ></path>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-slate-700 mb-3">Documentação</h3>
@@ -112,25 +145,31 @@ import Button from '../ui/Button.astro';
             Contribua para os custos de vistos e documentação
           </p>
           <div class="space-y-2">
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 200,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 500,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 1.000,00
-            </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 200,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 500,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 1.000,00 </Button>
           </div>
         </div>
       </Card>
-      
+
       <!-- Gift Option 5 -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-slate-700 mb-3">Estudos</h3>
@@ -138,62 +177,69 @@ import Button from '../ui/Button.astro';
             Ajude-nos com cursos de idioma e qualificação profissional
           </p>
           <div class="space-y-2">
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 100,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 300,00
-            </Button>
-            <Button variant="primary" size="sm" class="w-full">
-              R$ 600,00
-            </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 100,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 300,00 </Button>
+            <Button variant="primary" size="sm" class="w-full"> R$ 600,00 </Button>
           </div>
         </div>
       </Card>
-      
+
       <!-- Custom Amount -->
       <Card>
         <div class="text-center">
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+              ></path>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-slate-700 mb-3">Valor Personalizado</h3>
-          <p class="text-slate-600 text-sm mb-4">
-            Escolha o valor que desejar para contribuir
-          </p>
+          <p class="text-slate-600 text-sm mb-4">Escolha o valor que desejar para contribuir</p>
           <div class="space-y-3">
-            <input 
-              type="number" 
-              placeholder="R$ 0,00" 
+            <input
+              type="number"
+              placeholder="R$ 0,00"
               class="w-full px-3 py-2 border border-slate-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-slate-500"
             />
-            <Button variant="primary" size="sm" class="w-full">
-              Contribuir
-            </Button>
+            <Button variant="primary" size="sm" class="w-full"> Contribuir </Button>
           </div>
         </div>
       </Card>
     </div>
-    
+
     <!-- Thank You Message -->
     <Card class="max-w-4xl mx-auto">
       <div class="text-center">
-        <h3 class="text-2xl font-semibold text-slate-700 mb-4" style="font-family: 'Dancing Script', cursive;">
+        <h3
+          class="text-2xl font-semibold text-slate-700 mb-4"
+          style="font-family: 'Dancing Script', cursive;"
+        >
           Obrigado
         </h3>
         <p class="text-slate-600 leading-relaxed mb-4">
-          Sua generosidade significa o mundo para nós. Cada contribuição nos ajuda a construir 
-          nossa nova vida juntos em nosso novo país. Estamos ansiosos para compartilhar 
-          atualizações com você sobre nossa jornada e como seus presentes nos ajudaram ao longo do caminho.
+          Sua generosidade significa o mundo para nós. Cada contribuição nos ajuda a construir nossa
+          nova vida juntos em nosso novo país. Estamos ansiosos para compartilhar atualizações com
+          você sobre nossa jornada e como seus presentes nos ajudaram ao longo do caminho.
         </p>
-        <p class="text-lg font-medium text-slate-700" style="font-family: 'Dancing Script', cursive;">
-          Com amor e gratidão,<br>
+        <p
+          class="text-lg font-medium text-slate-700"
+          style="font-family: 'Dancing Script', cursive;"
+        >
+          Com amor e gratidão,<br />
           {weddingData.couple.groom} & {weddingData.couple.bride}
         </p>
       </div>
     </Card>
   </div>
 </section>
-
