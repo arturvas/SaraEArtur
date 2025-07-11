@@ -12,9 +12,16 @@ export const weddingData = {
     reception: '18:00',
   },
 
-  venue: {
+  church: {
     name: 'Paróquia São Francisco',
     address: 'Av. Cap. Júlio Bezerra, 775, São Francisco',
+    city: 'Boa Vista, RR',
+  },
+
+  reception: {
+    name: 'Espaço Coisas da Terra',
+    address: 'Rua Ana Nery, 369, Canarinho',
+    reference: 'Av. Ville Roy',
     city: 'Boa Vista, RR',
   },
 
