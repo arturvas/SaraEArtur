@@ -39,10 +39,10 @@ const navItems:NavItem[] = [
                         navItems.map((item) => (
                             <a
                                 href={`#${item.id}`}
-                                class="nav-link flex items-center rounded gap-2 px-3 py-2 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
+                                class="nav-link flex items-center rounded-md gap-2 px-3 py-2 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
                                 data-section={item.id}
                             >
-                                <Icon name={item.icon} size={20} />
+                                <Icon name={item.icon} size={16} />
                                 {item.label}
                             </a>
                         ))
@@ -86,12 +86,12 @@ const navItems:NavItem[] = [
                 navItems.map((item) => (
                     <a
                         href={`#${item.id}`}
-                        class="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
+                        class="nav-link flex items-center rounded-md gap-2 px-3 py-2 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
                         data-section={item.id}
                     >
-                        <span class="mr-2">
-                            <item.icon size={20} />{item.label}
-                        </span>
+                        <!--<span class="mr-2">-->
+                            <Icon name={item.icon} size={16} />{item.label}
+                        <!--</span>-->
                     </a>
                 ))
             }
