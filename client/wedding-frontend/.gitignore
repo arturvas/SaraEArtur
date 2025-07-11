@@ -18,3 +18,5 @@ yarn-error.log*
 
 # outros
 .env
+/.astro/content.d.ts
+/.astro/
