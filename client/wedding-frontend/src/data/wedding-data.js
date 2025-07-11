@@ -48,8 +48,7 @@ export const weddingData = {
         '• Gravata (opcional)',
         '• Sapatos sociais',
       ],
-      colors:
-        'Qualquer cor exceto cinza (reservado para o noivo) e azul marinho (reservado para os padrinhos).',
+      colors: 'Qualquer cor exceto cinza (reservado para o noivo) e azul marinho (reservado para os padrinhos).',
     },
     women: {
       items: [
