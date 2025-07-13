@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Mea+Culpa&family=Playfair+Display:wght@700&display=swap');
 @import 'tailwindcss';
 
 @layer base {
@@ -7,13 +7,7 @@
   }
 
   body {
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      sans-serif;
+    font-family: 'Crimson Text', Georgia, 'Times New Roman', Times, serif;
   }
 }
 
@@ -27,7 +21,13 @@
   }
 
   .heading-script {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Mea Culpa', cursive;
+  }
+
+  .heading-journal {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
   .countdown-item {
