@@ -6,9 +6,7 @@ import CountdownItem from '../sections/CountdownItem.astro';
 <section class="py-20 bg-gradient-to-r from-slate-600 to-slate-700">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <!-- Section Title -->
-    <h2 class="text-4xl md:text-5xl font-bold text-white mb-12" style="font-family: 'Dancing Script', cursive;">
-      Contagem regressiva para o Grande Dia!
-    </h2>
+    <h2 class="font-semibold text-3xl md:text-5xl text-white mb-12">Contagem regressiva para o Grande Dia!</h2>
 
     <!-- Countdown Display -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
@@ -49,7 +47,7 @@ import CountdownItem from '../sections/CountdownItem.astro';
     if (secondsEl) secondsEl.textContent = seconds;
   }
 
-  // Update countdown immediately and then every second
+  // Update the countdown immediately and then every second
   updateCountdown();
   setInterval(updateCountdown, 1000);
 </script>
