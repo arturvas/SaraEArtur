@@ -48,21 +48,17 @@ export const weddingData = {
         '• Gravata (opcional)',
         '• Sapatos sociais',
       ],
-      colors: 'Qualquer cor exceto cinza (reservado para o noivo) e azul marinho (reservado para os padrinhos).',
     },
     women: {
       items: [
         '• Vestido de festa ou macacão elegante',
         '• Conjuntos sociais (saia/calça com blusa elegante)',
-        '• Saltos, sapatilhas elegantes ou sandálias sociais',
-        '• Xale ou estola leve (opcional, para a noite)',
+        '• Saltos, sapatilhas elegantes ou sandálias sociais'
       ],
-      colors:
-        'Qualquer cor exceto branco (reservado para a noiva) e azul serenity (reservado para as madrinhas), tons pastéis ou cores joia são bem-vindos.',
     },
   },
 
-  gifts: {
+  giftsSection: {
     title: 'Nossa Nova Aventura',
     description:
       'Como estamos nos preparando para nos mudar para outro país após o casamento, criamos esta lista de presentes simbólicos para nos ajudar a começar nossa nova vida juntos. Sua contribuição, independentemente do tamanho, será profundamente apreciada e nos ajudará a estabelecer nosso lar no exterior.',

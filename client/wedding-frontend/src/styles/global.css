@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Mea+Culpa&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Mea+Culpa&display=swap');
 @import 'tailwindcss';
 
 @layer base {
@@ -24,11 +24,14 @@
     font-family: 'Mea Culpa', cursive;
   }
 
-  .heading-journal {
+  .heading-journal-italic {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    line-height: 1.2;
+    font-style: italic;
   }
+    
+    .history-paragraph {
+       @apply pb-2 text-slate-600 leading-relaxed
+    }
 
   .countdown-item {
     @apply bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20;
