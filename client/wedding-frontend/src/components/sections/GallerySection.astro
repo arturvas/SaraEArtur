@@ -4,81 +4,82 @@ import Card from '../ui/Card.astro';
 ---
 
 <section id="galeria" class="py-20 bg-white">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Title -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">
-        Nossa Galeria
-      </h2>
-      <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        Esta galeria será preenchida com nossas fotos favoritas após o casamento. Por enquanto, aprecie alguns momentos
-        de nossa jornada juntos.
-      </p>
-    </div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Title -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Nossa Galeria</h2>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                Esta galeria será preenchida com nossas fotos favoritas após o casamento. Por enquanto, aprecie alguns
+                momentos de nossa jornada juntos.
+            </p>
+        </div>
 
-    <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <!-- Placeholder Images -->
-      {
-        Array.from({ length: 6 }).map((_, index) => (
-          <Card hover={false} class="aspect-square overflow-hidden">
-            <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-              <div class="text-center">
-                <svg
-                  class="w-12 h-12 text-slate-400 mx-auto mb-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <p class="text-sm text-slate-500">Foto {index + 1}</p>
-              </div>
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Placeholder Images -->
+            {
+                Array.from({ length: 6 }).map((_, index) => (
+                    <Card hover={false} class="aspect-square overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+                            <div class="text-center">
+                                <svg
+                                    class="w-12 h-12 text-slate-400 mx-auto mb-2"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    />
+                                </svg>
+                                <p class="text-sm text-slate-500">Foto {index + 1}</p>
+                            </div>
+                        </div>
+                    </Card>
+                ))
+            }
+        </div>
+
+        <!-- Photo Sharing Section -->
+        <Card class="max-w-4xl mx-auto">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
+                        ></path>
+                    </svg>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-slate-700 mb-4">Compartilhe Suas Fotos</h3>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Adoraríamos ver o casamento através dos seus olhos! Após a celebração, compartilhe suas fotos
+                    conosco usando a hashtag:
+                </p>
+
+                <div class="bg-slate-100 rounded-lg p-4 mb-6 inline-block">
+                    <p class="text-xl font-bold text-slate-700">
+                        {weddingData.hashtag}
+                    </p>
+                </div>
+
+                <p class="text-sm text-slate-500 leading-relaxed">
+                    Estaremos coletando fotos das redes sociais para adicionar à nossa galeria. Se preferir compartilhar
+                    de forma privada, você pode enviar suas fotos para
+                    <a
+                        href="mailto:artur.vasconcelos96@icloud.com"
+                        class="text-slate-600 hover:text-slate-800 font-medium"
+                    >
+                        artur.vasconcelos96@icloud.com
+                    </a>
+                </p>
             </div>
-          </Card>
-        ))
-      }
+        </Card>
     </div>
-
-    <!-- Photo Sharing Section -->
-    <Card class="max-w-4xl mx-auto">
-      <div class="text-center">
-        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
-            ></path>
-          </svg>
-        </div>
-
-        <h3 class="text-2xl font-semibold text-slate-700 mb-4">Compartilhe Suas Fotos</h3>
-        <p class="text-slate-600 mb-6 leading-relaxed">
-          Adoraríamos ver o casamento através dos seus olhos! Após a celebração, compartilhe suas fotos conosco usando a
-          hashtag:
-        </p>
-
-        <div class="bg-slate-100 rounded-lg p-4 mb-6 inline-block">
-          <p class="text-xl font-bold text-slate-700">
-            {weddingData.hashtag}
-          </p>
-        </div>
-
-        <p class="text-sm text-slate-500 leading-relaxed">
-          Estaremos coletando fotos das redes sociais para adicionar à nossa galeria. Se preferir compartilhar de forma
-          privada, você pode enviar suas fotos para
-          <a href="mailto:fotos@exemplo.com" class="text-slate-600 hover:text-slate-800 font-medium">
-            fotos@exemplo.com
-          </a>
-        </p>
-      </div>
-    </Card>
-  </div>
 </section>

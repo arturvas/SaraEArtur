@@ -4,50 +4,50 @@ import CountdownItem from '../sections/CountdownItem.astro';
 ---
 
 <section class="py-20 bg-gradient-to-r from-slate-600 to-slate-700">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <!-- Section Title -->
-    <h2 class="font-semibold text-3xl md:text-5xl text-white mb-12">Contagem regressiva para o Grande Dia!</h2>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Section Title -->
+        <h2 class="font-semibold text-3xl md:text-5xl text-white mb-12">Contagem regressiva para o Grande Dia!</h2>
 
-    <!-- Countdown Display -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
-      <CountdownItem unit="days" label="Dias" />
-      <CountdownItem unit="hours" label="Horas" />
-      <CountdownItem unit="minutes" label="Minutos" />
-      <CountdownItem unit="seconds" label="Segundos" />
+        <!-- Countdown Display -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
+            <CountdownItem unit="days" label="Dias" />
+            <CountdownItem unit="hours" label="Horas" />
+            <CountdownItem unit="minutes" label="Minutos" />
+            <CountdownItem unit="seconds" label="Segundos" />
+        </div>
     </div>
-  </div>
 </section>
 
 <script define:vars={{ weddingData }}>
-  function updateCountdown() {
-    const now = new Date();
-    const wedding = new Date(weddingData.date.year, weddingData.date.month - 1, weddingData.date.day);
-    const difference = wedding.getTime() - now.getTime();
+    function updateCountdown() {
+        const now = new Date();
+        const wedding = new Date(weddingData.date.year, weddingData.date.month - 1, weddingData.date.day);
+        const difference = wedding.getTime() - now.getTime();
 
-    if (difference <= 0) {
-      document.querySelectorAll('.countdown-number').forEach((el) => {
-        el.textContent = '0';
-      });
-      return;
+        if (difference <= 0) {
+            document.querySelectorAll('.countdown-number').forEach((el) => {
+                el.textContent = '0';
+            });
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        const daysEl = document.querySelector('[data-unit="days"]');
+        const hoursEl = document.querySelector('[data-unit="hours"]');
+        const minutesEl = document.querySelector('[data-unit="minutes"]');
+        const secondsEl = document.querySelector('[data-unit="seconds"]');
+
+        if (daysEl) daysEl.textContent = days;
+        if (hoursEl) hoursEl.textContent = hours;
+        if (minutesEl) minutesEl.textContent = minutes;
+        if (secondsEl) secondsEl.textContent = seconds;
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    const daysEl = document.querySelector('[data-unit="days"]');
-    const hoursEl = document.querySelector('[data-unit="hours"]');
-    const minutesEl = document.querySelector('[data-unit="minutes"]');
-    const secondsEl = document.querySelector('[data-unit="seconds"]');
-
-    if (daysEl) daysEl.textContent = days;
-    if (hoursEl) hoursEl.textContent = hours;
-    if (minutesEl) minutesEl.textContent = minutes;
-    if (secondsEl) secondsEl.textContent = seconds;
-  }
-
-  // Update the countdown immediately and then every second
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+    // Update the countdown immediately and then every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 </script>

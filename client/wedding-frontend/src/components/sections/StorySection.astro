@@ -4,115 +4,144 @@ import Card from '../ui/Card.astro';
 ---
 
 <section id="historia" class="py-20 bg-slate-50">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Title -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-semibold text-slate-700 mb-6">
-        {weddingData.story.title}
-      </h2>
-      <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-        {weddingData.story.content}
-      </p>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Title -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-semibold text-slate-700 mb-6">
+                {weddingData.story.title}
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                {weddingData.story.content}
+            </p>
+        </div>
+
+        <!-- Story Timeline -->
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-8">
+                <!-- Story Item 1 -->
+                <Card class="relative">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">🎭</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-xl font-semibold text-slate-700 mb-3">Como Nos Conhecemos</h3>
+                            <p class="history-paragraph">
+                                Era o último dia da semana de apresentações no teatro, 27 de Julho de 2023, e lá estava
+                                eu, pela primeira vez, indo a uma orchestra. Confesso que me vinha à cabeça a ideia —
+                                talvez distante e fantasiosa — de que algo especial pudesse acontecer ali. E aconteceu.
+                            </p>
+
+                            <p class="history-paragraph">
+                                Foi quando bati os olhos nela. Me encantei de imediato. Tentei ignorar o pensamento,
+                                entrei para ver a peça, mas não consegui parar de pensar em como me aproximar. Assim que
+                                terminou, tomei coragem e fui direto falar com ela. Ela se assustou um pouco, claro —
+                                quem não se assustaria? No meio da confusão das pessoas saindo, ela acabou subindo a
+                                escada e por pouco não a perdi de vista.
+                            </p>
+
+                            <p class="history-paragraph">
+                                Mas, para minha surpresa, ela me esperou do lado de fora da sala. Durante toda a peça,
+                                pensei em algo incrível para dizer… mas na hora, falhei miseravelmente. Ainda bem que
+                                ela se interessou por mim — talvez pelo meu esforço, porque pela cantada certamente não
+                                foi! 😄
+                            </p>
+
+                            <p class="history-paragraph">
+                                Trocamos algumas palavras e contatos... e ali, começou a nossa história.
+                            </p>
+
+                            <p class="text-sm text-slate-500 mt-2 font-medium">Julho de 2023</p>
+                        </div>
+                    </div>
+                </Card>
+
+                <!-- Story Item 2 -->
+                <Card class="relative">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">🌹</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-xl font-semibold text-slate-700 mb-3">O Pedido de Namoro</h3>
+                            <p class="history-paragraph">
+                                Escolhi o Parque Anauá, consegui chegar num momento do por do sol perfeito. Preparei um
+                                piquenique simples, mas feito com carinho: frios, vinho e um lindo buquê de rosas.
+                            </p>
+                            <p class="history-paragraph">
+                                Estava animado, feliz, um pouco nervoso… e ela, do jeitinho esperto dela, já estava
+                                desconfiando. Eu também nunca fui bom em esconder as coisas. Quando saí do carro com o
+                                buquê na mão, ela arregalou os olhos e soltou um “puta merda!” em choque — e logo cobriu
+                                a boca, assustada com a própria reação. Hahahaha. Ficamos por lá, aproveitando aquele
+                                fim de tarde.
+                            </p>
+                            <p class="history-paragraph">
+                                Ela ficou feliz, claro… mas como uma mulher prudente, ainda levou 10 dias pra aceitar
+                                meu pedido. E eu esperei ansiosamente, mas confiante de que ela aceitaria.
+                            </p>
+                            <p class="text-sm text-slate-500 mt-2 font-medium">Janeiro de 2024</p>
+                        </div>
+                    </div>
+                </Card>
+
+                <!-- Story Item 3 -->
+                <Card class="relative">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">💍</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-xl font-semibold text-slate-700 mb-3">O Pedido de Noivado</h3>
+                            <p class="history-paragraph">
+                                Depois do pedido de namoro, esperei apenas sete meses — mas a verdade é que eu já tinha
+                                certeza desde antes: ela era a mulher da minha vida. Aquela que me completaria e me
+                                elevaria. Seus pontos fortes logo me chamaram atenção: sua força, coragem, inteligência,
+                                atenção aos detalhes e aos meus sentimentos. Ela enxergava meus medos com compaixão,
+                                assim como eu via os dela — e sabíamos que sonhávamos o mesmo sonho: construir uma
+                                família numerosa, baseada na fé cristã, no amor e no respeito.
+                            </p>
+                            <p class="history-paragraph">
+                                Com o anel em mãos, faltava apenas o momento certo. Ela já desconfiava — como sempre,
+                                atenta. Decidi então voltar ao mesmo lugar onde tudo começou: o Parque Anauá.
+                                Caminhamos, conversamos… e quando ela se sentou num banco, me ajoelhei. Olhei nos olhos
+                                dela e disse: "Aceita ser minha noiva e se casar comigo?"
+                            </p>
+                            <p class="history-paragraph">
+                                Ela sorriu, emocionada e alegre, e dessa vez o “sim” veio na hora — seguido por muitos
+                                outros e por uma chuva de beijinhos que me deixou rindo à toa. Um dos dias mais felizes
+                                da minha vida.
+                            </p>
+                            <p class="text-sm text-slate-500 mt-2 font-medium">Agosto de 2024</p>
+                        </div>
+                    </div>
+                </Card>
+
+                <!-- Story Item 4 -->
+                <Card class="relative">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">✈️</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="text-xl font-semibold text-slate-700 mb-3">Nossa Nova Aventura</h3>
+                            <p class="history-paragraph">
+                                Após o casamento, embarcaremos em uma nova aventura juntos: pretendeos nos mudar para
+                                outro país para começar um novo capítulo de nossas vidas. É um sonho que construímos
+                                juntos e que agora se tornará realidade.
+                            </p>
+                            <p class="text-sm text-slate-500 mt-2 font-medium">2026</p>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+        </div>
     </div>
-
-    <!-- Story Timeline -->
-    <div class="max-w-4xl mx-auto">
-      <div class="space-y-8">
-        <!-- Story Item 1 -->
-        <Card class="relative">
-          <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div class="flex-shrink-0">
-              <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">💕</span>
-              </div>
-            </div>
-            <div class="flex-1 text-center md:text-left">
-              <h3 class="text-xl font-semibold text-slate-700 mb-3">Como Nos Conhecemos</h3>
-              <p class="history-paragraph">
-                Era o último dia da semana de apresentações no teatro, 27 de Julho de 2023, e lá estava eu, pela
-                primeira vez, indo a uma orchestra. Confesso que me vinha à cabeça a ideia — talvez distante e
-                fantasiosa — de que algo especial pudesse acontecer ali. E aconteceu.
-              </p>
-
-              <p class="history-paragraph">
-                Foi quando bati os olhos nela. Me encantei de imediato. Tentei ignorar o pensamento, entrei para ver a
-                peça, mas não consegui parar de pensar em como me aproximar. Assim que terminou, tomei coragem e fui
-                direto falar com ela. Ela se assustou um pouco, claro — quem não se assustaria? No meio da confusão das
-                pessoas saindo, ela acabou subindo a escada e por pouco não a perdi de vista.
-              </p>
-
-              <p class="history-paragraph">
-                Mas, para minha surpresa, ela me esperou do lado de fora da sala. Durante toda a peça, pensei em algo
-                incrível para dizer… mas na hora, falhei miseravelmente. Ainda bem que ela se interessou por mim —
-                talvez pelo meu esforço, porque pela conversa certamente não foi! 😄
-              </p>
-
-              <p class="history-paragraph">
-                Trocamos algumas palavras e contatos... e ali, começou a nossa história.
-              </p>
-
-              <p class="text-sm text-slate-500 mt-2 font-medium">Julho de 2023</p>
-            </div>
-          </div>
-        </Card>
-
-        <!-- Story Item 2 -->
-        <Card class="relative">
-          <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div class="flex-shrink-0">
-              <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">💍</span>
-              </div>
-            </div>
-            <div class="flex-1 text-center md:text-left">
-              <h3 class="text-xl font-semibold text-slate-700 mb-3">O Pedido de Namoro</h3>
-              <p class="history-paragraph">
-                Após muito diálogo e sonhos compartilhados, chegou o momento mais especial de nossas vidas. Em um local
-                que guarda memórias preciosas para nós dois, o pedido foi feito com todo o amor do mundo.
-              </p>
-              <p class="text-sm text-slate-500 mt-2 font-medium">Agosto de 2024</p>
-            </div>
-          </div>
-        </Card>
-
-        <!-- Story Item 3 -->
-        <Card class="relative">
-          <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div class="flex-shrink-0">
-              <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">💍</span>
-              </div>
-            </div>
-            <div class="flex-1 text-center md:text-left">
-              <h3 class="text-xl font-semibold text-slate-700 mb-3">O Pedido de Namoro</h3>
-              <p class="history-paragraph">
-                Após muito diálogo e sonhos compartilhados, chegou o momento mais especial de nossas vidas. Em um local
-                que guarda memórias preciosas para nós dois, o pedido foi feito com todo o amor do mundo.
-              </p>
-              <p class="text-sm text-slate-500 mt-2 font-medium">Agosto de 2024</p>
-            </div>
-          </div>
-        </Card>
-
-        <!-- Story Item 4 -->
-        <Card class="relative">
-          <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div class="flex-shrink-0">
-              <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
-                <span class="text-2xl">✈️</span>
-              </div>
-            </div>
-            <div class="flex-1 text-center md:text-left">
-              <h3 class="text-xl font-semibold text-slate-700 mb-3">Nossa Nova Aventura</h3>
-              <p class="history-paragraph">
-                Após o casamento, embarcaremos em uma nova aventura juntos: nos mudaremos para outro país para começar
-                um novo capítulo de nossas vidas. É um sonho que construímos juntos e que agora se tornará realidade.
-              </p>
-              <p class="text-sm text-slate-500 mt-2 font-medium">Janeiro de 2026</p>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </div>
-  </div>
 </section>
