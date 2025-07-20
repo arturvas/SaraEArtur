@@ -4,6 +4,7 @@ import { formatWeddingDate } from '../../utils/date-utils.js';
 import Card from '../ui/Card.astro';
 
 import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
 
 const formattedDate = formatWeddingDate(weddingData.date);
 
@@ -14,9 +15,9 @@ type DetailItems = {
 };
 
 const detailItems: DetailItems[] = [
-    { id: 'date', label: 'Data', icon: 'lucide:calendar' },
+    { id: 'date', label: 'Data', icon: 'lucide:calendar-heart' },
     { id: 'ceremony', label: 'Cerimonia', icon: 'lucide:church' },
-    { id: 'reception', label: 'Recepcao', icon: 'lucide:house' },
+    { id: 'reception', label: 'Recepção', icon: 'lucide:cake-slice' },
     { id: 'schedule', label: 'Cronograma', icon: 'lucide:clock' },
 ];
 ---
@@ -60,6 +61,15 @@ const detailItems: DetailItems[] = [
                                     <p class="font-medium">{weddingData.church.name}</p>
                                     <p class="font-sm">{weddingData.church.address}</p>
                                     <p class="font-sm">{weddingData.church.city}</p>
+                                    <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.05976549636281!2d-60.671274064244905!3d2.828888916799245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d930609668a8605%3A0xde831122848cd3f8!2sPar%C3%B3quia%20S%C3%A3o%20Francisco%20das%20Chagas!5e0!3m2!1spt-BR!2sbr!4v1753039738761!5m2!1spt-BR!2sbr"
+                                        class="w-full h-48 rounded-md mt-2"
+                                        style="border:0;"
+                                        allowfullscreen=""
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                    />
                                 </div>
                             )}
 
@@ -69,6 +79,15 @@ const detailItems: DetailItems[] = [
                                     <p class="font-sm">{weddingData.reception.address}</p>
                                     <p class="font-sm">Esquina com {weddingData.reception.reference}</p>
                                     <p class="font-sm">{weddingData.reception.city}</p>
+                                    <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d576.1644025867854!2d-60.65742274443987!3d2.838418052521637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d93070763b9c54d%3A0xaca000ffc8afba39!2sEsquina%20Coisas%20da%20Terra!5e0!3m2!1spt-BR!2sbr!4v1753040272199!5m2!1spt-BR!2sbr"
+                                        class="w-full h-48 rounded-md mt-2"
+                                        style="border:0;"
+                                        allowfullscreen=""
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                    />
                                 </div>
                             )}
 

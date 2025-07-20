@@ -24,11 +24,6 @@
         font-family: 'Mea Culpa', cursive;
     }
 
-    .heading-journal-italic {
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-    }
-
     .history-paragraph {
         @apply pb-2 text-slate-600 leading-relaxed;
     }

@@ -3,7 +3,7 @@ export const giftsData = {
         {
             id: 'utensilios-cozinha',
             title: 'Utensílios da Cozinha',
-            description: 'Esses são os detalhes que vão dar vida às nossas refeições e deixar a cozinha pronta para receber com carinho.',
+            description: 'Pequenos detalhes que fazem toda a diferença.',
             items: [
                 { id: 'kit-copo-jarra', title: 'Kit copo e jarra', price: 120 },
                 { id: 'travessa', title: 'Travessa de vidro', price: 80 },
@@ -13,10 +13,10 @@ export const giftsData = {
                 { id: 'jg-panelas', title: 'Jogo de panelas', price: 400 },
             ],
         },
-      {
+        {
             id: 'eletroportateis',
             title: 'Eletroportáteis',
-            description: 'Com esses aliados, nosso dia a dia ficará mais prático e saboroso.',
+            description: 'Facilidade e praticidade no nosso dia a dia.',
             items: [
                 { id: 'liquidificador', title: 'Liquidificador', price: 170 },
                 { id: 'ferro-passar', title: 'Ferro de passar', price: 200 },
@@ -28,7 +28,7 @@ export const giftsData = {
         {
             id: 'cama-banho',
             title: 'Cama & Banho',
-            description: 'Itens que vão tornar nosso descanso ainda mais aconchegante e nosso lar mais acolhedor desde o primeiro dia.',
+            description: 'Conforto no momento de descanso.',
             items: [
                 { id: 'jg-cama', title: 'Jogo de cama', price: 350 },
                 { id: 'toalhas', title: 'Toalhas de Banho', price: 90 },
@@ -37,7 +37,7 @@ export const giftsData = {
         {
             id: 'casa-utilidades',
             title: 'Casa & Utilidades',
-            description: 'Itens essenciais para montar e manter um lar completo, funcional e cheio de cuidado.',
+            description: 'Essencial para um lar completo.',
             items: [
                 { id: 'jg-tapete', title: 'Jogo de tapetes', price: 99 },
                 { id: 'fogao', title: 'Fogão', price: 900 },
@@ -45,9 +45,31 @@ export const giftsData = {
             ],
         },
         {
+            id: 'mudanca',
+            title: 'Mudança',
+            isCustom: true,
+            description: 'Para começarmos bem na casa nova.',
+            items: [
+                { id: 'mudanca-basica', title: 'Primeiro passo', price: 100 },
+                { id: 'mudanca-media', title: 'Mão à obra', price: 300 },
+                { id: 'mudanca-completa', title: 'Novo lar', price: 500 },
+            ],
+        },
+        {
+            id: 'lua-de-mel',
+            title: 'Lua de mel',
+            isCustom: true,
+            description: 'Momentos inesquecíveis na nossa primeira viagem.',
+            items: [
+                { id: 'lua-mel-basica', title: 'Descanso merecido', price: 150 },
+                { id: 'lua-mel-media', title: 'Viagem a dois', price: 400 },
+                { id: 'lua-mel-completa', title: 'Sonho realizado', price: 800 },
+            ],
+        },
+        {
             id: 'valor-personalizado',
             title: 'Valor Personalizado',
-            description: 'Contribua com qualquer valor e deixe uma mensagem especial!',
+            description: 'Fique à vontade para escolher o valor do presente.',
             items: null, // Especial
         },
     ],

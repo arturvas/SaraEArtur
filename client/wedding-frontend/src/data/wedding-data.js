@@ -16,6 +16,8 @@ export const weddingData = {
         name: 'Paróquia São Francisco',
         address: 'Av. Cap. Júlio Bezerra, 775, São Francisco',
         city: 'Boa Vista, RR',
+        lat: 2.82887,
+        lng: -60.67116,
     },
 
     reception: {
@@ -23,6 +25,8 @@ export const weddingData = {
         address: 'Rua Ana Nery, 369, Canarinho',
         reference: 'Av. Ville Roy',
         city: 'Boa Vista, RR',
+        lat: 2.83862,
+        lng: -60.65719,
     },
 
     colors: {
@@ -39,8 +43,7 @@ export const weddingData = {
 
     dressCode: {
         title: 'Traje Social',
-        description:
-            'Convidamos você a se juntar a nós em traje social para nossa celebração de casamento. Queremos que todos se sintam confortáveis, mantendo uma atmosfera elegante para nosso dia especial.',
+        description: 'Convidamos você a se juntar a nós em traje social para nossa celebração de casamento.',
         men: {
             items: [
                 '• Terno ou calça social com camisa',
@@ -51,9 +54,9 @@ export const weddingData = {
         },
         women: {
             items: [
-                '• Vestido de festa ou macacão elegante',
-                '• Conjuntos sociais (saia/calça com blusa elegante)',
-                '• Saltos, sapatilhas elegantes ou sandálias sociais',
+                '• Vestido de festa ou macacão',
+                '• Conjuntos sociais (saia/calça com blusa)',
+                '• Saltos ou sandálias sociais',
             ],
         },
     },

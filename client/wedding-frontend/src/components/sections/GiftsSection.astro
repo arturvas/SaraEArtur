@@ -9,11 +9,13 @@ import Button from '../ui/Button.astro';
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Title -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Nossa Nova Aventura</h2>
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Vamos morar na Argentina!</h2>
             <p class="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed mb-6">
-                Como estamos nos preparando para nos <strong>mudar para outro país</strong> após o casamento, criamos esta
-                lista de presentes simbólicos para nos ajudar a começar nossa nova vida juntos. Sua contribuição, independente
-                do tamanho, será profundamente apreciada e nos ajudará a estabelecer nosso lar no exterior.
+                Como estamos nos preparando para nos <strong>mudar para outro país</strong> após o casamento, não poderemos
+                receber os presentes aqui, pois seria inviável levá-los na viagem e será necessário comprar todos os itens
+                da nossa casa nova lá. Sendo assim, caso queira nos presentear, pode escolher um dos itens abaixo e realizar
+                o pagamento aqui pelo site. Sua contribuição, independente do tamanho, será profundamente apreciada e nos
+                ajudará a estabelecer o nosso lar.
             </p>
             <p class="text-base text-slate-500 max-w-3xl mx-auto">
                 Todos os pagamentos são processados com segurança através do MercadoPago, garantindo que sua transação
@@ -28,15 +30,15 @@ import Button from '../ui/Button.astro';
                     <Card>
                         <div class="text-center">
                             <h3 class="text-lg font-semibold text-slate-700 mb-2">{category.title}</h3>
-                            <p class="text-slate-600 text-sm mb-4">{category.description}</p>
-
                             {category.items ? (
                                 <div class="space-y-2">
                                     {category.items.map((item) => (
                                         <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
                                             <p class="text-left text-slate-700 text-sm">{item.title}</p>
                                             <div class="flex items-center space-x-4">
-                                                <span class="text-sm text-slate-600">R$ {item.price.toFixed(2)}</span>
+                                                <span class="text-sm text-slate-600">
+                                                    R$ {item.price.toLocaleString('pt-BR')}
+                                                </span>
                                                 <Button variant="success" size="sm" class="whitespace-nowrap">
                                                     Presentear
                                                 </Button>
@@ -46,33 +48,38 @@ import Button from '../ui/Button.astro';
                                 </div>
                             ) : (
                                 // Campo personalizado
-                                <div class="space-y-3">
-                                    <input
-                                        id="customAmount"
-                                        inputmode="numeric"
-                                        pattern="[0-9]*"
-                                        maxlength="12"
-                                        placeholder="R$ 0,00"
-                                        class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:border-slate-500 focus:ring-2 text-slate-600 focus:ring-slate-500 text-center"
-                                    />
-                                    <Button variant="success" size="sm" class="w-full">
-                                        Contribuir
-                                    </Button>
+                                <>
+                                    <p class="text-slate-600 text-sm mb-4">
+                                        Fique à vontade para escolher o valor do presente.
+                                    </p>
+                                    <div class="space-y-3">
+                                        <input
+                                            id="customAmount"
+                                            inputmode="numeric"
+                                            pattern="[0-9]*"
+                                            maxlength="12"
+                                            placeholder="R$ 0,00"
+                                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:border-slate-500 focus:ring-2 text-slate-600 focus:ring-slate-500 text-center"
+                                        />
+                                        <Button variant="success" size="sm" class="w-full">
+                                            Presentear
+                                        </Button>
 
-                                    <script is:inline>
-                                        const input = document.getElementById('customAmount'); if (input){' '}
-                                        {input.addEventListener('input', () => {
-                                            const digits = input.value.replace(/\D/g, '');
-                                            const number = parseInt(digits || '0', 10);
-                                            let formatted;
-                                            formatted = (number / 100).toLocaleString('pt-BR', {
-                                                style: 'currency',
-                                                currency: 'BRL',
-                                            });
-                                            input.value = formatted;
-                                        })}
-                                    </script>
-                                </div>
+                                        <script is:inline>
+                                            const input = document.getElementById('customAmount'); if (input)
+                                            {input.addEventListener('input', () => {
+                                                const digits = input.value.replace(/\D/g, '');
+                                                const number = parseInt(digits || '0', 10);
+                                                let formatted;
+                                                formatted = (number / 100).toLocaleString('pt-BR', {
+                                                    style: 'currency',
+                                                    currency: 'BRL',
+                                                });
+                                                input.value = formatted;
+                                            })}
+                                        </script>
+                                    </div>
+                                </>
                             )}
                         </div>
                     </Card>
@@ -83,9 +90,9 @@ import Button from '../ui/Button.astro';
         <!-- Thank You Message -->
         <Card class="max-w-4xl mx-auto">
             <div class="text-center">
-                <h3 class="text-2xl font-semibold text-slate-700 mb-4">Obrigado</h3>
+                <h3 class="text-5xl heading-script text-slate-700 mb-4">Obrigado</h3>
                 <p class="text-slate-600 leading-relaxed mb-4">
-                    Sua generosidade significa o mundo para nós. Cada contribuição nos ajuda a construir nossa nova vida
+                    Sua generosidade significa o mundo para nós. Cada presente nos ajudará a construir nossa nova vida
                     juntos em nosso novo país. Estamos ansiosos para compartilhar atualizações com você sobre nossa
                     jornada e como seus presentes nos ajudaram ao longo do caminho.
                 </p>
