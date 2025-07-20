@@ -36,19 +36,25 @@ const formattedDate = formatWeddingDate(weddingData.date);
 
             <!-- CTA Button -->
             <div class="mb-16">
-                <Button href="#presentes" variant="primary" size="lg"> Ver Lista de Presentes </Button>
+                <Button href="#presentes" variant="primary" size="lg">Ver Lista de Presentes</Button>
             </div>
 
             <!-- Scroll Indicator -->
             <div class="absolute bottom-12 left-0 right-0 text-center">
                 <div class="animate-[bounce_0.7s_ease-in-out_infinite]">
-                    <svg class="w-9 h-9 mx-auto text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                    </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="w-9 h-9 mx-auto text-slate-400 lucide lucide-arrow-down-icon lucide-arrow-down"
+                        ><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg
+                    >
                 </div>
                 <p class="text-gray-500">Arraste</p>
             </div>
