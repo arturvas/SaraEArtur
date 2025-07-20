@@ -1,22 +1,23 @@
 {
-  "name": "wedding-website-astro",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.11.0",
-    "astro-icon": "^1.1.5",
-    "tailwindcss": "^4.1.11"
-  },
-  "devDependencies": {
-    "@iconify-json/lucide": "^1.2.57",
-    "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1"
-  }
+    "name": "wedding-website-astro",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@glidejs/glide": "^3.7.1",
+        "@tailwindcss/vite": "^4.1.11",
+        "astro": "^5.11.0",
+        "astro-icon": "^1.1.5",
+        "tailwindcss": "^4.1.11"
+    },
+    "devDependencies": {
+        "@iconify-json/lucide": "^1.2.57",
+        "prettier": "^3.6.2",
+        "prettier-plugin-astro": "^0.14.1"
+    }
 }
