@@ -4,7 +4,8 @@ using Wedding.API.Data;
 using MercadoPago.Config;
 using MercadoPago.Client.Preference;
 using DotNetEnv;
-using Wedding.API.Core.Dtos;
+using MercadoPago.Client.Payment;
+using Wedding.API.Core.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,17 +57,13 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
-app.MapPost("/api/custom-gift", async (HttpRequest req) =>
-{
-    var body = await req.ReadFromJsonAsync<CustomGiftDto>();
-    if (body is null || body.Amount < 10)
-        return Results.BadRequest("Valor mínimo: R$10,00");
-
+app.MapPost("/api/custom-gift", (CustomGiftDto body) => 
+    body.Amount < 10 ? Results.BadRequest("Valor mínimo: R$10,00") :
+       
     // TODO integrar Mercado Pago pra gerar um link
-    // simulando resposta
-
-    return Results.Ok(new { paymentUrl = "https://pagamento.mercadopago.com/custom123456789" });
-});
+    // Simula resposta
+    
+    Results.Ok(new { paymentUrl = "https://pagamento.mercadopago.com/custom123456789" }));
 
 app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
 {
@@ -110,29 +107,38 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 
     Console.WriteLine("Webhook recebido:");
     Console.WriteLine(body);
-    
-    using var doc = JsonDocument.Parse(body);
-    var root = doc.RootElement;
 
-    // Verifica se é um pagamento aprovado
-    if (!root.TryGetProperty("type", out var typeProp) || typeProp.GetString() != "payment") return Results.Ok();
-    if (!root.TryGetProperty("data", out var dataProp) ||
-        !dataProp.TryGetProperty("id", out var paymentIdProp)) return Results.Ok();
-    var paymentId = paymentIdProp.GetInt64();
+    if (string.IsNullOrWhiteSpace(body))
+        return Results.BadRequest("Corpo vazio");
 
-    // Aqui você pode consultar a API do Mercado Pago pra obter detalhes do pagamento
-    var client = new MercadoPago.Client.Payment.PaymentClient();
-    var payment = await client.GetAsync(paymentId);
+    var json = JsonSerializer.Deserialize<WebhookPayloadDto>(body);
+    if (json?.Type != "payment" || json.Data?.Id == null)
+        return Results.Ok("Ignorado");
 
-    if (payment.Status != "approved" || payment.ExternalReference == null || !int.TryParse(payment.ExternalReference, out int giftId)) return Results.Ok();
+    var client = new PaymentClient();
+
+    var payment = await client.GetAsync(json.Data.Id);
+    if (payment.Status != "approved")
+        return Results.Ok("Pagamento não aprovado");
+
+    if (!int.TryParse(payment.ExternalReference, out var giftId))
+        return Results.BadRequest("ExternalReference inválido");
+
     var gift = await db.Gifts.FindAsync(giftId);
-    if (gift is null) return Results.Ok();
-    gift.TimesTaken++;
-    await db.SaveChangesAsync();
+    if (gift is null) return Results.NotFound("Presente não encontrado");
 
-    Console.WriteLine($"Gift ID {giftId} atualizado: TimesTaken = {gift.TimesTaken}");
+    if (gift.TimesTaken == 0)
+    {
+        gift.TimesTaken++;
+        await db.SaveChangesAsync();
+        Console.WriteLine($"Gift {giftId} atualizado: {gift.TimesTaken}x");
+    }
+    else
+    {
+        Console.WriteLine($"Webhook ignorado: Gift {giftId} já foi processado ({gift.TimesTaken}x).");
+    }
 
-    return Results.Ok();
+    return Results.Ok("Webhook processado com sucesso");
 });
 
 // Seeder
