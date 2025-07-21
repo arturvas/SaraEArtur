@@ -7,4 +7,5 @@ public class Gift
     public string Title { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int TimesTaken { get; set; } = 0;
+    public DateTime? LastTakenAt { get; set; }
 }

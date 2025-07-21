@@ -61,8 +61,8 @@ app.MapPost("/api/custom-gift", (CustomGiftDto body) =>
     body.Amount < 10 ? Results.BadRequest("Valor mínimo: R$10,00") :
        
     // TODO integrar Mercado Pago pra gerar um link
-    // Simula resposta
     
+    // Simula resposta
     Results.Ok(new { paymentUrl = "https://pagamento.mercadopago.com/custom123456789" }));
 
 app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
@@ -127,17 +127,19 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
     var gift = await db.Gifts.FindAsync(giftId);
     if (gift is null) return Results.NotFound("Presente não encontrado");
 
-    if (gift.TimesTaken == 0)
-    {
-        gift.TimesTaken++;
-        await db.SaveChangesAsync();
-        Console.WriteLine($"Gift {giftId} atualizado: {gift.TimesTaken}x");
-    }
-    else
-    {
-        Console.WriteLine($"Webhook ignorado: Gift {giftId} já foi processado ({gift.TimesTaken}x).");
-    }
+    var now = DateTime.UtcNow;
 
+    if (gift.LastTakenAt != null && (now - gift.LastTakenAt.Value).TotalSeconds < 30)
+    {
+        Console.WriteLine($"Ignorado: presente {giftId} já processado recentemente.");
+        return Results.Ok("Repetido ignorado.");
+    }
+    
+    gift.TimesTaken++;
+    gift.LastTakenAt = now;
+    await db.SaveChangesAsync();
+
+    Console.WriteLine($"Presente {giftId} atualizado: {gift.TimesTaken} vezes.");
     return Results.Ok("Webhook processado com sucesso");
 });
 
