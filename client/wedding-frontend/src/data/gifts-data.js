@@ -23,6 +23,7 @@ export const giftsData = {
                 { id: 'air-fryer', title: 'Air Fryer', price: 542 },
                 { id: 'microondas', title: 'Microondas', price: 570 },
                 { id: 'filtro-agua', title: 'Filtro de água', price: 650 },
+                { id: 'batedeira', title: 'Batedeira', price: 250 },
             ],
         },
         {
@@ -32,6 +33,10 @@ export const giftsData = {
             items: [
                 { id: 'jg-cama', title: 'Jogo de cama', price: 350 },
                 { id: 'toalhas', title: 'Toalhas de Banho', price: 90 },
+                { id: 'travesseiros', title: 'Par de travesseiros', price: 150 },
+                { id: 'jg-fronhas', title: 'Jogo de fronhas', price: 70 },
+                { id: 'tapete-banheiro', title: 'Tapete pro banheiro', price: 50 },
+                { id: 'edredom', title: 'Edredom de casal', price: 200 },
             ],
         },
         {
