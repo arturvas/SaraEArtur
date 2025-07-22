@@ -26,9 +26,14 @@ public static class GiftSeeder
             new Gift { Category = "Eletroportáteis", Title = "Air Fryer", Price = 542, TimesTaken = 0 },
             new Gift { Category = "Eletroportáteis", Title = "Microondas", Price = 570, TimesTaken = 0 },
             new Gift { Category = "Eletroportáteis", Title = "Filtro de água", Price = 650},
+            new Gift { Category = "Eletroportáteis", Title = "Batedeira", Price = 250},
             
             new Gift { Category = "Cama & Banho", Title = "Jogo de cama", Price = 350, TimesTaken = 0 },
             new Gift { Category = "Cama & Banho", Title = "Toalhas de banho", Price = 90, TimesTaken = 0 },
+            new Gift { Category = "Cama & Banho", Title = "Par de travesseiros", Price = 150, TimesTaken = 0 },
+            new Gift { Category = "Cama & Banho", Title = "Jogo de fronhas", Price = 70, TimesTaken = 0 },
+            new Gift { Category = "Cama & Banho", Title = "Tapete pro banheiro", Price = 50, TimesTaken = 0 },
+            new Gift { Category = "Cama & Banho", Title = "Edredom de casal", Price = 200, TimesTaken = 0 },
             
             new Gift { Category = "Casa & Utilidades", Title = "Jogo de tapetes", Price = 99, TimesTaken = 0 },
             new Gift { Category = "Casa & Utilidades", Title = "Fogão", Price = 900, TimesTaken = 0 },
