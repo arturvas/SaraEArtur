@@ -8,6 +8,7 @@ export const weddingData = {
         day: 27,
         month: 8,
         year: 2025,
+        guest_arrival: '16:30',
         ceremony: '17:00',
         reception: '18:00',
     },
@@ -15,6 +16,7 @@ export const weddingData = {
     church: {
         name: 'Paróquia São Francisco',
         address: 'Av. Cap. Júlio Bezerra, 775, São Francisco',
+        reference: 'Av. Major Williams',
         city: 'Boa Vista, RR',
         lat: 2.82887,
         lng: -60.67116,
