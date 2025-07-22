@@ -20,3 +20,4 @@ yarn-error.log*
 .env
 /.astro/content.d.ts
 /.astro/
+/public/gallery/
