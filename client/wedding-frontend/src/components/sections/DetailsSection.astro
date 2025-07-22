@@ -18,7 +18,6 @@ const detailItems: DetailItems[] = [
     { id: 'date', label: 'Data', icon: 'lucide:calendar-heart' },
     { id: 'ceremony', label: 'Cerimonia', icon: 'lucide:church' },
     { id: 'reception', label: 'Recepção', icon: 'lucide:cake-slice' },
-    { id: 'schedule', label: 'Cronograma', icon: 'lucide:clock' },
 ];
 ---
 
@@ -43,23 +42,45 @@ const detailItems: DetailItems[] = [
                             <h3 class="text-xl font-semibold text-slate-700 mb-3">{item.label}</h3>
 
                             {item.id === 'date' && (
-                                <>
-                                    <p class="text-slate-600 font-medium mb-2">{formattedDate}</p>
-                                    <div class="space-y-1 text-sm text-slate-500">
-                                        <p>
-                                            <strong>Cerimônia:</strong> {weddingData.date.ceremony}
+                                <div class="flex flex-col justify-between h-full">
+                                    <div>
+                                        <!-- Data destacada -->
+                                        <p class="inline-block text-lg font-bold border border-slate-200 bg-slate-50 text-slate-600 px-8 py-5 rounded-lg shadow-sm">
+                                            {formattedDate}
                                         </p>
-                                        <p>
-                                            <strong>Recepção:</strong> {weddingData.date.reception}
-                                        </p>
+
+                                        <!-- Horários -->
+                                        <div class="space-y-4 py-6 text-slate-600">
+                                            <!-- Chegada -->
+                                            <div class="pt-4 text-center">
+                                                <span class="block font-bold">Chegada dos convidados:</span>
+                                                <p>{weddingData.date.guest_arrival}</p>
+                                            </div>
+                                            <!-- Cerimônia -->
+                                            <div class="text-center">
+                                                <span class="block font-bold">Cerimônia:</span>
+                                                <p>{weddingData.date.ceremony}</p>
+                                            </div>
+                                            <!-- Recepção -->
+                                            <div class="text-center">
+                                                <span class="block font-bold">Recepção:</span>
+                                                <p>{weddingData.date.reception}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </>
+
+                                    <!-- Rodapé -->
+                                    <p class="text-center text-sm italic text-slate-400 pt-1">
+                                        Não vemos a hora 💍
+                                    </p>
+                                </div>
                             )}
 
                             {item.id === 'ceremony' && (
                                 <div class="text-slate-600 space-y-1">
                                     <p class="font-medium">{weddingData.church.name}</p>
                                     <p class="font-sm">{weddingData.church.address}</p>
+                                    <p class="font-sm">Esquina com {weddingData.church.reference}</p>
                                     <p class="font-sm">{weddingData.church.city}</p>
                                     <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
                                     <iframe
@@ -88,23 +109,6 @@ const detailItems: DetailItems[] = [
                                         loading="lazy"
                                         referrerpolicy="no-referrer-when-downgrade"
                                     />
-                                </div>
-                            )}
-
-                            {item.id === 'schedule' && (
-                                <div class="text-left space-y-2 text-sm text-slate-600">
-                                    <div class="flex justify-between">
-                                        <span>Chegada dos convidados</span>
-                                        <span class="font-medium">16:30</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Cerimônia</span>
-                                        <span class="font-medium">17:00</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Recepção</span>
-                                        <span class="font-medium">18:00</span>
-                                    </div>
                                 </div>
                             )}
                         </div>

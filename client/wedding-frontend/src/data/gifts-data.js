@@ -51,7 +51,7 @@ export const giftsData = {
             description: 'Para começarmos bem na casa nova.',
             items: [
                 { id: 'mudanca-basica', title: 'Primeiro passo', price: 100 },
-                { id: 'mudanca-media', title: 'Mão à obra', price: 300 },
+                { id: 'mudanca-media', title: 'Mãos à obra', price: 300 },
                 { id: 'mudanca-completa', title: 'Novo lar', price: 500 },
             ],
         },
