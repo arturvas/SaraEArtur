@@ -1,9 +1,11 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Wedding.API.Data;
 using MercadoPago.Config;
 using MercadoPago.Client.Preference;
 using DotNetEnv;
-using Wedding.API.Core.Models;
+using MercadoPago.Client.Payment;
+using Wedding.API.Core.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,20 +26,37 @@ var app = builder.Build();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Endpoints Minimal API
+app.MapGet("/", () => Results.Redirect("/swagger"));
 
 app.MapGet("/api/health", () => Results.Ok("Healthy"));
 
 app.MapGet("/api/gifts", async (AppDbContext db) =>
-{
-    var gifts = await db.Gifts
-        .Select(gift => new { gift.Id, gift.Name, gift.Price, gift.Taken })
-        .ToListAsync();
+{ 
+    var gifts = await db.Gifts.ToListAsync();
 
-    return Results.Ok(gifts);
+    var grouped = gifts
+        .GroupBy(gift => gift.Category)
+        .Select(categoryGroup => new
+        {
+            title = categoryGroup.Key,
+            items = categoryGroup.Select(gift => new {
+                id = gift.Id,
+                title = gift.Title,
+                price = gift.Price,
+                timesTaken = gift.TimesTaken
+            })
+        });
+    
+    return Results.Ok(grouped);
 });
+
 
 app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
 {
@@ -48,7 +67,7 @@ app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
     {
         new PreferenceItemRequest
         {
-            Title = gift.Name,
+            Title = gift.Title,
             Quantity = 1,
             CurrencyId = "BRL",
             UnitPrice = gift.Price
@@ -74,40 +93,97 @@ app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
     return Results.Ok(new { url = preference.InitPoint });
 });
 
+app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
+{
+    if (body.Amount < 10)
+        return Results.BadRequest("Valor mínimo de R$10,00");
+
+    var request = new List<PreferenceItemRequest>
+    {
+        new PreferenceItemRequest
+        {
+            Title = "Presente personalizado",
+            Quantity = 1,
+            CurrencyId = "BRL",
+            UnitPrice = body.Amount
+        }
+    };
+    
+    var client = new PreferenceClient();
+    var preferenceRequest = new PreferenceRequest()
+    {
+        Items = request,
+        BackUrls = new PreferenceBackUrlsRequest
+        {
+            Success = "https://www.saraeartur.com.br/sucesso",
+            Failure = "https://www.saraeartur.com.br/erro",
+            Pending = "https://www.saraeartur.com.br/pendente"
+        },
+        AutoReturn = "approved",
+        ExternalReference = "custom"
+    };
+    
+    var preference = await client.CreateAsync(preferenceRequest);
+    
+    return Results.Ok(new { url = preference.InitPoint });   
+});
+
 app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 {
     using var reader = new StreamReader(req.Body);
     var body = await reader.ReadToEndAsync();
-    
-    Console.WriteLine("Webhook recebido: ");
+
+    Console.WriteLine("Webhook recebido:");
     Console.WriteLine(body);
+
+    if (string.IsNullOrWhiteSpace(body))
+        return Results.BadRequest("Corpo vazio");
+
+    var json = JsonSerializer.Deserialize<WebhookPayloadDto>(body);
+    if (json?.Type != "payment" || json.Data?.Id == null)
+        return Results.Ok("Ignorado");
+
+    var client = new PaymentClient();
+
+    var payment = await client.GetAsync(json.Data.Id);
+    if (payment.Status != "approved")
+        return Results.Ok("Pagamento não aprovado");
     
-    // TODO: processar JSON, verificar tipo, atualizar presente...
+    if (payment.ExternalReference == "custom")
+    {
+        Console.WriteLine("Presente personalizado recebido. Ignorado.");
+        return Results.Ok("Custom gift ignorado.");
+    }
+
+    if (!int.TryParse(payment.ExternalReference, out var giftId))
+        return Results.BadRequest("ExternalReference inválido");
+
+    var gift = await db.Gifts.FindAsync(giftId);
+    if (gift is null) return Results.NotFound("Presente não encontrado");
+
+    var now = DateTime.UtcNow;
+
+    if (gift.LastTakenAt != null && (now - gift.LastTakenAt.Value).TotalSeconds < 30)
+    {
+        Console.WriteLine($"Ignorado: presente {giftId} já processado recentemente.");
+        return Results.Ok("Repetido ignorado.");
+    }
     
-    return Results.Ok();
+    gift.TimesTaken++;
+    gift.LastTakenAt = now;
+    await db.SaveChangesAsync();
+
+    Console.WriteLine($"Presente {giftId} atualizado: {gift.TimesTaken} vezes.");
+    return Results.Ok("Webhook processado com sucesso");
 });
 
+// Seeder
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     
     db.Database.Migrate();
-
-    if (!db.Gifts.Any())
-    {
-        db.Gifts.AddRange(
-            new Gift { Name = "Jogo de cama", ImageUrl = "image/jg-cama", Price = 200, Taken = false},
-            new Gift { Name = "Panela de pressão", ImageUrl = "image/pnl-pressao", Price = 150, Taken = false},
-            new Gift { Name = "Liquidificador", ImageUrl = "image/liquidificador", Price = 220, Taken = false}
-        );
-        
-        db.SaveChanges();
-        Console.WriteLine("Presentes iniciais adicionados.");
-    }
-    else
-    {
-        Console.WriteLine("Presentes ja existem, nenhum novo foi add.");
-    }
+    GiftSeeder.Seed(db);
 }
 
 app.Run();
