@@ -57,13 +57,6 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
-app.MapPost("/api/custom-gift", (CustomGiftDto body) => 
-    body.Amount < 10 ? Results.BadRequest("Valor mínimo: R$10,00") :
-       
-    // TODO integrar Mercado Pago pra gerar um link
-    
-    // Simula resposta
-    Results.Ok(new { paymentUrl = "https://pagamento.mercadopago.com/custom123456789" }));
 
 app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
 {
@@ -100,6 +93,41 @@ app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
     return Results.Ok(new { url = preference.InitPoint });
 });
 
+app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
+{
+    if (body.Amount < 10)
+        return Results.BadRequest("Valor mínimo de R$10,00");
+
+    var request = new List<PreferenceItemRequest>
+    {
+        new PreferenceItemRequest
+        {
+            Title = "Presente personalizado",
+            Quantity = 1,
+            CurrencyId = "BRL",
+            UnitPrice = body.Amount
+        }
+    };
+    
+    var client = new PreferenceClient();
+    var preferenceRequest = new PreferenceRequest()
+    {
+        Items = request,
+        BackUrls = new PreferenceBackUrlsRequest
+        {
+            Success = "https://www.saraeartur.com.br/sucesso",
+            Failure = "https://www.saraeartur.com.br/erro",
+            Pending = "https://www.saraeartur.com.br/pendente"
+        },
+        AutoReturn = "approved",
+        ExternalReference = "custom"
+    };
+    
+    var preference = await client.CreateAsync(preferenceRequest);
+    
+    return Results.Ok(new { url = preference.InitPoint });   
+});
+
 app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 {
     using var reader = new StreamReader(req.Body);
@@ -120,6 +148,12 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
     var payment = await client.GetAsync(json.Data.Id);
     if (payment.Status != "approved")
         return Results.Ok("Pagamento não aprovado");
+    
+    if (payment.ExternalReference == "custom")
+    {
+        Console.WriteLine("Presente personalizado recebido. Ignorado.");
+        return Results.Ok("Custom gift ignorado.");
+    }
 
     if (!int.TryParse(payment.ExternalReference, out var giftId))
         return Results.BadRequest("ExternalReference inválido");
