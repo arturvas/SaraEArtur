@@ -44,24 +44,19 @@ const detailItems: DetailItems[] = [
                             {item.id === 'date' && (
                                 <div class="flex flex-col justify-between h-full">
                                     <div>
-                                        <!-- Data destacada -->
                                         <p class="inline-block text-lg font-bold border border-slate-200 bg-slate-50 text-slate-600 px-8 py-5 rounded-lg shadow-sm">
                                             {formattedDate}
                                         </p>
 
-                                        <!-- Horários -->
                                         <div class="space-y-4 py-6 text-slate-600">
-                                            <!-- Chegada -->
                                             <div class="pt-4 text-center">
                                                 <span class="block font-bold">Chegada dos convidados:</span>
                                                 <p>{weddingData.date.guest_arrival}</p>
                                             </div>
-                                            <!-- Cerimônia -->
                                             <div class="text-center">
                                                 <span class="block font-bold">Cerimônia:</span>
                                                 <p>{weddingData.date.ceremony}</p>
                                             </div>
-                                            <!-- Recepção -->
                                             <div class="text-center">
                                                 <span class="block font-bold">Recepção:</span>
                                                 <p>{weddingData.date.reception}</p>
@@ -69,10 +64,7 @@ const detailItems: DetailItems[] = [
                                         </div>
                                     </div>
 
-                                    <!-- Rodapé -->
-                                    <p class="text-center text-sm italic text-slate-400 pt-1">
-                                        Não vemos a hora 💍
-                                    </p>
+                                    <p class="text-center text-sm italic text-slate-400 pt-1">Não vemos a hora 💍</p>
                                 </div>
                             )}
 
