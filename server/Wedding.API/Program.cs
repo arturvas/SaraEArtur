@@ -21,6 +21,8 @@ var sharedBackUrls = new PreferenceBackUrlsRequest
     Pending = "https://www.saraeartur.com.br/payment/pending"
 };
 
+var notificationUrl = "https://www.saraeartur.com.br/api/webhook";
+
 // Adiciona serviços à injeção de dependência
 var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
                        $"Port=5432;" +
@@ -63,7 +65,8 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
                 id = gift.Id,
                 title = gift.Title,
                 price = gift.Price,
-                timesTaken = gift.TimesTaken
+                timesTaken = gift.TimesTaken,
+                lastTakenAt = gift.LastTakenAt?.ToString("dd/MM/yyyy HH:mm")
             })
         });
     
@@ -92,6 +95,7 @@ app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
     {
         Items = request,
         BackUrls = sharedBackUrls,
+        NotificationUrl = notificationUrl,
         AutoReturn = "approved",
         ExternalReference = gift.Id.ToString()
     };
@@ -122,6 +126,7 @@ app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
     {
         Items = request,
         BackUrls = sharedBackUrls,
+        NotificationUrl = notificationUrl,
         AutoReturn = "approved",
         ExternalReference = "custom"
     };
