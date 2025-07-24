@@ -74,7 +74,7 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
 });
 
 
-app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
+app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
     if (gift == null) return Results.NotFound();
