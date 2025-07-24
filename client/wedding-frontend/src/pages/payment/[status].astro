@@ -1,0 +1,46 @@
+---
+export async function getStaticPaths() {
+    return [
+        { params: { status: "success" } },
+        { params: { status: "error" } },
+        { params: { status: "pending" } },
+    ];
+}
+
+
+import Layout from '../../layouts/Layout.astro';
+import Navigation from "../../components/ui/Navigation.astro";
+import { CircleCheckBig, XCircle, Clock } from '@lucide/astro';
+
+const { status } = Astro.params;
+
+const data = {
+    success: {
+        title: "Obrigado pelo presente!",
+        message: "Seu pagamento foi processado com sucesso.",
+        icon: CircleCheckBig,
+        iconColor: "text-green-600"
+    },
+    error: {
+        title: "Algo deu errado!",
+        message: "Não conseguimos processar seu pagamento.",
+        icon: XCircle,
+        iconColor: "text-red-600"
+    },
+    pending: {
+        title: "Pagamento pendente",
+        message: "Estamos aguardando a confirmação do pagamento.",
+        icon: Clock,
+        iconColor: "text-yellow-500"
+    }
+}[status ?? 'erro'];
+---
+
+<Layout title="Status do pagamento">
+    <Navigation />
+    <main class="min-h-screen flex flex-col items-center justify-center text-center px-4">
+        <data.icon class={`w-24 h-24 ${data.iconColor}`} />
+        <h1 class="text-slate-700 text-3xl mt-6 font-bold">{data.title}</h1>
+        <p class="text-slate-600 mt-4 text-lg">{data.message}</p>
+    </main>
+</Layout>
