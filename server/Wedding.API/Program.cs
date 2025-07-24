@@ -14,9 +14,22 @@ Env.Load(".env");
 var token = Environment.GetEnvironmentVariable("MERCADO_PAGO_ACCESS_TOKEN");
 MercadoPagoConfig.AccessToken = token;
 
+var sharedBackUrls = new PreferenceBackUrlsRequest
+{
+    Success = "https://www.saraeartur.com.br/payment/success",
+    Failure = "https://www.saraeartur.com.br/payment/error",
+    Pending = "https://www.saraeartur.com.br/payment/pending"
+};
+
 // Adiciona serviços à injeção de dependência
-builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
+                       $"Port=5432;" +
+                       $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
+                       $"Username={Environment.GetEnvironmentVariable("DB_USER")};" +
+                       $"Password={Environment.GetEnvironmentVariable("DB_PASS")};" +
+                       $"Ssl Mode=Disable";
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -78,12 +91,7 @@ app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
     var preferenceRequest = new PreferenceRequest()
     {
         Items = request,
-        BackUrls = new PreferenceBackUrlsRequest
-        {
-            Success = "https://www.saraeartur.com.br/sucesso",
-            Failure = "https://www.saraeartur.com.br/erro",
-            Pending = "https://www.saraeartur.com.br/pendente"
-        },
+        BackUrls = sharedBackUrls,
         AutoReturn = "approved",
         ExternalReference = gift.Id.ToString()
     };
@@ -113,12 +121,7 @@ app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
     var preferenceRequest = new PreferenceRequest()
     {
         Items = request,
-        BackUrls = new PreferenceBackUrlsRequest
-        {
-            Success = "https://www.saraeartur.com.br/sucesso",
-            Failure = "https://www.saraeartur.com.br/erro",
-            Pending = "https://www.saraeartur.com.br/pendente"
-        },
+        BackUrls = sharedBackUrls,
         AutoReturn = "approved",
         ExternalReference = "custom"
     };
