@@ -9,6 +9,9 @@ using Wedding.API.Core.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 Env.Load(".env");
 
 var token = Environment.GetEnvironmentVariable("MERCADO_PAGO_ACCESS_TOKEN");
@@ -42,7 +45,7 @@ app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSwagger();
 app.UseSwaggerUI();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsProduction() && !app.Environment.IsEnvironment("LocalDocker"))
 {
     app.UseHttpsRedirection();
 }
