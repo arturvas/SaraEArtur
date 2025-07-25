@@ -1,6 +1,7 @@
 # Dotnet build outputs
 **/bin/
 **/obj/
+**/out/
 
 # EF Core Migrations
 **/Data/Migrations/
