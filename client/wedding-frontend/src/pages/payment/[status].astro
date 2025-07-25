@@ -1,39 +1,36 @@
 ---
+import {weddingData} from "../../data/wedding-data";
 export async function getStaticPaths() {
-    return [
-        { params: { status: "success" } },
-        { params: { status: "error" } },
-        { params: { status: "pending" } },
-    ];
+    return [{ params: { status: 'success' } }, { params: { status: 'error' } }, { params: { status: 'pending' } }];
 }
 
-
 import Layout from '../../layouts/Layout.astro';
-import Navigation from "../../components/ui/Navigation.astro";
+import Navigation from '../../components/ui/Navigation.astro';
+import Card from '../../components/ui/Card.astro';
 import { CircleCheckBig, XCircle, Clock } from '@lucide/astro';
 
 const { status } = Astro.params;
 
 const data = {
     success: {
-        title: "Obrigado pelo presente!",
-        message: "Seu pagamento foi processado com sucesso.",
+        title: null,
+        message: 'Presente recebido com sucesso.',
         icon: CircleCheckBig,
-        iconColor: "text-green-600"
+        iconColor: 'text-green-600',
     },
     error: {
-        title: "Algo deu errado!",
-        message: "Não conseguimos processar seu pagamento.",
+        title: 'Algo deu errado!',
+        message: 'Não conseguimos processar seu pagamento.',
         icon: XCircle,
-        iconColor: "text-red-600"
+        iconColor: 'text-red-600',
     },
     pending: {
-        title: "Pagamento pendente",
-        message: "Estamos aguardando a confirmação do pagamento.",
+        title: 'Pagamento pendente',
+        message: 'Estamos aguardando a confirmação do pagamento.',
         icon: Clock,
-        iconColor: "text-yellow-500"
-    }
-}[status ?? 'erro'];
+        iconColor: 'text-yellow-500',
+    },
+}[status ?? 'error'];
 ---
 
 <Layout title="Status do pagamento">
@@ -41,6 +38,25 @@ const data = {
     <main class="min-h-screen flex flex-col items-center justify-center text-center px-4">
         <data.icon class={`w-24 h-24 ${data.iconColor}`} />
         <h1 class="text-slate-700 text-3xl mt-6 font-bold">{data.title}</h1>
-        <p class="text-slate-600 mt-4 text-lg">{data.message}</p>
+        <p class="text-slate-600 mt-4 text-lg pb-12">{data.message}</p>
+
+        {status === 'success' && (
+            <Card class="max-w-4xl mx-auto">
+                <div class="text-center">
+                    <h3 class="text-5xl heading-script text-slate-700 mb-4">Obrigado</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Sua generosidade significa o mundo para nós. Cada presente nos ajudará a construir nossa nova vida
+                        juntos em nosso novo país. Estamos ansiosos para compartilhar atualizações com você sobre nossa
+                        jornada e como seus presentes nos ajudaram ao longo do caminho.
+                    </p>
+                    <p class="text-slate-600">
+                        Com amor e gratidão,<br />
+                        <span class="heading-script text-3xl text-amber-500"
+                        >{weddingData.couple.bride} & {weddingData.couple.groom}</span
+                        >
+                    </p>
+                </div>
+            </Card>
+        )}
     </main>
 </Layout>

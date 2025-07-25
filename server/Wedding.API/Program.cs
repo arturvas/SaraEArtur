@@ -9,6 +9,9 @@ using Wedding.API.Core.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 Env.Load(".env");
 
 var token = Environment.GetEnvironmentVariable("MERCADO_PAGO_ACCESS_TOKEN");
@@ -20,6 +23,8 @@ var sharedBackUrls = new PreferenceBackUrlsRequest
     Failure = "https://www.saraeartur.com.br/payment/error",
     Pending = "https://www.saraeartur.com.br/payment/pending"
 };
+
+var notificationUrl = "https://www.saraeartur.com.br/api/webhook";
 
 // Adiciona serviços à injeção de dependência
 var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
@@ -40,7 +45,7 @@ app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSwagger();
 app.UseSwaggerUI();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsProduction() && !app.Environment.IsEnvironment("LocalDocker"))
 {
     app.UseHttpsRedirection();
 }
@@ -63,7 +68,8 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
                 id = gift.Id,
                 title = gift.Title,
                 price = gift.Price,
-                timesTaken = gift.TimesTaken
+                timesTaken = gift.TimesTaken,
+                lastTakenAt = gift.LastTakenAt?.ToString("dd/MM/yyyy HH:mm")
             })
         });
     
@@ -71,7 +77,7 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
 });
 
 
-app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
+app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
     if (gift == null) return Results.NotFound();
@@ -92,6 +98,7 @@ app.MapPost("/api/checkout/{id}", async (int id, AppDbContext db) =>
     {
         Items = request,
         BackUrls = sharedBackUrls,
+        NotificationUrl = notificationUrl,
         AutoReturn = "approved",
         ExternalReference = gift.Id.ToString()
     };
@@ -122,6 +129,7 @@ app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
     {
         Items = request,
         BackUrls = sharedBackUrls,
+        NotificationUrl = notificationUrl,
         AutoReturn = "approved",
         ExternalReference = "custom"
     };
