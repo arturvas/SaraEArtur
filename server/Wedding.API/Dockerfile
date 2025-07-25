@@ -1,18 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+COPY ["Wedding.API/Wedding.API.csproj", "Wedding.API/"]
+RUN dotnet restore "Wedding.API/Wedding.API.csproj"]
+
+COPY . .
+
+WORKDIR /src/Wedding.API
+RUN dotnet publish -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 as base
 WORKDIR /app
-
-# Restaurar dependências
-COPY *.csproj ./
-RUN dotnet restore
-
-# Build da aplicação
-COPY . ./
-RUN dotnet publish -c Release -o out
-
-# Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://+8080
 EXPOSE 8080
-COPY --from=build-env /app/out .
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Wedding.API.dll"]
