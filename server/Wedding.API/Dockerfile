@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["Wedding.API/Wedding.API.csproj", "Wedding.API/"]
+COPY ["Wedding.API.csproj", "Wedding.API/"]
 RUN dotnet restore "Wedding.API/Wedding.API.csproj"]
 
 COPY . .
