@@ -24,7 +24,7 @@ var sharedBackUrls = new PreferenceBackUrlsRequest
     Pending = "https://www.saraeartur.com.br/payment/pending"
 };
 
-var notificationUrl = "https://www.saraeartur.com.br/api/webhook";
+const string notificationUrl = "https://www.saraeartur.com.br/api/webhook";
 
 // Adiciona serviços à injeção de dependência
 var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
@@ -32,7 +32,7 @@ var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" 
                        $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
                        $"Username={Environment.GetEnvironmentVariable("DB_USER")};" +
                        $"Password={Environment.GetEnvironmentVariable("DB_PASS")};" +
-                       $"Ssl Mode=Disable";
+                       $"Ssl Mode=Require; Trust Server Certificate=true;";
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddCors();
