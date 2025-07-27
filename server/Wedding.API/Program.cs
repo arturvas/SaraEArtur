@@ -189,12 +189,14 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 });
 
 // Seeder
+/*
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     
-    // db.Database.Migrate();
+    db.Database.Migrate();
     GiftSeeder.Seed(db);
-}
+} 
+*/
 
 app.Run();
