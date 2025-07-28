@@ -191,14 +191,28 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 
 app.MapPost("/api/admin/seed", async (HttpContext context, AppDbContext db) =>
 {
-    if (!IsAuthorized(context))
-        return Results.Unauthorized();
-
-    if (await db.Gifts.AnyAsync())
-        return Results.BadRequest("O Banco já possui dados.");
-    
-    GiftSeeder.Seed(db);
-    return Results.Ok("Seed aplicado com sucesso.");
+    try
+    {
+        if (!IsAuthorized(context))
+            return Results.Unauthorized();
+        Console.WriteLine("Autorizado. Iniciando seed...");
+        
+        Console.WriteLine("Verificando se há dados no banco...");
+        var hasGifts = await db.Gifts.AnyAsync();
+        Console.WriteLine($"Banco respondeu: {hasGifts}");
+        
+        if (hasGifts)
+            return Results.BadRequest("O Banco já possui dados.");
+        
+        GiftSeeder.Seed(db);
+        Console.WriteLine("Seed aplicado com sucesso.");
+        return Results.Ok("Seed aplicado com sucesso.");
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Erro no endpoint /api/admin/seed: {e.Message}");
+        return Results.StatusCode(500);   
+    }
 });
 
 app.Run();
