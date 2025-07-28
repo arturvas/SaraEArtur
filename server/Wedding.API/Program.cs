@@ -26,13 +26,15 @@ var sharedBackUrls = new PreferenceBackUrlsRequest
 
 const string notificationUrl = "https://www.saraeartur.com.br/api/webhook";
 
-// Adiciona serviços à injeção de dependência
-var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
-                       $"Port=5432;" +
-                       $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
-                       $"Username={Environment.GetEnvironmentVariable("DB_USER")};" +
-                       $"Password={Environment.GetEnvironmentVariable("DB_PASS")};" +
-                       $"Ssl Mode=Require; Trust Server Certificate=true;";
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPass = Environment.GetEnvironmentVariable("DB_PASS");
+
+var connectionString = $"Host={dbHost};Port=5432;Database={dbName};Username={dbUser};Password={dbPass};" 
+                       + "Ssl Mode=Require; Trust Server Certificate=true;";
+
+Console.WriteLine($"DB_HOST: {dbHost}"); // Verifique os logs no Render
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddCors();
