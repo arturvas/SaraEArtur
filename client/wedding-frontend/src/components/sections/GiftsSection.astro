@@ -1,8 +1,23 @@
 ---
 import { weddingData } from '../../data/wedding-data.js';
-import { giftsData } from '../../data/gifts-data.js';
 import Card from '../ui/Card.astro';
 import Button from '../ui/Button.astro';
+
+let apiData;
+
+type GiftItem = {
+    id: string;
+    title: string;
+    price: number;
+};
+
+try {
+    const response = await fetch('https://saraeartur-wedding-api.onrender.com/api/gifts');
+    apiData = await response.json();
+} catch (error) {
+    console.error('Erro ao carregar os Gifts da API: ', error);
+    apiData = [];
+}
 ---
 
 <section id="presentes" class="py-20 bg-slate-50">
@@ -26,66 +41,161 @@ import Button from '../ui/Button.astro';
         <!-- Gift Options Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {
-                giftsData.categories.map((category) => (
-                    <Card>
-                        <div class="text-center">
-                            <h3 class="text-lg font-semibold text-slate-700 mb-2">{category.title}</h3>
-                            {category.items ? (
-                                <div class="space-y-2">
-                                    {category.items.map((item) => (
-                                        <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
-                                            <p class="text-left text-slate-700 text-sm">{item.title}</p>
-                                            <div class="flex items-center space-x-4">
-                                                <span class="text-sm text-slate-600">
-                                                    R$ {item.price.toLocaleString('pt-BR')}
-                                                </span>
-                                                <Button variant="success" size="sm" class="whitespace-nowrap">
-                                                    Presentear
-                                                </Button>
+                Array.isArray(apiData) &&
+                    apiData.map((category) => (
+                        <Card>
+                            <div class="text-center">
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">{category.title}</h3>
+                                {Array.isArray(category.items) && category.items.length && (
+                                    <div class="space-y-2">
+                                        {category.items.map((item: GiftItem) => (
+                                            <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
+                                                <p class="text-left text-slate-700 text-sm">{item.title}</p>
+                                                <div class="flex items-center space-x-4">
+                                                    <span class="text-sm text-slate-600">
+                                                        R$ {item.price.toLocaleString('pt-BR') ?? item.price}
+                                                    </span>
+                                                    <Button
+                                                        variant="success"
+                                                        size="sm"
+                                                        class="whitespace-nowrap"
+                                                        data-gift-id={item.id}
+                                                    >
+                                                        Presentear
+                                                    </Button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                // Campo personalizado
-                                <>
-                                    <label for="customAmount" class="text-slate-600 text-sm mb-4">
-                                        Fique à vontade para escolher o valor do presente.
-                                    </label>
-                                    <div class="space-y-3">
-                                        <input
-                                            id="customAmount"
-                                            inputmode="numeric"
-                                            pattern="[0-9]*"
-                                            maxlength="12"
-                                            placeholder="R$ 10,00"
-                                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:border-slate-500 focus:ring-2 text-slate-600 focus:ring-slate-500 text-center"
-                                        />
-                                        <Button variant="success" size="sm" class="w-full">
-                                            Presentear
-                                        </Button>
-
-                                        <script is:inline>
-                                            const input = document.getElementById('customAmount'); if (input)
-                                            {input.addEventListener('input', () => {
-                                                const digits = input.value.replace(/\D/g, '');
-                                                const number = parseInt(digits || '0', 10);
-                                                let formatted;
-                                                formatted = (number / 100).toLocaleString('pt-BR', {
-                                                    style: 'currency',
-                                                    currency: 'BRL',
-                                                });
-                                                input.value = formatted;
-                                            })}
-                                        </script>
+                                        ))}
                                     </div>
-                                </>
-                            )}
-                        </div>
-                    </Card>
-                ))
+                                )}
+                            </div>
+                        </Card>
+                    ))
             }
+            <Card>
+                <div class="text-center">
+                    <h3 class="text-lg font-semibold text-slate-700 mb-2">Valor Personalizado</h3>
+                    <label for="customAmount" class="text-slate-600 text-sm mb-4">
+                        Fique à vontade para escolher o valor do presente.
+                    </label>
+                    <div class="space-y-3">
+                        <input
+                            id="customAmount"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            maxlength="12"
+                            placeholder="R$ 10,00"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:border-slate-500 focus:ring-2 text-slate-600 focus:ring-slate-500 text-center"
+                        />
+                        <Button id="customGiftBtn" variant="success" size="sm" class="w-full"> Presentear </Button>
+
+                        <script is:inline>
+                            // Máscara do input de valor const input =
+                            const input = document.getElementById('customAmount');
+                            if (input) {
+                                input.addEventListener('input', () => {
+                                    const digits = input.value.replace(/\D/g, '');
+                                    const number = parseInt(digits || '0', 10);
+                                    let formatted;
+                                    formatted = (number / 100).toLocaleString('pt-BR', {
+                                        style: 'currency',
+                                        currency: 'BRL',
+                                    });
+                                    input.value = formatted;
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+            </Card>
         </div>
+        <script is:inline>
+            async function giftCheckout({ endpoint, fetchOptions, button, getAmount }) {
+                // Abre o popup imediatamente no clique
+                const popup = window.open('about:blank', '_blank');
+                if (popup) {
+                    popup.document.write(
+                        `<div style="font-family:sans-serif;text-align:center;margin-top:40vh;font-size:1.2rem">
+                            Redirecionando para pagamento...
+                        </div>`
+                    );
+                }
+
+                if (button) {
+                    button.disabled = true;
+                    button.textContent = 'Aguarde...';
+                }
+
+                try {
+                    // Pega valor customizado se necessário
+                    if (getAmount && !getAmount()) {
+                        popup?.close();
+                        alert('Digite um valor válido (mínimo R$10,00).');
+                        return;
+                    }
+
+                    const res = await fetch(endpoint, fetchOptions);
+
+                    if (!res.ok) {
+                        popup?.close();
+                        alert('Erro ao gerar link: ' + (await res.text()));
+                        return;
+                    }
+                    const data = await res.json();
+                    if (data.url) {
+                        popup.location.href = data.url;
+                    } else {
+                        popup?.close();
+                        alert('Erro ao gerar link de pagamento.');
+                    }
+                } catch (error) {
+                    popup?.close();
+                    alert('Erro ao processar presente.');
+                } finally {
+                    if (button) {
+                        button.disabled = false;
+                        button.textContent = 'Presentear';
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Handler para os botões de presente (gift)
+                document.querySelectorAll('button[data-gift-id]').forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        const giftId = btn.getAttribute('data-gift-id');
+                        if (!giftId) return;
+                        giftCheckout({
+                            endpoint: `https://saraeartur-wedding-api.onrender.com/api/checkout/${giftId}`,
+                            fetchOptions: { method: 'POST' },
+                            button: btn,
+                        });
+                    });
+                });
+
+                // Handler para o presente personalizado
+                const customBtn = document.getElementById('customGiftBtn');
+                if (customBtn) {
+                    customBtn.addEventListener('click', () => {
+                        const input = document.getElementById('customAmount');
+                        let value = 0;
+                        if (input) {
+                            value = parseInt(input.value.replace(/\D/g, ''), 10) / 100;
+                        }
+                        giftCheckout({
+                            endpoint: 'https://saraeartur-wedding-api.onrender.com/api/custom-gift',
+                            fetchOptions: {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ amount: value }),
+                            },
+                            button: customBtn,
+                            getAmount: () => value >= 10,
+                        });
+                    });
+                }
+            });
+        </script>
 
         <!-- Thank You Message -->
         <Card class="max-w-4xl mx-auto">

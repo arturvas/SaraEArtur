@@ -6,7 +6,7 @@ interface Props {
     class?: string;
 }
 
-const { variant = 'primary', size = 'md', href, class: className = '' } = Astro.props;
+const { variant = 'primary', size = 'md', href, class: className = '', ...restProps } = Astro.props;
 
 const baseClasses =
     'inline-flex items-center justify-center rounded font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2';
@@ -29,11 +29,11 @@ const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} 
 
 {
     href ? (
-        <a href={href} class={classes}>
+        <a href={href} class={classes} {...restProps}>
             <slot />
         </a>
     ) : (
-        <button class={classes}>
+        <button class={classes} {...restProps}>
             <slot />
         </button>
     )
