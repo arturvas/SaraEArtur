@@ -76,7 +76,6 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
-
 app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
@@ -188,15 +187,27 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
     return Results.Ok("Webhook processado com sucesso");
 });
 
-// Seeder
-/*
-using (var scope = app.Services.CreateScope())
+app.MapPost("/api/admin/seed", async (HttpContext context, AppDbContext db) =>
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    if (!IsAuthorized(context))
+        return Results.Unauthorized();
+
+    if (await db.Gifts.AnyAsync())
+        return Results.BadRequest("O Banco já possui dados.");
     
-    db.Database.Migrate();
     GiftSeeder.Seed(db);
-} 
-*/
+    return Results.Ok("Seed aplicado com sucesso.");
+});
 
 app.Run();
+
+// Verifica a chave da API
+bool IsAuthorized(HttpContext context)
+{
+    var expectedKey = Environment.GetEnvironmentVariable("ADMIN_API_KEY");
+    if (string.IsNullOrWhiteSpace(expectedKey)) return false;
+
+    if (!context.Request.Headers.TryGetValue("x-api-key", out var providedKey)) return false;
+    
+    return expectedKey == providedKey;
+}
