@@ -1,12 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["Wedding.API/Wedding.API.csproj", "Wedding.API/"]
-RUN dotnet restore "Wedding.API/Wedding.API.csproj"]
+COPY "Wedding.API.csproj" .
+RUN dotnet restore "Wedding.API.csproj"
 
 COPY . .
-
-WORKDIR /src/Wedding.API
 RUN dotnet publish -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 as base

@@ -24,15 +24,17 @@ var sharedBackUrls = new PreferenceBackUrlsRequest
     Pending = "https://www.saraeartur.com.br/payment/pending"
 };
 
-var notificationUrl = "https://www.saraeartur.com.br/api/webhook";
+const string notificationUrl = "https://www.saraeartur.com.br/api/webhook";
 
-// Adiciona serviços à injeção de dependência
-var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
-                       $"Port=5432;" +
-                       $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
-                       $"Username={Environment.GetEnvironmentVariable("DB_USER")};" +
-                       $"Password={Environment.GetEnvironmentVariable("DB_PASS")};" +
-                       $"Ssl Mode=Disable";
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPass = Environment.GetEnvironmentVariable("DB_PASS");
+
+var connectionString = $"Host={dbHost};Port=5432;Database={dbName};Username={dbUser};Password={dbPass};" 
+                       + "Ssl Mode=Require; Trust Server Certificate=true;";
+
+Console.WriteLine($"DB_HOST: {dbHost}"); // Verifique os logs no Render
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddCors();
@@ -75,7 +77,6 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     
     return Results.Ok(grouped);
 });
-
 
 app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
@@ -188,13 +189,41 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
     return Results.Ok("Webhook processado com sucesso");
 });
 
-// Seeder
-using (var scope = app.Services.CreateScope())
+app.MapPost("/api/admin/seed", async (HttpContext context, AppDbContext db) =>
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    
-    db.Database.Migrate();
-    GiftSeeder.Seed(db);
-}
+    try
+    {
+        if (!IsAuthorized(context))
+            return Results.Unauthorized();
+        Console.WriteLine("Autorizado. Iniciando seed...");
+        
+        Console.WriteLine("Verificando se há dados no banco...");
+        var hasGifts = await db.Gifts.AnyAsync();
+        Console.WriteLine($"Banco respondeu: {hasGifts}");
+        
+        if (hasGifts)
+            return Results.BadRequest("O Banco já possui dados.");
+        
+        GiftSeeder.Seed(db);
+        Console.WriteLine("Seed aplicado com sucesso.");
+        return Results.Ok("Seed aplicado com sucesso.");
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Erro no endpoint /api/admin/seed: {e.Message}");
+        return Results.StatusCode(500);   
+    }
+});
 
 app.Run();
+
+// Verifica a chave da API
+bool IsAuthorized(HttpContext context)
+{
+    var expectedKey = Environment.GetEnvironmentVariable("ADMIN_API_KEY");
+    if (string.IsNullOrWhiteSpace(expectedKey)) return false;
+
+    if (!context.Request.Headers.TryGetValue("x-api-key", out var providedKey)) return false;
+    
+    return expectedKey == providedKey;
+}
