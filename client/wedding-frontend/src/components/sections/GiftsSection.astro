@@ -443,14 +443,16 @@ try {
                         document.getElementById('pixInfoModal').classList.remove('hidden');
                     });
                 }
-
+                
                 // Listener para fechar o modal Pix
                 const btnPixClose = document.getElementById('pixCloseBtn');
                 if (btnPixClose) {
                     btnPixClose.addEventListener('click', () => {
-                        document.getElementById('pixInfoModal').classList.add('hidden');
+                        closePixModal();
                     });
                 }
+                
+                setupCopyPixKey();
 
                 // Handler para botões dos presentes
                 document.querySelectorAll('.gift-btn').forEach((btn) => {
@@ -515,6 +517,28 @@ try {
                 });
             });
 
+            // Copiar chave Pix
+            function setupCopyPixKey() {
+                const copyBtn = document.getElementById('copyPixKey');
+                const pixKeySpan = document.getElementById('pixKey');
+                if (!copyBtn || !pixKeySpan) return;
+
+                copyBtn.addEventListener('click', async () => {
+                    const pixKey = pixKeySpan.textContent.trim();
+                    try {
+                        await navigator.clipboard.writeText(pixKey);
+                        // Feedback visual
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = 'Copiado!';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        alert('Não foi possível copiar. Copie manualmente: ' + pixKey);
+                    }
+                });
+            }
+            
             // Funções do modal Pix
             function openPixModal(giftData) {
                 document.getElementById('pixAmount').textContent =
@@ -522,6 +546,7 @@ try {
                 document.getElementById('pixGiftLabel').textContent = giftData.title ?? '-';
                 document.getElementById('pixInfoModal').classList.remove('hidden');
             }
+            
             function closePixModal() {
                 document.getElementById('pixInfoModal').classList.add('hidden');
             }
