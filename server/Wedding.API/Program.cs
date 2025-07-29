@@ -78,6 +78,17 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
+app.MapGet("/api/webhook", (HttpRequest req) =>
+{
+    var topic = req.Query["topic"];
+    var id = req.Query["id"];
+    
+    Console.WriteLine($"IPN recebido: topic={topic}, id={id}");
+    
+    return Results.Ok("IPN recebido");
+
+});
+
 app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
