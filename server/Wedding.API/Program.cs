@@ -78,17 +78,6 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
-app.MapGet("/api/webhook", (HttpRequest req) =>
-{
-    var topic = req.Query["topic"];
-    var id = req.Query["id"];
-    
-    Console.WriteLine($"IPN recebido: topic={topic}, id={id}");
-    
-    return Results.Ok("IPN recebido");
-
-});
-
 app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
@@ -153,51 +142,64 @@ app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
 
 app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 {
-    using var reader = new StreamReader(req.Body);
-    var body = await reader.ReadToEndAsync();
-
-    Console.WriteLine("Webhook recebido:");
-    Console.WriteLine(body);
-
-    if (string.IsNullOrWhiteSpace(body))
-        return Results.BadRequest("Corpo vazio");
-
-    var json = JsonSerializer.Deserialize<WebhookPayloadDto>(body);
-    if (json?.Type != "payment" || json.Data?.Id == null)
-        return Results.Ok("Ignorado");
-
-    var client = new PaymentClient();
-
-    var payment = await client.GetAsync(json.Data.Id);
-    if (payment.Status != "approved")
-        return Results.Ok("Pagamento não aprovado");
-    
-    if (payment.ExternalReference == "custom")
+    try
     {
-        Console.WriteLine("Presente personalizado recebido. Ignorado.");
-        return Results.Ok("Custom gift ignorado.");
-    }
+        using var reader = new StreamReader(req.Body);
+        var body = await reader.ReadToEndAsync();
 
-    if (!int.TryParse(payment.ExternalReference, out var giftId))
-        return Results.BadRequest("ExternalReference inválido");
+        Console.WriteLine("Webhook recebido:");
+        Console.WriteLine(body);
 
-    var gift = await db.Gifts.FindAsync(giftId);
-    if (gift is null) return Results.NotFound("Presente não encontrado");
+        if (string.IsNullOrWhiteSpace(body))
+            return Results.BadRequest("Corpo vazio");
 
-    var now = DateTime.UtcNow;
+        var json = JsonSerializer.Deserialize<WebhookPayloadDto>(body, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+        });
+        Console.WriteLine($"json.Type: {json?.Type}, json.Data?.Id: {json?.Data?.Id}");
+        
+        if (json?.Type != "payment" || json.Data?.Id == null)
+            return Results.Ok("Ignorado");
 
-    if (gift.LastTakenAt != null && (now - gift.LastTakenAt.Value).TotalSeconds < 30)
-    {
-        Console.WriteLine($"Ignorado: presente {giftId} já processado recentemente.");
-        return Results.Ok("Repetido ignorado.");
-    }
+        var client = new PaymentClient();
+
+        var payment = await client.GetAsync(json.Data.Id);
+        if (payment.Status != "approved")
+            return Results.Ok("Pagamento não aprovado");
     
-    gift.TimesTaken++;
-    gift.LastTakenAt = now;
-    await db.SaveChangesAsync();
+        if (payment.ExternalReference == "custom")
+        {
+            Console.WriteLine("Presente personalizado recebido. Ignorado.");
+            return Results.Ok("Custom gift ignorado.");
+        }
 
-    Console.WriteLine($"Presente {giftId} atualizado: {gift.TimesTaken} vezes.");
-    return Results.Ok("Webhook processado com sucesso");
+        if (!int.TryParse(payment.ExternalReference, out var giftId))
+            return Results.BadRequest("ExternalReference inválido");
+
+        var gift = await db.Gifts.FindAsync(giftId);
+        if (gift is null) return Results.NotFound("Presente não encontrado");
+
+        var now = DateTime.UtcNow;
+
+        if (gift.LastTakenAt != null && (now - gift.LastTakenAt.Value).TotalSeconds < 10)
+        {
+            Console.WriteLine($"Ignorado: presente {giftId} já processado recentemente.");
+            return Results.Ok("Repetido ignorado.");
+        }
+    
+        gift.TimesTaken++;
+        gift.LastTakenAt = now;
+        await db.SaveChangesAsync();
+
+        Console.WriteLine($"Presente {giftId} atualizado: {gift.TimesTaken} vezes.");
+        return Results.Ok("Webhook processado com sucesso");
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Erro no webhook: {e.Message}");
+        return Results.StatusCode(500);  
+    }
 });
 
 app.MapPost("/api/admin/seed", async (HttpContext context, AppDbContext db) =>
