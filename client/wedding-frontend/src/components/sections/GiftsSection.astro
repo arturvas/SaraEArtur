@@ -50,16 +50,26 @@ try {
                                     <div class="space-y-2">
                                         {category.items.map((item: GiftItem) => (
                                             <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
-                                                <p class="text-left text-slate-700 text-sm">{item.title}</p>
+                                                <p class="text-left text-slate-700">
+                                                    {item.title === 'Escorregador de louça'
+                                                        ? 'Escorredor de louça'
+                                                        : item.title === 'Tapetes pro banheiro'
+                                                          ? 'Tapetes banheiro'
+                                                          : item.title === 'Kit toalhas de banho'
+                                                            ? 'Toalhas banho'
+                                                            : item.title}
+                                                </p>
                                                 <div class="flex items-center space-x-4">
-                                                    <span class="text-sm text-slate-600">
+                                                    <span class="text-slate-600">
                                                         R$ {item.price.toLocaleString('pt-BR') ?? item.price}
                                                     </span>
                                                     <Button
                                                         variant="success"
                                                         size="sm"
-                                                        class="whitespace-nowrap"
+                                                        class="whitespace-nowrap gift-btn"
                                                         data-gift-id={item.id}
+                                                        data-gift-title={item.title}
+                                                        data-gift-price={item.price}
                                                     >
                                                         Presentear
                                                     </Button>
@@ -75,7 +85,7 @@ try {
             <Card>
                 <div class="text-center">
                     <h3 class="text-lg font-semibold text-slate-700 mb-2">Valor Personalizado</h3>
-                    <label for="customAmount" class="text-slate-600 text-sm mb-4">
+                    <label for="customAmount" class="text-slate-600 mb-4">
                         Fique à vontade para escolher o valor do presente.
                     </label>
                     <div class="space-y-3">
@@ -84,10 +94,18 @@ try {
                             inputmode="numeric"
                             pattern="[0-9]*"
                             maxlength="12"
-                            placeholder="R$ 10,00"
+                            placeholder="Insira um valor"
                             class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:border-slate-500 focus:ring-2 text-slate-600 focus:ring-slate-500 text-center"
                         />
-                        <Button id="customGiftBtn" variant="success" size="sm" class="w-full"> Presentear </Button>
+                        <Button
+                            id="customGiftBtn"
+                            variant="success"
+                            size="sm"
+                            class="w-full gift-btn"
+                            data-gift-type="custom"
+                        >
+                            Presentear
+                        </Button>
 
                         <script is:inline>
                             // Máscara do input de valor const input =
@@ -109,92 +127,404 @@ try {
                 </div>
             </Card>
         </div>
+
+        <!-- Modal para nome e sobrenome -->
+        <div id="nameModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 transform transition-all">
+                <div class="text-center">
+                    <!-- Modal Icon -->
+                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Modal Title -->
+                    <h3 class="text-2xl font-bold text-slate-700 mb-2">Como se chama?</h3>
+                    <p class="text-slate-600 mb-6">Por favor, insira seu nome e sobrenome.</p>
+
+                    <!-- Form Fields -->
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <input
+                                id="modalName"
+                                type="text"
+                                maxlength="50"
+                                placeholder="Nome"
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 text-slate-700 transition-all"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <input
+                                id="modalSurname"
+                                type="text"
+                                maxlength="70"
+                                placeholder="Sobrenome"
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 text-slate-700 transition-all"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <Button
+                            id="modalCancel"
+                            variant="secondary"
+                            size="sm"
+                            class="whitespace-nowrap w-full py-4"
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            id="modalConfirm"
+                            variant="success"
+                            size="sm"
+                            class="whitespace-nowrap w-full py-4"
+                        >
+                            Pagar no Cartão
+                        </Button>
+                        <Button id="modalPix" variant="pix" size="sm" class="whitespace-nowrap w-full py-4">
+                            Dados para o Pix
+                        </Button>
+                    </div>
+
+                    <!-- Modal de Informações do Pix -->
+                    <div
+                        id="pixInfoModal"
+                        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden"
+                    >
+                        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full mx-4 transform transition-all">
+                            <div class="text-center">
+                                <!-- Título -->
+                                <h3 class="text-3xl font-bold text-slate-700 mb-3">Pagamento via Pix</h3>
+
+                                <!-- Informações do Destinatário -->
+                                <div class="bg-slate-50 rounded-lg p-6 mb-6 text-left">
+                                    <h4 class="text-lg font-semibold text-slate-700 mb-4 text-center">
+                                        Dados do Destinatário
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-slate-600 font-medium">Nome:</span>
+                                            <span class="text-slate-800 font-semibold"
+                                                >Artur de Castro de Vasconcelos</span
+                                            >
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-slate-600 font-medium">Banco:</span>
+                                            <span class="text-slate-800">Mercado Pago</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-slate-600 font-medium">Tipo de chave:</span>
+                                            <span class="text-slate-800">Telefone</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Chave Pix em Destaque -->
+                                <div class="mb-6">
+                                    <label class="block text-slate-700 font-semibold mb-3">Chave Pix:</label>
+                                    <div class="relative">
+                                        <div
+                                            class="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-lg p-4 mb-3"
+                                        >
+                                            <span
+                                                class="text-2xl font-mono font-bold text-green-800 tracking-wider"
+                                                id="pixKey"
+                                            >
+                                                95984220116
+                                            </span>
+                                        </div>
+                                        <button
+                                            id="copyPixKey"
+                                            class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center"
+                                        >
+                                            <svg
+                                                class="w-4 h-4 mr-2"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                                ></path>
+                                            </svg>
+                                            Copiar Chave Pix
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Detalhes da Transação -->
+                                <div class="bg-blue-50 rounded-lg text-slate-600 p-6 mb-6">
+                                    <h4 class="text-lg font-semibold mb-4 text-center">Detalhes da Transação</h4>
+                                    <div class="space-y-3 text-left">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-medium">Presente:</span>
+                                            <span class="font-semibold" id="pixGiftLabel"></span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-medium">Valor:</span>
+                                            <span class="text-2xl font-bold">R$ <span id="pixAmount"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <button
+                                        id="pixCloseBtn"
+                                        class="flex-1 px-6 py-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-medium transition-colors"
+                                    >
+                                        Fechar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script is:inline>
-            async function giftCheckout({ endpoint, fetchOptions, button, getAmount }) {
-                // Abre o popup imediatamente no clique
-                const popup = window.open('about:blank', '_blank');
-                if (popup) {
-                    popup.document.write(
-                        `<div style="font-family:sans-serif;text-align:center;margin-top:40vh;font-size:1.2rem">
-                            Redirecionando para pagamento...
-                        </div>`
-                    );
+            let selectedGiftData = null;
+
+            const getModal = () => document.getElementById('nameModal');
+            const getNameInput = () => document.getElementById('modalName');
+            const getSurnameInput = () => document.getElementById('modalSurname');
+            const getCustomAmountInput = () => document.getElementById('customAmount');
+            const getModalCancel = () => document.getElementById('modalCancel');
+            const getModalConfirm = () => document.getElementById('modalConfirm');
+
+            // Abrir modal (e guardar dados do presente)
+            function openModal(giftData) {
+                selectedGiftData = giftData;
+                const modal = getModal();
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    setTimeout(() => getNameInput()?.focus(), 50);
+                }
+            }
+
+            // Fechar modal (e limpar campos)
+            function closeModal() {
+                getModal()?.classList.add('hidden');
+                getNameInput().value = '';
+                getSurnameInput().value = '';
+            }
+
+            // Validação simples dos campos
+            function validateForm() {
+                const name = getNameInput().value.trim();
+                const surname = getSurnameInput().value.trim();
+                if (name.length < 2 || surname.length < 2) {
+                    alert('Preencha nome e sobrenome corretamente.');
+                    return false;
+                }
+                return true;
+            }
+
+            // Máscara para o input de valor personalizado
+            function setupCustomAmountMask() {
+                const input = getCustomAmountInput();
+                if (input) {
+                    input.addEventListener('input', () => {
+                        const digits = input.value.replace(/\D/g, '');
+                        const number = parseInt(digits || '0', 10);
+                        input.value = number
+                            ? (number / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                            : '';
+                    });
+                }
+            }
+
+            // Pagamento integrado com a API
+            async function processPayment() {
+                if (!validateForm() || !selectedGiftData) return;
+
+                const giftData = { ...selectedGiftData };
+                const payerName = getNameInput().value.trim();
+                const payerSurname = getSurnameInput().value.trim();
+
+                // 1. Abre nova aba imediatamente e escreve tela de "Aguarde..."
+                const loadingTab = window.open('', '_blank');
+                if (loadingTab) {
+                    // Página de loading simples, mobile-first e personalizada
+                    loadingTab.document.write(`
+                        <html lang="pt-BR">
+                        <head>
+                            <meta charset="UTF-8" />
+                            <meta name="viewport" content="width=device-width,initial-scale=1" />
+                            <title>Redirecionando...</title>
+                            <style>
+                                body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f8fafc; font-family: system-ui, sans-serif; }
+                                .spinner { margin: 30px 0 20px 0; border: 4px solid #e5e7eb; border-top: 4px solid #64748b; border-radius: 50%; width: 44px; height: 44px; animation: spin 1s linear infinite;}
+                                @keyframes spin { 100% { transform: rotate(360deg); } }
+                                .msg { color: #334155; font-size: 1.15rem; text-align: center; }
+                                .branding { color: #64748b; font-size: 0.93rem; margin-top: 20px; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="spinner"></div>
+                            <div class="msg">Aguarde, você será redirecionado<br>ao pagamento seguro do Mercado Pago.</div>
+                            <div class="branding">Sara & Artur | Casamento 2025</div>
+                        </body>
+                        </html>
+                    `);
+                    loadingTab.document.close();
+                } else {
+                    alert('Por favor, permita pop-ups para concluir seu presente.');
+                    return;
                 }
 
-                if (button) {
-                    button.disabled = true;
-                    button.textContent = 'Aguarde...';
-                }
+                closeModal();
 
                 try {
-                    // Pega valor customizado se necessário
-                    if (getAmount && !getAmount()) {
-                        popup?.close();
-                        alert('Digite um valor válido (mínimo R$10,00).');
-                        return;
-                    }
+                    let endpoint = '';
+                    let body = {};
 
-                    const res = await fetch(endpoint, fetchOptions);
+                    if (giftData.type === 'custom') {
+                        // Valor personalizado
+                        endpoint = 'https://saraeartur-wedding-api.onrender.com/api/custom-gift';
+                        body = {
+                            amount: giftData.price,
+                            payerName,
+                            payerSurname,
+                        };
+                    } else {
+                        // Presente pré-definido
+                        endpoint = `https://saraeartur-wedding-api.onrender.com/api/checkout/${giftData.id}`;
+                        body = {
+                            payerName,
+                            payerSurname,
+                        };
+                    }
+                    console.log('processPayment - giftData:', giftData);
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body),
+                    });
 
                     if (!res.ok) {
-                        popup?.close();
-                        alert('Erro ao gerar link: ' + (await res.text()));
+                        loadingTab.close();
+                        alert('Erro ao gerar pagamento. Tente novamente.');
                         return;
                     }
+
                     const data = await res.json();
-                    if (data.url) {
-                        popup.location.href = data.url;
+                    if (data && data.url) {
+                        loadingTab.location.href = data.url;
                     } else {
-                        popup?.close();
-                        alert('Erro ao gerar link de pagamento.');
+                        loadingTab.close();
+                        alert('Falha ao obter link de pagamento.');
                     }
-                } catch (error) {
-                    popup?.close();
-                    alert('Erro ao processar presente.');
-                } finally {
-                    if (button) {
-                        button.disabled = false;
-                        button.textContent = 'Presentear';
-                    }
+                } catch (err) {
+                    loadingTab.close();
+                    alert('Erro inesperado ao processar o pagamento. ' + err.message);
                 }
             }
 
             document.addEventListener('DOMContentLoaded', () => {
-                // Handler para os botões de presente (gift)
-                document.querySelectorAll('button[data-gift-id]').forEach((btn) => {
-                    btn.addEventListener('click', () => {
-                        const giftId = btn.getAttribute('data-gift-id');
-                        if (!giftId) return;
-                        giftCheckout({
-                            endpoint: `https://saraeartur-wedding-api.onrender.com/api/checkout/${giftId}`,
-                            fetchOptions: { method: 'POST' },
-                            button: btn,
-                        });
+                setupCustomAmountMask();
+
+                // Listener para abrir o modal Pix
+                const btnPix = document.getElementById('modalPix');
+                if (btnPix) {
+                    btnPix.addEventListener('click', () => {
+                        openPixModal(selectedGiftData);
+                        document.getElementById('pixInfoModal').classList.remove('hidden');
+                    });
+                }
+
+                // Listener para fechar o modal Pix
+                const btnPixClose = document.getElementById('pixCloseBtn');
+                if (btnPixClose) {
+                    btnPixClose.addEventListener('click', () => {
+                        document.getElementById('pixInfoModal').classList.add('hidden');
+                    });
+                }
+
+                // Handler para botões dos presentes
+                document.querySelectorAll('.gift-btn').forEach((btn) => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        let giftData = {};
+
+                        if (btn.hasAttribute('data-gift-id')) {
+                            // Presente específico
+                            giftData = {
+                                type: 'specific',
+                                id: btn.getAttribute('data-gift-id'),
+                                title: btn.getAttribute('data-gift-title'),
+                                price: parseFloat(btn.getAttribute('data-gift-price')),
+                            };
+                        } else if (
+                            btn.hasAttribute('data-gift-type') &&
+                            btn.getAttribute('data-gift-type') === 'custom'
+                        ) {
+                            // Presente customizado
+                            const input = getCustomAmountInput();
+                            if (!input) return;
+                            const value = parseInt(input.value.replace(/\D/g, ''), 10) / 100;
+                            if (value < 10) {
+                                alert('O valor mínimo é R$ 10,00');
+                                return;
+                            }
+                            giftData = {
+                                type: 'custom',
+                                title: 'Valor Personalizado',
+                                price: value,
+                            };
+                        }
+                        openModal(giftData);
                     });
                 });
 
-                // Handler para o presente personalizado
-                const customBtn = document.getElementById('customGiftBtn');
-                if (customBtn) {
-                    customBtn.addEventListener('click', () => {
-                        const input = document.getElementById('customAmount');
-                        let value = 0;
-                        if (input) {
-                            value = parseInt(input.value.replace(/\D/g, ''), 10) / 100;
-                        }
-                        giftCheckout({
-                            endpoint: 'https://saraeartur-wedding-api.onrender.com/api/custom-gift',
-                            fetchOptions: {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ amount: value }),
-                            },
-                            button: customBtn,
-                            getAmount: () => value >= 10,
+                // Modal: cancelar e confirmar
+                getModalCancel()?.addEventListener('click', closeModal);
+                getModalConfirm()?.addEventListener('click', processPayment);
+
+                // Fechar modal ao clicar fora dele
+                getModal()?.addEventListener('click', (e) => {
+                    if (e.target === getModal()) closeModal();
+                });
+
+                // Fechar modal com ESC
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') closeModal();
+                });
+
+                // Submit do formulário com Enter
+                [getNameInput(), getSurnameInput()].forEach((input) => {
+                    if (input) {
+                        input.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                processPayment();
+                            }
                         });
-                    });
-                }
+                    }
+                });
             });
+
+            // Funções do modal Pix
+            function openPixModal(giftData) {
+                document.getElementById('pixAmount').textContent =
+                    giftData.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) ?? '0,00';
+                document.getElementById('pixGiftLabel').textContent = giftData.title ?? '-';
+                document.getElementById('pixInfoModal').classList.remove('hidden');
+            }
+            function closePixModal() {
+                document.getElementById('pixInfoModal').classList.add('hidden');
+            }
         </script>
 
         <!-- Thank You Message -->
@@ -202,7 +532,7 @@ try {
             <div class="text-center">
                 <h3 class="text-5xl heading-script text-slate-700 mb-4">Obrigado</h3>
                 <p class="text-slate-600 leading-relaxed mb-4">
-                    Sua generosidade significa o mundo para nós. Cada presente nos ajudará a construir nossa nova vida
+                    Sua generosidade significa muito para nós. Cada presente nos ajudará a construir nossa nova vida
                     juntos em nosso novo país. Estamos ansiosos para compartilhar atualizações com você sobre nossa
                     jornada e como seus presentes nos ajudaram ao longo do caminho.
                 </p>
