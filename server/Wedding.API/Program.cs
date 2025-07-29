@@ -87,10 +87,13 @@ app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
     {
         new PreferenceItemRequest
         {
+            Id = gift.Id.ToString(),
             Title = gift.Title,
+            Description = "Presente da lista de casamento",
             Quantity = 1,
             CurrencyId = "BRL",
-            UnitPrice = gift.Price
+            UnitPrice = gift.Price,
+            CategoryId = "others" // Categoria "Outros" no Mercado Pago
         }
     };
 
@@ -118,21 +121,32 @@ app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
     {
         new PreferenceItemRequest
         {
+            Id = "custom",
             Title = "Presente personalizado",
+            Description = "Valor personalizado escolhido pelo convidado",
             Quantity = 1,
             CurrencyId = "BRL",
-            UnitPrice = body.Amount
+            UnitPrice = body.Amount,
+            CategoryId = "others" // Categoria "Outros" no Mercado Pago
         }
     };
     
     var client = new PreferenceClient();
+
+    var payer = new PreferencePayerRequest
+    {
+        Name = body.PayerName,
+        Surname = body.PayerSurname
+    };
+    
     var preferenceRequest = new PreferenceRequest()
     {
         Items = request,
         BackUrls = sharedBackUrls,
         NotificationUrl = notificationUrl,
         AutoReturn = "approved",
-        ExternalReference = "custom"
+        ExternalReference = "custom",
+        Payer = payer
     };
     
     var preference = await client.CreateAsync(preferenceRequest);
