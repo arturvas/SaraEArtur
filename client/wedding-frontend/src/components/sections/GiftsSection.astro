@@ -177,7 +177,7 @@ try {
                             id="modalCancel"
                             variant="secondary"
                             size="sm"
-                            class="whitespace-nowrap w-full py-4 gift-btn"
+                            class="whitespace-nowrap w-full py-4"
                         >
                             Cancelar
                         </Button>
@@ -185,11 +185,11 @@ try {
                             id="modalConfirm"
                             variant="success"
                             size="sm"
-                            class="whitespace-nowrap w-full py-4 gift-btn"
+                            class="whitespace-nowrap w-full py-4"
                         >
                             Pagar no Cartão
                         </Button>
-                        <Button id="modalPix" variant="pix" size="sm" class="whitespace-nowrap w-full py-4 gift-btn">
+                        <Button id="modalPix" variant="pix" size="sm" class="whitespace-nowrap w-full py-4">
                             Dados para o Pix
                         </Button>
                     </div>
@@ -439,7 +439,7 @@ try {
                 const btnPix = document.getElementById('modalPix');
                 if (btnPix) {
                     btnPix.addEventListener('click', () => {
-                        closeModal();
+                        openPixModal(selectedGiftData);
                         document.getElementById('pixInfoModal').classList.remove('hidden');
                     });
                 }
@@ -525,12 +525,6 @@ try {
             function closePixModal() {
                 document.getElementById('pixInfoModal').classList.add('hidden');
             }
-            document.getElementById('modalPix')?.addEventListener('click', () => {
-                if (!selectedGiftData) return;
-                openPixModal(selectedGiftData);
-                closeModal();
-            });
-            document.getElementById('pixCloseBtn')?.addEventListener('click', closePixModal);
         </script>
 
         <!-- Thank You Message -->
