@@ -24,7 +24,7 @@ var sharedBackUrls = new PreferenceBackUrlsRequest
     Pending = "https://www.saraeartur.com.br/payment/pending"
 };
 
-const string notificationUrl = "https://www.saraeartur.com.br/api/webhook";
+const string notificationUrl = "https://saraeartur-wedding-api.onrender.com/api/webhook";
 
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbName = Environment.GetEnvironmentVariable("DB_NAME");
