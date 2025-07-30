@@ -47,11 +47,6 @@ app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSwagger();
 app.UseSwaggerUI();
 
-if (app.Environment.IsProduction() && !app.Environment.IsEnvironment("LocalDocker"))
-{
-    app.UseHttpsRedirection();
-}
-
 // Endpoints Minimal API
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
@@ -78,7 +73,7 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
-app.MapGet("/api/gifts/redirect/{id:int}", async (int id, AppDbContext db) =>
+app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, string payerSurname, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
     if (gift == null) return Results.NotFound();
@@ -98,13 +93,21 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, AppDbContext db) =>
     };
     
     var client = new PreferenceClient();
+    
+    var payer = new PreferencePayerRequest
+    {
+        Name = payerName,
+        Surname = payerSurname
+    };
+    
     var preferenceRequest = new PreferenceRequest()
     {
         Items = request,
         BackUrls = sharedBackUrls,
         NotificationUrl = notificationUrl,
         AutoReturn = "approved",
-        ExternalReference = gift.Id.ToString()
+        ExternalReference = gift.Id.ToString(),
+        Payer = payer   
     };
     
     var preference = await client.CreateAsync(preferenceRequest);
@@ -156,81 +159,81 @@ app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName
     return Results.Redirect(preference.InitPoint);   
 });
 
-app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
-{
-    var gift = await db.Gifts.FindAsync(id);
-    if (gift == null) return Results.NotFound();
-
-    var request = new List<PreferenceItemRequest>
-    {
-        new PreferenceItemRequest
-        {
-            Id = gift.Id.ToString(),
-            Title = gift.Title,
-            Description = "Presente da lista de casamento",
-            Quantity = 1,
-            CurrencyId = "BRL",
-            UnitPrice = gift.Price,
-            CategoryId = "others" // Categoria "Outros" no Mercado Pago
-        }
-    };
-
-    var client = new PreferenceClient();
-    var preferenceRequest = new PreferenceRequest()
-    {
-        Items = request,
-        BackUrls = sharedBackUrls,
-        NotificationUrl = notificationUrl,
-        AutoReturn = "approved",
-        ExternalReference = gift.Id.ToString()
-    };
-    
-    var preference = await client.CreateAsync(preferenceRequest);
-
-    return Results.Ok(new { url = preference.InitPoint });
-});
-
-app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
-{
-    if (body.Amount < 10)
-        return Results.BadRequest("Valor mínimo de R$10,00");
-
-    var request = new List<PreferenceItemRequest>
-    {
-        new PreferenceItemRequest
-        {
-            Id = "custom",
-            Title = "Presente personalizado",
-            Description = "Valor personalizado escolhido pelo convidado",
-            Quantity = 1,
-            CurrencyId = "BRL",
-            UnitPrice = body.Amount,
-            CategoryId = "others" // Categoria "Outros" no Mercado Pago
-        }
-    };
-    
-    var client = new PreferenceClient();
-
-    var payer = new PreferencePayerRequest
-    {
-        Name = body.PayerName,
-        Surname = body.PayerSurname
-    };
-    
-    var preferenceRequest = new PreferenceRequest()
-    {
-        Items = request,
-        BackUrls = sharedBackUrls,
-        NotificationUrl = notificationUrl,
-        AutoReturn = "approved",
-        ExternalReference = "custom",
-        Payer = payer
-    };
-    
-    var preference = await client.CreateAsync(preferenceRequest);
-    
-    return Results.Ok(new { url = preference.InitPoint });   
-});
+// app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
+// {
+//     var gift = await db.Gifts.FindAsync(id);
+//     if (gift == null) return Results.NotFound();
+//
+//     var request = new List<PreferenceItemRequest>
+//     {
+//         new PreferenceItemRequest
+//         {
+//             Id = gift.Id.ToString(),
+//             Title = gift.Title,
+//             Description = "Presente da lista de casamento",
+//             Quantity = 1,
+//             CurrencyId = "BRL",
+//             UnitPrice = gift.Price,
+//             CategoryId = "others" // Categoria "Outros" no Mercado Pago
+//         }
+//     };
+//
+//     var client = new PreferenceClient();
+//     var preferenceRequest = new PreferenceRequest()
+//     {
+//         Items = request,
+//         BackUrls = sharedBackUrls,
+//         NotificationUrl = notificationUrl,
+//         AutoReturn = "approved",
+//         ExternalReference = gift.Id.ToString()
+//     };
+//     
+//     var preference = await client.CreateAsync(preferenceRequest);
+//
+//     return Results.Ok(new { url = preference.InitPoint });
+// });
+//
+// app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
+// {
+//     if (body.Amount < 10)
+//         return Results.BadRequest("Valor mínimo de R$10,00");
+//
+//     var request = new List<PreferenceItemRequest>
+//     {
+//         new PreferenceItemRequest
+//         {
+//             Id = "custom",
+//             Title = "Presente personalizado",
+//             Description = "Valor personalizado escolhido pelo convidado",
+//             Quantity = 1,
+//             CurrencyId = "BRL",
+//             UnitPrice = body.Amount,
+//             CategoryId = "others" // Categoria "Outros" no Mercado Pago
+//         }
+//     };
+//     
+//     var client = new PreferenceClient();
+//
+//     var payer = new PreferencePayerRequest
+//     {
+//         Name = body.PayerName,
+//         Surname = body.PayerSurname
+//     };
+//     
+//     var preferenceRequest = new PreferenceRequest()
+//     {
+//         Items = request,
+//         BackUrls = sharedBackUrls,
+//         NotificationUrl = notificationUrl,
+//         AutoReturn = "approved",
+//         ExternalReference = "custom",
+//         Payer = payer
+//     };
+//     
+//     var preference = await client.CreateAsync(preferenceRequest);
+//     
+//     return Results.Ok(new { url = preference.InitPoint });   
+// });
 
 app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 {
