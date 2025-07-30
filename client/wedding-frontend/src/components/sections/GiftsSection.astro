@@ -20,6 +20,7 @@ try {
 }
 ---
 
+<!--suppress ALL -->
 <section id="presentes" class="py-20 bg-slate-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Title -->
@@ -173,23 +174,13 @@ try {
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <Button
-                            id="modalCancel"
-                            variant="secondary"
-                            size="sm"
-                            class="whitespace-nowrap w-full py-4"
-                        >
+                        <Button id="modalCancel" variant="secondary" size="md" class="whitespace-nowrap w-full">
                             Cancelar
                         </Button>
-                        <Button
-                            id="modalConfirm"
-                            variant="success"
-                            size="sm"
-                            class="whitespace-nowrap w-full py-4"
-                        >
+                        <Button id="modalConfirm" variant="success" size="md" class="whitespace-nowrap w-full">
                             Pagar no Cartão
                         </Button>
-                        <Button id="modalPix" variant="pix" size="sm" class="whitespace-nowrap w-full py-4">
+                        <Button id="modalPix" variant="pix" size="md" class="whitespace-nowrap w-full">
                             Dados para o Pix
                         </Button>
                     </div>
@@ -349,87 +340,30 @@ try {
             async function processPayment() {
                 if (!validateForm() || !selectedGiftData) return;
 
-                const giftData = { ...selectedGiftData };
                 const payerName = getNameInput().value.trim();
                 const payerSurname = getSurnameInput().value.trim();
 
-                // 1. Abre nova aba imediatamente e escreve tela de "Aguarde..."
-                const loadingTab = window.open('', '_blank');
-                if (loadingTab) {
-                    // Página de loading simples, mobile-first e personalizada
-                    loadingTab.document.write(`
-                        <html lang="pt-BR">
-                        <head>
-                            <meta charset="UTF-8" />
-                            <meta name="viewport" content="width=device-width,initial-scale=1" />
-                            <title>Redirecionando...</title>
-                            <style>
-                                body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f8fafc; font-family: system-ui, sans-serif; }
-                                .spinner { margin: 30px 0 20px 0; border: 4px solid #e5e7eb; border-top: 4px solid #64748b; border-radius: 50%; width: 44px; height: 44px; animation: spin 1s linear infinite;}
-                                @keyframes spin { 100% { transform: rotate(360deg); } }
-                                .msg { color: #334155; font-size: 1.15rem; text-align: center; }
-                                .branding { color: #64748b; font-size: 0.93rem; margin-top: 20px; }
-                            </style>
-                        </head>
-                        <body>
-                            <div class="spinner"></div>
-                            <div class="msg">Aguarde, você será redirecionado<br>ao pagamento seguro do Mercado Pago.</div>
-                            <div class="branding">Sara & Artur | Casamento 2025</div>
-                        </body>
-                        </html>
-                    `);
-                    loadingTab.document.close();
+                let redirectUrl = '';
+
+                if (selectedGiftData.type === 'custom') {
+                    const amount = selectedGiftData.price;
+                    const params = new URLSearchParams({
+                        amount: amount,
+                        payerName: payerName,
+                        payerSurname: payerSurname,
+                    });
+                    redirectUrl = `https://saraeartur-wedding-api.onrender.com/api/gifts/redirect/custom?${params.toString()}`;
                 } else {
-                    alert('Por favor, permita pop-ups para concluir seu presente.');
-                    return;
+                    const params = new URLSearchParams({
+                        payerName: payerName,
+                        payerSurname: payerSurname,
+                    });
+                    redirectUrl = `https://saraeartur-wedding-api.onrender.com/api/gifts/redirect/${selectedGiftData.id}?${params.toString()}`;
                 }
 
                 closeModal();
 
-                try {
-                    let endpoint = '';
-                    let body = {};
-
-                    if (giftData.type === 'custom') {
-                        // Valor personalizado
-                        endpoint = 'https://saraeartur-wedding-api.onrender.com/api/custom-gift';
-                        body = {
-                            amount: giftData.price,
-                            payerName,
-                            payerSurname,
-                        };
-                    } else {
-                        // Presente pré-definido
-                        endpoint = `https://saraeartur-wedding-api.onrender.com/api/checkout/${giftData.id}`;
-                        body = {
-                            payerName,
-                            payerSurname,
-                        };
-                    }
-                    console.log('processPayment - giftData:', giftData);
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body),
-                    });
-
-                    if (!res.ok) {
-                        loadingTab.close();
-                        alert('Erro ao gerar pagamento. Tente novamente.');
-                        return;
-                    }
-
-                    const data = await res.json();
-                    if (data && data.url) {
-                        loadingTab.location.href = data.url;
-                    } else {
-                        loadingTab.close();
-                        alert('Falha ao obter link de pagamento.');
-                    }
-                } catch (err) {
-                    loadingTab.close();
-                    alert('Erro inesperado ao processar o pagamento. ' + err.message);
-                }
+                window.open(redirectUrl, '_blank');
             }
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -443,7 +377,7 @@ try {
                         document.getElementById('pixInfoModal').classList.remove('hidden');
                     });
                 }
-                
+
                 // Listener para fechar o modal Pix
                 const btnPixClose = document.getElementById('pixCloseBtn');
                 if (btnPixClose) {
@@ -451,7 +385,7 @@ try {
                         closePixModal();
                     });
                 }
-                
+
                 setupCopyPixKey();
 
                 // Handler para botões dos presentes
@@ -538,7 +472,7 @@ try {
                     }
                 });
             }
-            
+
             // Funções do modal Pix
             function openPixModal(giftData) {
                 document.getElementById('pixAmount').textContent =
@@ -546,7 +480,7 @@ try {
                 document.getElementById('pixGiftLabel').textContent = giftData.title ?? '-';
                 document.getElementById('pixInfoModal').classList.remove('hidden');
             }
-            
+
             function closePixModal() {
                 document.getElementById('pixInfoModal').classList.add('hidden');
             }
