@@ -78,6 +78,84 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
     return Results.Ok(grouped);
 });
 
+app.MapGet("/api/gifts/redirect/{id:int}", async (int id, AppDbContext db) =>
+{
+    var gift = await db.Gifts.FindAsync(id);
+    if (gift == null) return Results.NotFound();
+
+    var request = new List<PreferenceItemRequest>
+    {
+        new PreferenceItemRequest
+        {
+            Id = gift.Id.ToString(),
+            Title = gift.Title,
+            Description = "Presente da lista de casamento",
+            Quantity = 1,
+            CurrencyId = "BRL",
+            UnitPrice = gift.Price,
+            CategoryId = "others" // Categoria "Outros" no MP
+        }
+    };
+    
+    var client = new PreferenceClient();
+    var preferenceRequest = new PreferenceRequest()
+    {
+        Items = request,
+        BackUrls = sharedBackUrls,
+        NotificationUrl = notificationUrl,
+        AutoReturn = "approved",
+        ExternalReference = gift.Id.ToString()
+    };
+    
+    var preference = await client.CreateAsync(preferenceRequest);
+    
+    // vai fazer o redirect de imediato para o link do MP
+    return Results.Redirect(preference.InitPoint);
+});
+
+app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName, string payerSurname) =>
+{
+    if (amount < 10)
+        return Results.BadRequest("Valor mínimo de R$10,00");
+
+    var request = new List<PreferenceItemRequest>
+    {
+        new PreferenceItemRequest
+        {
+            Id = "custom",
+            Title = "Presente personalizado",
+            Description = "Valor personalizado escolhido pelo convidado",
+            Quantity = 1,
+            CurrencyId = "BRL",
+            UnitPrice = amount,
+            CategoryId = "others"
+        }
+    };
+    
+    var client = new PreferenceClient();
+
+    var payer = new PreferencePayerRequest
+    {
+        Name = payerName,
+        Surname = payerSurname
+    };
+
+    var preferenceRequest = new PreferenceRequest()
+    {
+        Items = request,
+        BackUrls = sharedBackUrls,
+        NotificationUrl = notificationUrl,
+        AutoReturn = "approved",
+        ExternalReference = "custom",
+        Payer = payer
+    };
+    
+    var preference = await client.CreateAsync(preferenceRequest);
+    
+    // redirect imediato
+    return Results.Redirect(preference.InitPoint);   
+});
+
 app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
 {
     var gift = await db.Gifts.FindAsync(id);
