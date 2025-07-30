@@ -118,8 +118,8 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, stri
 
 app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName, string payerSurname) =>
 {
-    if (amount < 10)
-        return Results.BadRequest("Valor mínimo de R$10,00");
+    // if (amount < 10)
+    //     return Results.BadRequest("Valor mínimo de R$10,00");
 
     var request = new List<PreferenceItemRequest>
     {
