@@ -159,84 +159,10 @@ app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName
     return Results.Redirect(preference.InitPoint);   
 });
 
-// app.MapPost("/api/checkout/{id:int}", async (int id, AppDbContext db) =>
-// {
-//     var gift = await db.Gifts.FindAsync(id);
-//     if (gift == null) return Results.NotFound();
-//
-//     var request = new List<PreferenceItemRequest>
-//     {
-//         new PreferenceItemRequest
-//         {
-//             Id = gift.Id.ToString(),
-//             Title = gift.Title,
-//             Description = "Presente da lista de casamento",
-//             Quantity = 1,
-//             CurrencyId = "BRL",
-//             UnitPrice = gift.Price,
-//             CategoryId = "others" // Categoria "Outros" no Mercado Pago
-//         }
-//     };
-//
-//     var client = new PreferenceClient();
-//     var preferenceRequest = new PreferenceRequest()
-//     {
-//         Items = request,
-//         BackUrls = sharedBackUrls,
-//         NotificationUrl = notificationUrl,
-//         AutoReturn = "approved",
-//         ExternalReference = gift.Id.ToString()
-//     };
-//     
-//     var preference = await client.CreateAsync(preferenceRequest);
-//
-//     return Results.Ok(new { url = preference.InitPoint });
-// });
-//
-// app.MapPost("/api/custom-gift", async (CustomGiftDto body) =>
-// {
-//     if (body.Amount < 10)
-//         return Results.BadRequest("Valor mínimo de R$10,00");
-//
-//     var request = new List<PreferenceItemRequest>
-//     {
-//         new PreferenceItemRequest
-//         {
-//             Id = "custom",
-//             Title = "Presente personalizado",
-//             Description = "Valor personalizado escolhido pelo convidado",
-//             Quantity = 1,
-//             CurrencyId = "BRL",
-//             UnitPrice = body.Amount,
-//             CategoryId = "others" // Categoria "Outros" no Mercado Pago
-//         }
-//     };
-//     
-//     var client = new PreferenceClient();
-//
-//     var payer = new PreferencePayerRequest
-//     {
-//         Name = body.PayerName,
-//         Surname = body.PayerSurname
-//     };
-//     
-//     var preferenceRequest = new PreferenceRequest()
-//     {
-//         Items = request,
-//         BackUrls = sharedBackUrls,
-//         NotificationUrl = notificationUrl,
-//         AutoReturn = "approved",
-//         ExternalReference = "custom",
-//         Payer = payer
-//     };
-//     
-//     var preference = await client.CreateAsync(preferenceRequest);
-//     
-//     return Results.Ok(new { url = preference.InitPoint });   
-// });
-
 app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 {
+    Console.WriteLine("Entrou no webhook!");
+    
     try
     {
         using var reader = new StreamReader(req.Body);
@@ -246,7 +172,10 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         Console.WriteLine(body);
 
         if (string.IsNullOrWhiteSpace(body))
+        {
+            Console.WriteLine("Corpo vazio");
             return Results.BadRequest("Corpo vazio");
+        }
 
         WebhookPayloadDto? json = null;
         try
@@ -274,6 +203,8 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         if (payment.Status != "approved")
             return Results.Ok("Pagamento não aprovado");
     
+        Console.WriteLine($"Tipo: {json?.Type}, ExternalReference: {payment.ExternalReference}");
+        
         if (payment.ExternalReference == "custom")
         {
             Console.WriteLine("Presente personalizado recebido. Ignorado.");
