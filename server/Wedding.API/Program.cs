@@ -225,6 +225,7 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
             return Results.Ok("Repetido ignorado.");
         }
     
+        gift.LastPayerFullName = $"{payment.Payer.FirstName} {payment.Payer.LastName}".Trim();
         gift.TimesTaken++;
         gift.LastTakenAt = now;
         await db.SaveChangesAsync();

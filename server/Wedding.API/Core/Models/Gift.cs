@@ -8,4 +8,5 @@ public class Gift
     public decimal Price { get; set; }
     public int TimesTaken { get; set; } = 0;
     public DateTime? LastTakenAt { get; set; }
+    public string? LastPayerFullName { get; set; }
 }
