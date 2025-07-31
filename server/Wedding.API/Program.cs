@@ -248,18 +248,29 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         if (string.IsNullOrWhiteSpace(body))
             return Results.BadRequest("Corpo vazio");
 
-        var json = JsonSerializer.Deserialize<WebhookPayloadDto>(body, new JsonSerializerOptions
+        WebhookPayloadDto? json = null;
+        try
         {
-            PropertyNameCaseInsensitive = true,
-        });
-        Console.WriteLine($"json.Type: {json?.Type}, json.Data?.Id: {json?.Data?.Id}");
+            json = JsonSerializer.Deserialize<WebhookPayloadDto>(body, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            });
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Falha ao deserializar webhook: {e.Message}");
+            Console.WriteLine("Corpo recebido:");
+            Console.WriteLine(body);
+            return Results.BadRequest("Erro de serialização");
+        }
         
         if (json?.Type != "payment" || json.Data?.Id == null)
             return Results.Ok("Ignorado");
 
         var client = new PaymentClient();
-
-        var payment = await client.GetAsync(json.Data.Id);
+        
+        var payment = await client.GetAsync(long.Parse(json.Data.Id));
+        
         if (payment.Status != "approved")
             return Results.Ok("Pagamento não aprovado");
     
