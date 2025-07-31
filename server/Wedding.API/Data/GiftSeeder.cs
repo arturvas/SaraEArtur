@@ -40,7 +40,11 @@ public static class GiftSeeder
 
             new Gift { Category = "Lua de mel", Title = "Descanso merecido", Price = 150, TimesTaken = 0 },
             new Gift { Category = "Lua de mel", Title = "Viagem a dois", Price = 400, TimesTaken = 0 },
-            new Gift { Category = "Lua de mel", Title = "Sonho realizado", Price = 800, TimesTaken = 0 }
+            new Gift { Category = "Lua de mel", Title = "Sonho realizado", Price = 800, TimesTaken = 0 },
+            
+            new Gift { Category = "Test", Title = "Gift Test 1 Pão", Price = 1.21M, TimesTaken = 0 },
+            new Gift { Category = "Test", Title = "Gift Test 2 Pães", Price = 2.25M, TimesTaken = 0 },
+            new Gift { Category = "Test", Title = "Gift Test meio pão", Price = 1.86M, TimesTaken = 0 },
         };
         
         db.Gifts.AddRange(giftsToSeed);
