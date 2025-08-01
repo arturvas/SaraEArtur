@@ -6,6 +6,7 @@ using MercadoPago.Client.Preference;
 using DotNetEnv;
 using MercadoPago.Client.Payment;
 using Wedding.API.Core.DTOs;
+using Wedding.API.Core.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,8 +66,6 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
                 id = gift.Id,
                 title = gift.Title,
                 price = gift.Price,
-                timesTaken = gift.TimesTaken,
-                lastTakenAt = gift.LastTakenAt?.ToString("dd/MM/yyyy HH:mm")
             })
         });
     
@@ -217,20 +216,16 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         var gift = await db.Gifts.FindAsync(giftId);
         if (gift is null) return Results.NotFound("Presente não encontrado");
 
-        var now = DateTime.UtcNow;
-
-        if (gift.LastTakenAt != null && (now - gift.LastTakenAt.Value).TotalSeconds < 10)
+        db.GiftOrders.Add(new GiftOrder
         {
-            Console.WriteLine($"Ignorado: presente {giftId} já processado recentemente.");
-            return Results.Ok("Repetido ignorado.");
-        }
-    
-        gift.LastPayerFullName = $"{payment.Payer.FirstName} {payment.Payer.LastName}".Trim();
-        gift.TimesTaken++;
-        gift.LastTakenAt = now;
+            GiftId = giftId,
+            Title = gift.Title,
+            PayerFullName = $"{payment.Payer.FirstName} {payment.Payer.LastName}".Trim(),
+            Amount = payment.TransactionAmount ?? gift.Price,
+            PaidAt = DateTime.UtcNow,
+        });
         await db.SaveChangesAsync();
 
-        Console.WriteLine($"Presente {giftId} atualizado: {gift.TimesTaken} vezes.");
         return Results.Ok("Webhook processado com sucesso");
     }
     catch (Exception e)
