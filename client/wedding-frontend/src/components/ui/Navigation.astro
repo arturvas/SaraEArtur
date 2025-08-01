@@ -3,167 +3,163 @@ import { Icon } from 'astro-icon/components';
 import { weddingData } from '../../data/wedding-data.js';
 
 type NavItem = {
-    id: string;
-    label: string;
-    icon: string;
+  id: string;
+  label: string;
+  icon: string;
 };
 
 const navItems: NavItem[] = [
-    { id: 'inicio', label: 'Início', icon: 'lucide:heart' },
-    { id: 'historia', label: 'História', icon: 'lucide:book-open' },
-    { id: 'detalhes', label: 'Detalhes', icon: 'lucide:calendar-heart' },
-    { id: 'dress-code', label: 'Traje', icon: 'lucide:shirt' },
-    // { id: 'galeria', label: 'Galeria', icon: 'lucide:image' },
-    { id: 'presentes', label: 'Presentes', icon: 'lucide:gift' },
+  { id: 'inicio', label: 'Início', icon: 'lucide:heart' },
+  { id: 'historia', label: 'História', icon: 'lucide:book-open' },
+  { id: 'detalhes', label: 'Detalhes', icon: 'lucide:calendar-heart' },
+  { id: 'dress-code', label: 'Traje', icon: 'lucide:shirt' },
+  // { id: 'galeria', label: 'Galeria', icon: 'lucide:image' },
+  { id: 'presentes', label: 'Presentes', icon: 'lucide:gift' },
 ];
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-            <!-- Logo/Names -->
-            <div class="flex-shrink-0">
-                <a href="/" class="flex items-center">
-                    <h1 class="heading-script text-4xl text-slate-700">
-                        {weddingData.couple.bride} & {weddingData.couple.groom}
-                    </h1>
-                </a>
-            </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo/Names -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center">
+          <h1 class="heading-script text-4xl text-slate-700">
+            {weddingData.couple.bride} & {weddingData.couple.groom}
+          </h1>
+        </a>
+      </div>
 
-            <!-- Navigation Items -->
-            <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-4">
-                    {
-                        navItems.map((item) => (
-                            <a
-                                href={`/#${item.id}`}
-                                class="nav-link flex items-center rounded-md gap-2 px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
-                                data-section={item.id}
-                            >
-                                <Icon name={item.icon} size={16} />
-                                {item.label}
-                            </a>
-                        ))
-                    }
-                </div>
-            </div>
-
-            <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button
-                    type="button"
-                    class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-slate-500"
-                    aria-controls="mobile-menu"
-                    aria-expanded="false"
-                >
-                    <span class="sr-only">Abrir menu principal</span>
-                    <svg
-                        class="block h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
+      <!-- Navigation Items -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-4">
+          {
+            navItems.map((item) => (
+              <a
+                href={`/#${item.id}`}
+                class="nav-link flex items-center rounded-md gap-2 px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
+                data-section={item.id}
+              >
+                <Icon name={item.icon} size={16} />
+                {item.label}
+              </a>
+            ))
+          }
         </div>
-    </div>
+      </div>
 
-    <!-- Mobile menu -->
-    <div class="mobile-menu hidden md:hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
-            {
-                navItems.map((item) => (
-                    <a
-                        href={`/#${item.id}`}
-                        class="nav-link flex items-center rounded-md gap-2 text-2xl px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
-                        data-section={item.id}
-                    >
-                        <Icon name={item.icon} size={16} />
-                        {item.label}
-                    </a>
-                ))
-            }
-        </div>
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button
+          type="button"
+          class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-slate-500"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Abrir menu principal</span>
+          <svg
+            class="block h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
     </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu hidden md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
+      {
+        navItems.map((item) => (
+          <a
+            href={`/#${item.id}`}
+            class="nav-link flex items-center rounded-md gap-2 text-2xl px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
+            data-section={item.id}
+          >
+            <Icon name={item.icon} size={16} />
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </nav>
 
 <script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function () {
-        const mobileMenuButton = document.querySelector('.mobile-menu-button');
-        const mobileMenu = document.querySelector('.mobile-menu');
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
 
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
 
-        const isHome = window.location.pathname === '/';
+    const isHome = window.location.pathname === '/';
 
-        // Smooth scrolling for navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach((link) => {
-            link.addEventListener('click', function (e) {
-                if (!isHome) {
-                    // window.scrollTo({ top: 0, behavior: 'smooth' });
-                    return;
-                }
-
-                e.preventDefault();
-
-                const href = link.getAttribute('href');
-                const id = href?.substring(2);
-                const el = id ? document.getElementById(id) : null;
-
-                if (el) {
-                    window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
-                }
-
-                // Close the mobile menu if open
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-
-        // Active section highlighting
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach((link) => {
+      link.addEventListener('click', function (e) {
         if (!isHome) {
-            function updateActiveSection() {
-                const sections = document.querySelectorAll('section[id]');
-                const scrollPos = window.scrollY + 100;
-
-                sections.forEach((section) => {
-                    const sectionTop = (section as HTMLElement).offsetTop;
-                    const sectionHeight = (section as HTMLElement).offsetHeight;
-                    const sectionId = section.getAttribute('id');
-
-                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                        // Remove active class from all nav links
-                        navLinks.forEach((link) => {
-                            link.classList.remove('bg-slate-200', 'text-slate-900', 'font-semibold');
-                            link.classList.add('text-slate-600');
-                        });
-
-                        // Add an active class to a current section nav link
-                        const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
-                        if (activeLink) {
-                            activeLink.classList.add('bg-slate-200', 'text-slate-900', 'font-semibold');
-                            activeLink.classList.remove('text-slate-600');
-                        }
-                    }
-                });
-            }
-            // Update active section on scroll
-            window.addEventListener('scroll', updateActiveSection);
-            updateActiveSection();
+          // window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
         }
+
+        e.preventDefault();
+
+        const href = link.getAttribute('href');
+        const id = href?.substring(2);
+        const el = id ? document.getElementById(id) : null;
+
+        if (el) {
+          window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        // Close the mobile menu if open
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
     });
+
+    // Active section highlighting
+    if (!isHome) {
+      function updateActiveSection() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach((section) => {
+          const sectionTop = (section as HTMLElement).offsetTop;
+          const sectionHeight = (section as HTMLElement).offsetHeight;
+          const sectionId = section.getAttribute('id');
+
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            // Remove active class from all nav links
+            navLinks.forEach((link) => {
+              link.classList.remove('bg-slate-200', 'text-slate-900', 'font-semibold');
+              link.classList.add('text-slate-600');
+            });
+
+            // Add an active class to a current section nav link
+            const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeLink) {
+              activeLink.classList.add('bg-slate-200', 'text-slate-900', 'font-semibold');
+              activeLink.classList.remove('text-slate-600');
+            }
+          }
+        });
+      }
+      // Update active section on scroll
+      window.addEventListener('scroll', updateActiveSection);
+      updateActiveSection();
+    }
+  });
 </script>

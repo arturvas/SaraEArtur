@@ -7,57 +7,56 @@ const formattedDate = formatWeddingDate(weddingData.date);
 ---
 
 <section id="inicio" class="relative h-screen flex flex-col bg-gradient-to-br from-slate-50 to-slate-100 pt-16">
-    <div class="flex-grow flex items-center justify-center">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <!-- Main Title -->
-            <h1 class="heading-script text-6xl sm:text-6xl md:text-8xl text-slate-700 mt-4 mb-4">
-                {weddingData.couple.bride} & {weddingData.couple.groom}
-            </h1>
+  <div class="flex-grow flex items-center justify-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Main Title -->
+      <h1 class="heading-script text-6xl sm:text-6xl md:text-8xl text-slate-700 mt-4 mb-4">
+        {weddingData.couple.bride} & {weddingData.couple.groom}
+      </h1>
 
-            <!-- Subtitle -->
-            <p class="text-xl md:text-2xl text-slate-600 mb-8">Vamos nos casar!</p>
+      <!-- Subtitle -->
+      <p class="text-xl md:text-2xl text-slate-600 mb-8">Vamos nos casar!</p>
 
-            <!-- Date -->
-            <div class="flex items-center justify-center mb-12">
-                <div class="bg-white rounded-lg shadow-md px-6 py-4 border border-slate-200">
-                    <div class="flex items-center text-slate-600">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            ></path>
-                        </svg>
-                        <span class="text-lg font-medium">{formattedDate}</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CTA Button -->
-            <div class="mb-16">
-                <Button href="#presentes" variant="primary" size="lg">Ver Lista de Presentes</Button>
-            </div>
-
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-24 sm:bottom-12 left-0 right-0 text-center">
-                <div class="animate-[bounce_0.7s_ease-in-out_infinite]">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="w-9 h-9 mx-auto text-slate-400 lucide lucide-arrow-down-icon lucide-arrow-down"
-                        ><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg
-                    >
-                </div>
-                <p class="text-gray-500">Arraste</p>
-            </div>
+      <!-- Date -->
+      <div class="flex items-center justify-center mb-12">
+        <div class="bg-white rounded-lg shadow-md px-6 py-4 border border-slate-200">
+          <div class="flex items-center text-slate-600">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <span class="text-lg font-medium">{formattedDate}</span>
+          </div>
         </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="mb-16">
+        <Button href="#presentes" variant="primary" size="lg">Ver Lista de Presentes</Button>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-24 sm:bottom-12 left-0 right-0 text-center">
+        <div class="animate-[bounce_0.7s_ease-in-out_infinite]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-9 h-9 mx-auto text-slate-400 lucide lucide-arrow-down-icon lucide-arrow-down"
+            ><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg
+          >
+        </div>
+        <p class="text-gray-500">Arraste</p>
+      </div>
     </div>
+  </div>
 </section>

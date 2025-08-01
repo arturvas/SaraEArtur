@@ -9,104 +9,104 @@ import Button from '../ui/Button.astro';
 const formattedDate = formatWeddingDate(weddingData.date);
 
 type DetailItems = {
-    id: string;
-    label: string;
-    icon: string;
+  id: string;
+  label: string;
+  icon: string;
 };
 
 const detailItems: DetailItems[] = [
-    { id: 'date', label: 'Data', icon: 'lucide:calendar-heart' },
-    { id: 'ceremony', label: 'Cerimonia', icon: 'lucide:church' },
-    { id: 'reception', label: 'Recepção', icon: 'lucide:cake-slice' },
+  { id: 'date', label: 'Data', icon: 'lucide:calendar-heart' },
+  { id: 'ceremony', label: 'Cerimonia', icon: 'lucide:church' },
+  { id: 'reception', label: 'Recepção', icon: 'lucide:cake-slice' },
 ];
 ---
 
 <section id="detalhes" class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Section Title -->
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-semibold md:text-5xl font-bold text-slate-700 mb-6">Detalhes do Casamento</h2>
-            <p class="text-lg text-slate-600">Todas as informações importantes sobre nosso grande dia</p>
-        </div>
-
-        <!-- Details Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Date and Time -->
-            {
-                detailItems.map((item) => (
-                    <Card class={item.id === 'schedule' ? 'md:col-span-2 lg:col-span-1' : ''}>
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Icon name={item.icon} size={32} class="text-slate-600" />
-                            </div>
-                            <h3 class="text-xl font-semibold text-slate-700 mb-3">{item.label}</h3>
-
-                            {item.id === 'date' && (
-                                <div class="flex flex-col justify-between h-full">
-                                    <div>
-                                        <p class="inline-block text-lg font-bold border border-slate-200 bg-slate-50 text-slate-600 px-8 py-5 rounded-lg shadow-sm">
-                                            {formattedDate}
-                                        </p>
-
-                                        <div class="space-y-4 py-6 text-slate-600">
-                                            <div class="pt-4 text-center">
-                                                <span class="block font-bold">Chegada dos convidados:</span>
-                                                <p>{weddingData.date.guest_arrival}</p>
-                                            </div>
-                                            <div class="text-center">
-                                                <span class="block font-bold">Cerimônia:</span>
-                                                <p>{weddingData.date.ceremony}</p>
-                                            </div>
-                                            <div class="text-center">
-                                                <span class="block font-bold">Recepção:</span>
-                                                <p>{weddingData.date.reception}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <p class="text-center text-sm italic text-slate-400 pt-1">Não vemos a hora 💍</p>
-                                </div>
-                            )}
-
-                            {item.id === 'ceremony' && (
-                                <div class="text-slate-600 space-y-1">
-                                    <p class="font-medium">{weddingData.church.name}</p>
-                                    <p class="font-sm">{weddingData.church.address}</p>
-                                    <p class="font-sm">Esquina com {weddingData.church.reference}</p>
-                                    <p class="font-sm">{weddingData.church.city}</p>
-                                    <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.05976549636281!2d-60.671274064244905!3d2.828888916799245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d930609668a8605%3A0xde831122848cd3f8!2sPar%C3%B3quia%20S%C3%A3o%20Francisco%20das%20Chagas!5e0!3m2!1spt-BR!2sbr!4v1753039738761!5m2!1spt-BR!2sbr"
-                                        class="w-full h-48 rounded-md mt-2"
-                                        style="border:0;"
-                                        allowfullscreen=""
-                                        loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                    />
-                                </div>
-                            )}
-
-                            {item.id === 'reception' && (
-                                <div class="text-slate-600 space-y-1">
-                                    <p class="font-medium">{weddingData.reception.name}</p>
-                                    <p class="font-sm">{weddingData.reception.address}</p>
-                                    <p class="font-sm">Esquina com {weddingData.reception.reference}</p>
-                                    <p class="font-sm">{weddingData.reception.city}</p>
-                                    <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d576.1644025867854!2d-60.65742274443987!3d2.838418052521637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d93070763b9c54d%3A0xaca000ffc8afba39!2sEsquina%20Coisas%20da%20Terra!5e0!3m2!1spt-BR!2sbr!4v1753040272199!5m2!1spt-BR!2sbr"
-                                        class="w-full h-48 rounded-md mt-2"
-                                        style="border:0;"
-                                        allowfullscreen=""
-                                        loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                    />
-                                </div>
-                            )}
-                        </div>
-                    </Card>
-                ))
-            }
-        </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Title -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-semibold md:text-5xl font-bold text-slate-700 mb-6">Detalhes do Casamento</h2>
+      <p class="text-lg text-slate-600">Todas as informações importantes sobre nosso grande dia</p>
     </div>
+
+    <!-- Details Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Date and Time -->
+      {
+        detailItems.map((item) => (
+          <Card class={item.id === 'schedule' ? 'md:col-span-2 lg:col-span-1' : ''}>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Icon name={item.icon} size={32} class="text-slate-600" />
+              </div>
+              <h3 class="text-xl font-semibold text-slate-700 mb-3">{item.label}</h3>
+
+              {item.id === 'date' && (
+                <div class="flex flex-col justify-between h-full">
+                  <div>
+                    <p class="inline-block text-lg font-bold border border-slate-200 bg-slate-50 text-slate-600 px-8 py-5 rounded-lg shadow-sm">
+                      {formattedDate}
+                    </p>
+
+                    <div class="space-y-4 py-6 text-slate-600">
+                      <div class="pt-4 text-center">
+                        <span class="block font-bold">Chegada dos convidados:</span>
+                        <p>{weddingData.date.guest_arrival}</p>
+                      </div>
+                      <div class="text-center">
+                        <span class="block font-bold">Cerimônia:</span>
+                        <p>{weddingData.date.ceremony}</p>
+                      </div>
+                      <div class="text-center">
+                        <span class="block font-bold">Recepção:</span>
+                        <p>{weddingData.date.reception}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="text-center text-sm italic text-slate-400 pt-1">Não vemos a hora 💍</p>
+                </div>
+              )}
+
+              {item.id === 'ceremony' && (
+                <div class="text-slate-600 space-y-1">
+                  <p class="font-medium">{weddingData.church.name}</p>
+                  <p class="font-sm">{weddingData.church.address}</p>
+                  <p class="font-sm">Esquina com {weddingData.church.reference}</p>
+                  <p class="font-sm">{weddingData.church.city}</p>
+                  <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.05976549636281!2d-60.671274064244905!3d2.828888916799245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d930609668a8605%3A0xde831122848cd3f8!2sPar%C3%B3quia%20S%C3%A3o%20Francisco%20das%20Chagas!5e0!3m2!1spt-BR!2sbr!4v1753039738761!5m2!1spt-BR!2sbr"
+                    class="w-full h-48 rounded-md mt-2"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+              )}
+
+              {item.id === 'reception' && (
+                <div class="text-slate-600 space-y-1">
+                  <p class="font-medium">{weddingData.reception.name}</p>
+                  <p class="font-sm">{weddingData.reception.address}</p>
+                  <p class="font-sm">Esquina com {weddingData.reception.reference}</p>
+                  <p class="font-sm">{weddingData.reception.city}</p>
+                  <p class="text-sm text-slate-500 italic mt-2">Toque no mapa abaixo para abrir</p>
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d576.1644025867854!2d-60.65742274443987!3d2.838418052521637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d93070763b9c54d%3A0xaca000ffc8afba39!2sEsquina%20Coisas%20da%20Terra!5e0!3m2!1spt-BR!2sbr!4v1753040272199!5m2!1spt-BR!2sbr"
+                    class="w-full h-48 rounded-md mt-2"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+              )}
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
 </section>

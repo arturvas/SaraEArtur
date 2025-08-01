@@ -4,93 +4,91 @@ import Card from '../ui/Card.astro';
 ---
 
 <section id="galeria" class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Section Title -->
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Nossa Galeria</h2>
-            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Esta galeria será preenchida com nossas fotos favoritas após o casamento. Por enquanto, aprecie alguns
-                momentos de nossa jornada juntos.
-            </p>
-        </div>
-
-        <!-- Gallery Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <!-- Placeholder Images -->
-            {
-                Array.from({ length: 6 }).map((_, index) => (
-                    <Card hover={false} class="aspect-square overflow-hidden">
-                        <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                            <div class="text-center">
-                                <svg
-                                    class="w-12 h-12 text-slate-400 mx-auto mb-2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                    />
-                                </svg>
-                                <p class="text-sm text-slate-500">Foto {index + 1}</p>
-                            </div>
-                        </div>
-                    </Card>
-                ))
-            }
-        </div>
-
-        <!-- Photo Sharing Section -->
-        <Card class="max-w-4xl mx-auto">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="w-8 h-8 text-slate-600 lucide lucide-share2-icon lucide-share-2"
-                        ><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle
-                            cx="18"
-                            cy="19"
-                            r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line
-                            x1="15.41"
-                            x2="8.59"
-                            y1="6.51"
-                            y2="10.49"></line></svg
-                    >
-                </div>
-                <h3 class="text-2xl font-semibold text-slate-700 mb-4">Compartilhe Suas Fotos</h3>
-                <p class="text-slate-600 mb-6 leading-relaxed">
-                    Adoraríamos ver o casamento através dos seus olhos! Após a celebração, compartilhe suas fotos
-                    conosco usando a hashtag:
-                </p>
-
-                <div class="bg-slate-100 rounded-lg p-4 mb-6 inline-block">
-                    <p class="text-xl font-semibold text-slate-700">
-                        {weddingData.hashtag}
-                    </p>
-                </div>
-
-                <p class="text-sm text-slate-500 leading-relaxed">
-                    Estaremos coletando fotos das redes sociais para adicionar à nossa galeria. Se preferir compartilhar
-                    de forma privada, você pode enviar suas fotos para
-                    <a
-                        href="mailto:artur.vasconcelos8@gmail.com"
-                        class="text-slate-600 hover:text-slate-800 font-medium border border-slate-200 rounded-md mx-4 px-4 py-1"
-                    >
-                        artur.vasconcelos8@gmail.com
-                    </a>
-                </p>
-            </div>
-        </Card>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Title -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Nossa Galeria</h2>
+      <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        Esta galeria será preenchida com nossas fotos favoritas após o casamento. Por enquanto, aprecie alguns momentos
+        de nossa jornada juntos.
+      </p>
     </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Placeholder Images -->
+      {
+        Array.from({ length: 6 }).map((_, index) => (
+          <Card hover={false} class="aspect-square overflow-hidden">
+            <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+              <div class="text-center">
+                <svg
+                  class="w-12 h-12 text-slate-400 mx-auto mb-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <p class="text-sm text-slate-500">Foto {index + 1}</p>
+              </div>
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+
+    <!-- Photo Sharing Section -->
+    <Card class="max-w-4xl mx-auto">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-8 h-8 text-slate-600 lucide lucide-share2-icon lucide-share-2"
+            ><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"
+            ></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line
+              x1="15.41"
+              x2="8.59"
+              y1="6.51"
+              y2="10.49"></line></svg
+          >
+        </div>
+        <h3 class="text-2xl font-semibold text-slate-700 mb-4">Compartilhe Suas Fotos</h3>
+        <p class="text-slate-600 mb-6 leading-relaxed">
+          Adoraríamos ver o casamento através dos seus olhos! Após a celebração, compartilhe suas fotos conosco usando a
+          hashtag:
+        </p>
+
+        <div class="bg-slate-100 rounded-lg p-4 mb-6 inline-block">
+          <p class="text-xl font-semibold text-slate-700">
+            {weddingData.hashtag}
+          </p>
+        </div>
+
+        <p class="text-sm text-slate-500 leading-relaxed">
+          Estaremos coletando fotos das redes sociais para adicionar à nossa galeria. Se preferir compartilhar de forma
+          privada, você pode enviar suas fotos para
+          <a
+            href="mailto:artur.vasconcelos8@gmail.com"
+            class="text-slate-600 hover:text-slate-800 font-medium border border-slate-200 rounded-md mx-4 px-4 py-1"
+          >
+            artur.vasconcelos8@gmail.com
+          </a>
+        </p>
+      </div>
+    </Card>
+  </div>
 </section>

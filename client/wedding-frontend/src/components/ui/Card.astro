@@ -1,7 +1,7 @@
 ---
 interface Props {
-    class?: string;
-    hover?: boolean;
+  class?: string;
+  hover?: boolean;
 }
 
 const { class: className = '', hover = true } = Astro.props;
@@ -12,5 +12,5 @@ const classes = `${baseClasses} ${hoverClasses} ${className}`;
 ---
 
 <div class={classes}>
-    <slot />
+  <slot />
 </div>
