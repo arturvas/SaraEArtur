@@ -32,9 +32,9 @@ var dbUser = Environment.GetEnvironmentVariable("DB_USER");
 var dbPass = Environment.GetEnvironmentVariable("DB_PASS");
 
 var connectionString = $"Host={dbHost};Port=5432;Database={dbName};Username={dbUser};Password={dbPass};" 
-                       + "Ssl Mode=Require; Trust Server Certificate=true;";
+                       + "Ssl Mode=Require; Trust Server Certificate=true;Timeout=300;CommandTimeout=300;";
 
-Console.WriteLine($"DB_HOST: {dbHost}"); // Verifique os logs no Render
+Console.WriteLine($"DB_HOST: {dbHost}");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddCors();
