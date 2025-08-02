@@ -272,7 +272,7 @@ PreferencePaymentMethodsRequest GetPaymentMethodsWithoutPixAndBoleto()
         ExcludedPaymentTypes = new List<PreferencePaymentTypeRequest>
         {
             new() { Id = "ticket" },
-            new() { Id = "pix" }
+            new() { Id = "bank_transfer" }
         }
     };
 }
