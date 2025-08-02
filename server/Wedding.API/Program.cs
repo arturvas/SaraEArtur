@@ -32,7 +32,7 @@ var dbName = Environment.GetEnvironmentVariable("DB_NAME");
 var dbUser = Environment.GetEnvironmentVariable("DB_USER");
 var dbPass = Environment.GetEnvironmentVariable("DB_PASS");
 
-var connectionString = $"Host={dbHost};Port=5432;Database={dbName};Username={dbUser};Password={dbPass};" 
+var connectionString = $"Host={dbHost};Port=5432;Database={dbName};Username={dbUser};Password={dbPass};"
                        + "Ssl Mode=Require; Trust Server Certificate=true;Timeout=300;CommandTimeout=300;";
 
 Console.WriteLine($"DB_HOST: {dbHost}");
@@ -54,7 +54,7 @@ app.MapGet("/", () => Results.Redirect("/swagger"));
 app.MapGet("/api/health", () => Results.Ok("Healthy"));
 
 app.MapGet("/api/gifts", async (AppDbContext db) =>
-{ 
+{
     var gifts = await db.Gifts.ToListAsync();
 
     var grouped = gifts
@@ -62,13 +62,14 @@ app.MapGet("/api/gifts", async (AppDbContext db) =>
         .Select(categoryGroup => new
         {
             title = categoryGroup.Key,
-            items = categoryGroup.Select(gift => new {
+            items = categoryGroup.Select(gift => new
+            {
                 id = gift.Id,
                 title = gift.Title,
                 price = gift.Price,
             })
         });
-    
+
     return Results.Ok(grouped);
 });
 
@@ -90,15 +91,15 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, stri
             CategoryId = "others" // Categoria "Outros" no MP
         }
     };
-    
+
     var client = new PreferenceClient();
-    
+
     var payer = new PreferencePayerRequest
     {
         Name = payerName,
         Surname = payerSurname
     };
-    
+
     var preferenceRequest = new PreferenceRequest()
     {
         Items = request,
@@ -106,11 +107,12 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, stri
         NotificationUrl = notificationUrl,
         AutoReturn = "approved",
         ExternalReference = gift.Id.ToString(),
-        Payer = payer   
+        Payer = payer,
+        PaymentMethods = GetPaymentMethodsWithoutPixAndBoleto() 
     };
-    
+
     var preference = await client.CreateAsync(preferenceRequest);
-    
+
     // vai fazer o redirect de imediato para o link do MP
     return Results.Redirect(preference.InitPoint);
 });
@@ -133,7 +135,7 @@ app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName
             CategoryId = "others"
         }
     };
-    
+
     var client = new PreferenceClient();
 
     var payer = new PreferencePayerRequest
@@ -149,19 +151,20 @@ app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName
         NotificationUrl = notificationUrl,
         AutoReturn = "approved",
         ExternalReference = "custom",
-        Payer = payer
+        Payer = payer,
+        PaymentMethods = GetPaymentMethodsWithoutPixAndBoleto()
     };
-    
+
     var preference = await client.CreateAsync(preferenceRequest);
-    
+
     // redirect imediato
-    return Results.Redirect(preference.InitPoint);   
+    return Results.Redirect(preference.InitPoint);
 });
 
 app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
 {
     Console.WriteLine("Entrou no webhook!");
-    
+
     try
     {
         using var reader = new StreamReader(req.Body);
@@ -191,19 +194,19 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
             Console.WriteLine(body);
             return Results.BadRequest("Erro de serialização");
         }
-        
+
         if (json?.Type != "payment" || json.Data?.Id == null)
             return Results.Ok("Ignorado");
 
         var client = new PaymentClient();
-        
+
         var payment = await client.GetAsync(long.Parse(json.Data.Id));
-        
+
         if (payment.Status != "approved")
             return Results.Ok("Pagamento não aprovado");
-    
+
         Console.WriteLine($"Tipo: {json?.Type}, ExternalReference: {payment.ExternalReference}");
-        
+
         if (payment.ExternalReference == "custom")
         {
             Console.WriteLine("Presente personalizado recebido. Ignorado.");
@@ -231,7 +234,7 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
     catch (Exception e)
     {
         Console.WriteLine($"Erro no webhook: {e.Message}");
-        return Results.StatusCode(500);  
+        return Results.StatusCode(500);
     }
 });
 
@@ -242,14 +245,14 @@ app.MapPost("/api/admin/seed", async (HttpContext context, AppDbContext db) =>
         if (!IsAuthorized(context))
             return Results.Unauthorized();
         Console.WriteLine("Autorizado. Iniciando seed...");
-        
+
         Console.WriteLine("Verificando se há dados no banco...");
         var hasGifts = await db.Gifts.AnyAsync();
         Console.WriteLine($"Banco respondeu: {hasGifts}");
-        
+
         if (hasGifts)
             return Results.BadRequest("O Banco já possui dados.");
-        
+
         GiftSeeder.Seed(db);
         Console.WriteLine("Seed aplicado com sucesso.");
         return Results.Ok("Seed aplicado com sucesso.");
@@ -257,9 +260,22 @@ app.MapPost("/api/admin/seed", async (HttpContext context, AppDbContext db) =>
     catch (Exception e)
     {
         Console.WriteLine($"Erro no endpoint /api/admin/seed: {e.Message}");
-        return Results.StatusCode(500);   
+        return Results.StatusCode(500);
     }
 });
+
+// Exclui os pagamentos com PIX e Boleto
+PreferencePaymentMethodsRequest GetPaymentMethodsWithoutPixAndBoleto()
+{
+    return new PreferencePaymentMethodsRequest
+    {
+        ExcludedPaymentTypes = new List<PreferencePaymentTypeRequest>
+        {
+            new() { Id = "ticket" },
+            new() { Id = "pix" }
+        }
+    };
+}
 
 app.Run();
 
@@ -270,6 +286,6 @@ bool IsAuthorized(HttpContext context)
     if (string.IsNullOrWhiteSpace(expectedKey)) return false;
 
     if (!context.Request.Headers.TryGetValue("x-api-key", out var providedKey)) return false;
-    
+
     return expectedKey == providedKey;
 }
