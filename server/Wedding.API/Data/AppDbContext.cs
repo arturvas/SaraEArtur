@@ -6,4 +6,5 @@ namespace Wedding.API.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Gift> Gifts => Set<Gift>();
+    public DbSet<GiftOrder> GiftOrders => Set<GiftOrder>();   
 }

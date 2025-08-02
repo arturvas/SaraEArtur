@@ -2,47 +2,47 @@
 @import 'tailwindcss';
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    body {
-        font-family: 'Crimson Text', Georgia, 'Times New Roman', Times, serif;
-    }
+  body {
+    font-family: 'Crimson Text', Georgia, 'Times New Roman', Times, serif;
+  }
 }
 
 @layer components {
-    .section-padding {
-        @apply py-20;
-    }
+  .section-padding {
+    @apply py-20;
+  }
 
-    .container-padding {
-        @apply px-4 sm:px-6 lg:px-8;
-    }
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
 
-    .heading-script {
-        font-family: 'Mea Culpa', cursive;
-    }
+  .heading-script {
+    font-family: 'Mea Culpa', cursive;
+  }
 
-    .history-paragraph {
-        @apply pb-2 text-slate-600 leading-relaxed;
-    }
+  .history-paragraph {
+    @apply pb-2 text-slate-600 leading-relaxed;
+  }
 
-    .countdown-item {
-        @apply bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20;
-    }
+  .countdown-item {
+    @apply bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20;
+  }
 
-    .countdown-number {
-        @apply text-4xl md:text-5xl font-bold text-white mb-2;
-    }
+  .countdown-number {
+    @apply text-4xl md:text-5xl font-bold text-white mb-2;
+  }
 
-    .countdown-label {
-        @apply text-white/80 text-sm md:text-base font-medium;
-    }
+  .countdown-label {
+    @apply text-white/80 text-sm md:text-base font-medium;
+  }
 }
 
 @layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+  .text-balance {
+    text-wrap: balance;
+  }
 }

@@ -3,11 +3,8 @@
 **/obj/
 **/out/
 
-# EF Core Migrations
-**/Data/Migrations/
-
-# Banco SQLite
-*.db
+# Banco de Dados
+*.sql
 
 # Arquivos temporários de execução
 *.db-shm
