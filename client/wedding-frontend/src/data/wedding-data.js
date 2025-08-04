@@ -45,20 +45,21 @@ export const weddingData = {
 
   dressCode: {
     title: 'Traje Social',
-    description: 'Convidamos você a se juntar a nós em traje social para nossa celebração de casamento.',
+    description:
+      'Convidamos você a se juntar a nós em traje social para nossa celebração de casamento.',
     men: {
       items: [
-        '• Terno ou calça social com camisa',
-        '• Paletó ou blazer (opcional)',
-        '• Gravata (opcional)',
-        '• Sapatos sociais',
+        'Calça e camisa social',
+        'Paletó ou blazer (opcional)',
+        'Gravata (opcional)',
+        'Sapatos sociais',
       ],
     },
     women: {
       items: [
-        '• Vestido de festa ou macacão',
-        '• Conjuntos sociais (saia/calça com blusa)',
-        '• Saltos ou sandálias sociais',
+        'Vestido de festa ou macacão',
+        'Conjuntos sociais (saia/calça com blusa)',
+        'Saltos ou sandálias sociais',
       ],
     },
   },
