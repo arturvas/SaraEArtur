@@ -27,15 +27,15 @@ try {
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Vamos morar na Argentina!</h2>
       <p class="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed mb-6">
-        Como estamos nos preparando para nos <strong>mudar para outro país</strong> após o casamento, não poderemos receber
-        os presentes aqui, pois seria inviável levá-los na viagem e será necessário comprar todos os itens da nossa casa
-        nova lá. Sendo assim, caso queira nos presentear, pode escolher um dos itens abaixo e realizar o pagamento aqui pelo
-        site. Sua contribuição, independente do tamanho, será profundamente apreciada e nos ajudará a estabelecer o nosso
-        lar.
+        Como estamos nos preparando para nos <strong>mudar para outro país</strong> após o casamento,
+        não poderemos receber os presentes aqui, pois seria inviável levá-los na viagem e será necessário
+        comprar todos os itens da nossa casa nova lá. Sendo assim, caso queira nos presentear, pode escolher
+        um dos itens abaixo e realizar o pagamento aqui pelo site. Sua contribuição, independente do
+        tamanho, será profundamente apreciada e nos ajudará a estabelecer o nosso lar.
       </p>
       <p class="text-base text-slate-500 max-w-3xl mx-auto">
-        Todos os pagamentos são processados com segurança através do MercadoPago, garantindo que sua transação seja
-        segura e confiável.
+        Todos os pagamentos são processados com segurança através do MercadoPago, garantindo que sua
+        transação seja segura e confiável.
       </p>
     </div>
 
@@ -44,44 +44,48 @@ try {
       {
         Array.isArray(apiData) &&
           apiData
+            /*
             .filter(category => category.title !== 'Test')
+            */
             .map((category) => (
-            <Card>
-              <div class="text-center">
-                <h3 class="text-lg font-semibold text-slate-700 mb-2">{category.title}</h3>
-                {Array.isArray(category.items) && category.items.length && (
-                  <div class="space-y-2">
-                    {category.items.map((item: GiftItem) => (
-                      <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
-                        <p class="text-left text-slate-700">
-                          {item.title === 'Escorregador de louça'
-                            ? 'Escorredor de louça'
-                            : item.title === 'Tapetes pro banheiro'
-                              ? 'Tapetes banheiro'
-                              : item.title === 'Kit toalhas de banho'
-                                ? 'Toalhas banho'
-                                : item.title}
-                        </p>
-                        <div class="flex items-center space-x-4">
-                          <span class="text-slate-600">R$ {item.price.toLocaleString('pt-BR') ?? item.price}</span>
-                          <Button
-                            variant="success"
-                            size="sm"
-                            class="whitespace-nowrap gift-btn"
-                            data-gift-id={item.id}
-                            data-gift-title={item.title}
-                            data-gift-price={item.price}
-                          >
-                            Presentear
-                          </Button>
+              <Card>
+                <div class="text-center">
+                  <h3 class="text-lg font-semibold text-slate-700 mb-2">{category.title}</h3>
+                  {Array.isArray(category.items) && category.items.length && (
+                    <div class="space-y-2">
+                      {category.items.map((item: GiftItem) => (
+                        <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
+                          <p class="text-left text-slate-700">
+                            {item.title === 'Escorregador de louça'
+                              ? 'Escorredor de louça'
+                              : item.title === 'Tapetes pro banheiro'
+                                ? 'Tapetes banheiro'
+                                : item.title === 'Kit toalhas de banho'
+                                  ? 'Toalhas banho'
+                                  : item.title}
+                          </p>
+                          <div class="flex items-center space-x-4">
+                            <span class="text-slate-600">
+                              R$ {item.price.toLocaleString('pt-BR') ?? item.price}
+                            </span>
+                            <Button
+                              variant="success"
+                              size="sm"
+                              class="whitespace-nowrap gift-btn"
+                              data-gift-id={item.id}
+                              data-gift-title={item.title}
+                              data-gift-price={item.price}
+                            >
+                              Presentear
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </Card>
-          ))
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Card>
+            ))
       }
       <Card>
         <div class="text-center">
@@ -98,7 +102,13 @@ try {
               placeholder="Insira um valor"
               class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:border-slate-500 focus:ring-2 text-slate-600 focus:ring-slate-500 text-center"
             />
-            <Button id="customGiftBtn" variant="success" size="sm" class="w-full gift-btn" data-gift-type="custom">
+            <Button
+              id="customGiftBtn"
+              variant="success"
+              size="sm"
+              class="w-full gift-btn"
+              data-gift-type="custom"
+            >
               Presentear
             </Button>
 
@@ -124,12 +134,22 @@ try {
     </div>
 
     <!-- Modal para nome e sobrenome -->
-    <div id="nameModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div
+      id="nameModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
       <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 transform transition-all">
         <div class="text-center">
           <!-- Modal Icon -->
-          <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div
+            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -168,11 +188,15 @@ try {
 
           <!-- Action Buttons -->
           <div class="flex flex-col sm:flex-row gap-3">
-            <Button id="modalCancel" variant="secondary" size="md" class="whitespace-nowrap w-full"> Cancelar </Button>
+            <Button id="modalCancel" variant="secondary" size="md" class="whitespace-nowrap w-full">
+              Cancelar
+            </Button>
             <Button id="modalConfirm" variant="success" size="md" class="whitespace-nowrap w-full">
               Pagar no Cartão
             </Button>
-            <Button id="modalPix" variant="pix" size="md" class="whitespace-nowrap w-full"> Dados para o Pix </Button>
+            <Button id="modalPix" variant="pix" size="md" class="whitespace-nowrap w-full">
+              Dados para o Pix
+            </Button>
           </div>
 
           <!-- Modal de Informações do Pix -->
@@ -180,18 +204,24 @@ try {
             id="pixInfoModal"
             class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden"
           >
-            <div class="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full mx-4 transform transition-all">
+            <div
+              class="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full mx-4 transform transition-all"
+            >
               <div class="text-center">
                 <!-- Título -->
                 <h3 class="text-3xl font-bold text-slate-700 mb-3">Pagamento via Pix</h3>
 
                 <!-- Informações do Destinatário -->
                 <div class="bg-slate-50 rounded-lg p-6 mb-6 text-left">
-                  <h4 class="text-lg font-semibold text-slate-700 mb-4 text-center">Dados do Destinatário</h4>
+                  <h4 class="text-lg font-semibold text-slate-700 mb-4 text-center">
+                    Dados do Destinatário
+                  </h4>
                   <div class="space-y-3">
                     <div class="flex justify-between items-center">
                       <span class="text-slate-600 font-medium">Nome:</span>
-                      <span class="text-slate-800 font-semibold">Artur de Castro de Vasconcelos</span>
+                      <span class="text-slate-800 font-semibold"
+                        >Artur de Castro de Vasconcelos</span
+                      >
                     </div>
                     <div class="flex justify-between items-center">
                       <span class="text-slate-600 font-medium">Banco:</span>
@@ -211,12 +241,25 @@ try {
                     <div
                       class="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-200 rounded-lg p-4 mb-3"
                     >
-                      <span class="text-2xl font-mono font-bold text-green-800 tracking-wider" id="pixKey">
+                      <span
+                        class="text-2xl font-mono font-bold text-green-800 tracking-wider"
+                        id="pixKey"
+                      >
                         95984220116
                       </span>
                     </div>
-                    <Button id="copyPixKey" variant="pix" size="md" class="whitespace-nowrap w-full">
-                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <Button
+                      id="copyPixKey"
+                      variant="pix"
+                      size="md"
+                      class="whitespace-nowrap w-full"
+                    >
+                      <svg
+                        class="w-4 h-4 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
@@ -245,7 +288,12 @@ try {
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3">
-                  <Button id="pixCloseBtn" variant="secondary" size="md" class="whitespace-nowrap w-full">
+                  <Button
+                    id="pixCloseBtn"
+                    variant="secondary"
+                    size="md"
+                    class="whitespace-nowrap w-full"
+                  >
                     Fechar
                   </Button>
                 </div>
@@ -301,7 +349,9 @@ try {
           input.addEventListener('input', () => {
             const digits = input.value.replace(/\D/g, '');
             const number = parseInt(digits || '0', 10);
-            input.value = number ? (number / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+            input.value = number
+              ? (number / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+              : '';
           });
         }
       }
@@ -372,7 +422,10 @@ try {
                 title: btn.getAttribute('data-gift-title'),
                 price: parseFloat(btn.getAttribute('data-gift-price')),
               };
-            } else if (btn.hasAttribute('data-gift-type') && btn.getAttribute('data-gift-type') === 'custom') {
+            } else if (
+              btn.hasAttribute('data-gift-type') &&
+              btn.getAttribute('data-gift-type') === 'custom'
+            ) {
               // Presente customizado
               const input = getCustomAmountInput();
               if (!input) return;
@@ -463,9 +516,9 @@ try {
       <div class="text-center">
         <h3 class="text-5xl heading-script text-slate-700 mb-4">Obrigado</h3>
         <p class="text-slate-600 leading-relaxed mb-4">
-          Sua generosidade significa muito para nós. Cada presente nos ajudará a construir nossa nova vida juntos em
-          nosso novo país. Estamos ansiosos para compartilhar atualizações com você sobre nossa jornada e como seus
-          presentes nos ajudaram ao longo do caminho.
+          Sua generosidade significa muito para nós. Cada presente nos ajudará a construir nossa
+          nova vida juntos em nosso novo país. Estamos ansiosos para compartilhar atualizações com
+          você sobre nossa jornada e como seus presentes nos ajudaram ao longo do caminho.
         </p>
         <p class="text-slate-600">
           Com amor e gratidão,<br />

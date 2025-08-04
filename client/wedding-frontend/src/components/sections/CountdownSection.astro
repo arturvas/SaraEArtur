@@ -6,7 +6,9 @@ import CountdownItem from '../sections/CountdownItem.astro';
 <section class="py-20 bg-gradient-to-r from-slate-600 to-slate-700">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <!-- Section Title -->
-    <h2 class="font-semibold text-3xl md:text-5xl text-white mb-12">Contagem regressiva para o Grande Dia!</h2>
+    <h2 class="font-semibold text-3xl md:text-5xl text-white mb-12">
+      Contagem regressiva para o Grande Dia!
+    </h2>
 
     <!-- Countdown Display -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
@@ -21,7 +23,11 @@ import CountdownItem from '../sections/CountdownItem.astro';
 <script define:vars={{ weddingData }}>
   function updateCountdown() {
     const now = new Date();
-    const wedding = new Date(weddingData.date.year, weddingData.date.month - 1, weddingData.date.day);
+    const wedding = new Date(
+      weddingData.date.year,
+      weddingData.date.month - 1,
+      weddingData.date.day
+    );
     const difference = wedding.getTime() - now.getTime();
 
     if (difference <= 0) {
