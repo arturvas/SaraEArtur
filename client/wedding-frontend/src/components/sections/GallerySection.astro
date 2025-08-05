@@ -3,96 +3,504 @@ import { weddingData } from '../../data/wedding-data.js';
 import Card from '../ui/Card.astro';
 ---
 
-<section id="galeria" class="py-20 bg-white">
+<section id="galeria" class="py-16 bg-gradient-to-br from-slate-50 via-white to-blue-50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Title -->
-    <div class="text-center mb-16">
+    <div class="text-center mb-12">
       <h2 class="text-4xl md:text-5xl font-bold text-slate-700 mb-6">Nossa Galeria</h2>
       <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        Esta galeria será preenchida com nossas fotos favoritas após o casamento. Por enquanto,
-        aprecie alguns momentos de nossa jornada juntos.
+        Momentos especiais que serão preenchidos com as memórias do nosso grande dia
       </p>
     </div>
 
-    <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <!-- Placeholder Images -->
-      {
-        Array.from({ length: 6 }).map((_, index) => (
-          <Card hover={false} class="aspect-square overflow-hidden">
-            <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-              <div class="text-center">
-                <svg
-                  class="w-12 h-12 text-slate-400 mx-auto mb-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <p class="text-sm text-slate-500">Foto {index + 1}</p>
+    <!-- Mobile-First Gallery Grid -->
+    <div class="space-y-6">
+      <!-- Row 1: Single large card -->
+      <div class="w-full">
+        <Card
+            hover={false}
+            class="aspect-[4/3] bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Nosso Grande Dia"
+            data-description="A foto principal do nosso casamento"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-blue-100 via-slate-50 to-blue-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-4 left-4 w-16 h-16 bg-white rounded-full blur-xl"></div>
+              <div class="absolute bottom-4 right-4 w-20 h-20 bg-blue-300 rounded-full blur-xl">
               </div>
             </div>
-          </Card>
-        ))
-      }
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg class="w-8 h-8 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-slate-700 mb-2">Nosso Grande Dia</h3>
+              <p class="text-sm text-slate-600">A foto principal do nosso casamento</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Row 2: Two medium cards -->
+      <div class="grid grid-cols-2 gap-4">
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-purple-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Cerimônia"
+            data-description="Momentos da cerimônia religiosa"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-purple-100 via-slate-50 to-purple-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-2 left-2 w-12 h-12 bg-white rounded-full blur-xl"></div>
+              <div class="absolute bottom-2 right-2 w-16 h-16 bg-purple-300 rounded-full blur-xl">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-300 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-6 h-6 text-purple-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-sm font-medium text-slate-600">Cerimônia</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-green-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Recepção"
+            data-description="Festa e celebração com família e amigos"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-green-100 via-slate-50 to-green-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-2 left-2 w-12 h-12 bg-white rounded-full blur-xl"></div>
+              <div class="absolute bottom-2 right-2 w-16 h-16 bg-green-300 rounded-full blur-xl">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-12 h-12 bg-gradient-to-br from-green-200 to-green-300 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-6 h-6 text-green-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zM3 9a2 2 0 012-2h14a2 2 0 012 2v1a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-sm font-medium text-slate-600">Recepção</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Row 3: Three small cards -->
+      <div class="grid grid-cols-3 gap-3">
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-pink-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Família"
+            data-description="Fotos com a família"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-pink-100 via-slate-50 to-pink-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-1 left-1 w-8 h-8 bg-white rounded-full blur-lg"></div>
+              <div class="absolute bottom-1 right-1 w-10 h-10 bg-pink-300 rounded-full blur-lg">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-8 h-8 bg-gradient-to-br from-pink-200 to-pink-300 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-4 h-4 text-pink-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-xs font-medium text-slate-600">Família</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-yellow-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Amigos"
+            data-description="Momentos com os amigos"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-yellow-100 via-slate-50 to-yellow-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-1 left-1 w-8 h-8 bg-white rounded-full blur-lg"></div>
+              <div class="absolute bottom-1 right-1 w-10 h-10 bg-yellow-300 rounded-full blur-lg">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-8 h-8 bg-gradient-to-br from-yellow-200 to-yellow-300 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-4 h-4 text-yellow-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-10 5a7 7 0 1114 0H5z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-xs font-medium text-slate-600">Amigos</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-indigo-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Votos"
+            data-description="Troca de votos e alianças"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-indigo-100 via-slate-50 to-indigo-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-1 left-1 w-8 h-8 bg-white rounded-full blur-lg"></div>
+              <div class="absolute bottom-1 right-1 w-10 h-10 bg-indigo-300 rounded-full blur-lg">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-8 h-8 bg-gradient-to-br from-indigo-200 to-indigo-300 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-4 h-4 text-indigo-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <p class="text-xs font-medium text-slate-600">Votos</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Row 4: Two medium cards -->
+      <div class="grid grid-cols-2 gap-4">
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-rose-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Primeiro Beijo"
+            data-description="O primeiro beijo como marido e mulher"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-rose-100 via-slate-50 to-rose-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-2 left-2 w-12 h-12 bg-white rounded-full blur-xl"></div>
+              <div class="absolute bottom-2 right-2 w-16 h-16 bg-rose-300 rounded-full blur-xl">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-12 h-12 bg-gradient-to-br from-rose-200 to-rose-300 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-6 h-6 text-rose-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-sm font-medium text-slate-600">Primeiro Beijo</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card
+            hover={false}
+            class="aspect-square bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-teal-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Festa"
+            data-description="Dança e diversão na festa"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-teal-100 via-slate-50 to-teal-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-2 left-2 w-12 h-12 bg-white rounded-full blur-xl"></div>
+              <div class="absolute bottom-2 right-2 w-16 h-16 bg-teal-300 rounded-full blur-xl">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-12 h-12 bg-gradient-to-br from-teal-200 to-teal-300 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-6 h-6 text-teal-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  ></path>
+                </svg>
+              </div>
+              <p class="text-sm font-medium text-slate-600">Festa</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Row 5: Single large card -->
+      <div class="w-full">
+        <Card
+            hover={false}
+            class="aspect-[4/3] bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-amber-300 transition-all duration-300 hover:shadow-lg group cursor-pointer gallery-item"
+            data-title="Momentos Especiais"
+            data-description="Todas as memórias que criaremos juntos"
+        >
+          <div
+              class="w-full h-full bg-gradient-to-br from-amber-100 via-slate-50 to-amber-200 flex items-center justify-center relative overflow-hidden"
+          >
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-4 left-4 w-16 h-16 bg-white rounded-full blur-xl"></div>
+              <div class="absolute bottom-4 right-4 w-20 h-20 bg-amber-300 rounded-full blur-xl">
+              </div>
+            </div>
+
+            <div class="text-center relative z-10">
+              <div
+                  class="w-16 h-16 bg-gradient-to-br from-amber-200 to-amber-300 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform"
+              >
+                <svg
+                    class="w-8 h-8 text-amber-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-slate-700 mb-2">Momentos Especiais</h3>
+              <p class="text-sm text-slate-600">Todas as memórias que criaremos juntos</p>
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
 
-    <!-- Photo Sharing Section -->
-    <Card class="max-w-4xl mx-auto">
-      <div class="text-center">
+    <!-- Bottom Message -->
+    <div class="text-center mt-12">
+      <div
+          class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-200 max-w-2xl mx-auto"
+      >
         <div
-          class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6"
+            class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="w-8 h-8 text-slate-600 lucide lucide-share2-icon lucide-share-2"
-            ><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle
-              cx="18"
-              cy="19"
-              r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line
-              x1="15.41"
-              x2="8.59"
-              y1="6.51"
-              y2="10.49"></line></svg
-          >
-        </div>
-        <h3 class="text-2xl font-semibold text-slate-700 mb-4">Compartilhe Suas Fotos</h3>
-        <p class="text-slate-600 mb-6 leading-relaxed">
-          Adoraríamos ver o casamento através dos seus olhos! Após a celebração, compartilhe suas
-          fotos conosco usando a hashtag:
-        </p>
-
-        <div class="bg-slate-100 rounded-lg p-4 mb-6 inline-block">
-          <p class="text-xl font-semibold text-slate-700">
-            {weddingData.hashtag}
-          </p>
+          <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            ></path>
+          </svg>
         </div>
 
-        <p class="text-sm text-slate-500 leading-relaxed">
-          Estaremos coletando fotos das redes sociais para adicionar à nossa galeria. Se preferir
-          compartilhar de forma privada, você pode enviar suas fotos para
-          <a
-            href="mailto:artur.vasconcelos8@gmail.com"
-            class="text-slate-600 hover:text-slate-800 font-medium border border-slate-200 rounded-md mx-4 px-4 py-1"
-          >
-            artur.vasconcelos8@gmail.com
-          </a>
+        <h3 class="text-2xl font-bold text-slate-700 mb-4">Em Breve...</h3>
+
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Após nosso casamento, esta galeria será preenchida com as mais belas memórias do nosso dia
+          especial. Cada foto contará uma parte da nossa história de amor.
         </p>
       </div>
-    </Card>
+    </div>
+  </div>
+
+  <!-- Fullscreen Modal -->
+  <div
+      id="galleryModal"
+      class="fixed inset-0 z-50 bg-black bg-opacity-90 hidden flex items-center justify-center p-4"
+  >
+    <!-- Modal Content -->
+    <div class="relative max-w-4xl max-h-full w-full h-full flex flex-col">
+      <!-- Close Button -->
+      <button
+          id="closeModal"
+          class="absolute top-4 right-4 z-10 w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all duration-200"
+      >
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Image Container -->
+      <div class="flex-1 flex items-center justify-center">
+        <div
+            id="modalImageContainer"
+            class="max-w-full max-h-full bg-white rounded-lg shadow-2xl overflow-hidden"
+        >
+          <!-- Placeholder for actual image -->
+          <div
+              id="modalPlaceholder"
+              class="w-full h-96 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center"
+          >
+            <div class="text-center">
+              <div
+                  class="w-20 h-20 bg-slate-300 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                    class="w-10 h-10 text-slate-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                  <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 id="modalTitle" class="text-2xl font-bold text-slate-700 mb-2">Título da Foto</h3>
+              <p id="modalDescription" class="text-slate-600">Descrição da foto</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  /*
+  document.addEventListener('DOMContentLoaded', function () {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const modal = document.getElementById('galleryModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+
+    // Open modal when clicking on gallery items
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', function () {
+        const title = this.getAttribute('data-title');
+        const description = this.getAttribute('data-description');
+
+        modalTitle.textContent = title;
+        modalDescription.textContent = description;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+    });
+
+    // Close modal when clicking close button
+    closeModalBtn.addEventListener('click', function () {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    });
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+      }
+    });
+
+    document.querySelector('#modalImageContainer').addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+      }
+    });
+  });
+   */
+</script>
