@@ -58,7 +58,8 @@ export const weddingData = {
     women: {
       items: [
         'Vestido de festa ou macacão',
-        'Conjuntos sociais (saia/calça com blusa)',
+        'Conjuntos sociais',
+        'Saia/calça com blusa',
         'Saltos ou sandálias sociais',
       ],
     },
