@@ -24,8 +24,12 @@
     font-family: 'Mea Culpa', cursive;
   }
 
-  .history-paragraph {
-    @apply pb-2 text-slate-600 leading-relaxed;
+  .history-paragraph-her {
+    @apply pb-2 leading-relaxed bg-pink-50 p-4 text-slate-700;
+  }
+
+  .history-paragraph-him {
+    @apply pb-2 leading-relaxed bg-blue-50 p-4 text-slate-800;
   }
 
   .countdown-item {
