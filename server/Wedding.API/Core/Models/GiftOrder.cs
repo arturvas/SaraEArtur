@@ -8,4 +8,5 @@ public class GiftOrder
     public string PayerFullName { get; set; } = string.Empty;
     public decimal Amount { get; set; }
     public DateTime PaidAt { get; set; }
+    public string? PayerEmail { get; set; }
 }

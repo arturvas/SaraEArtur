@@ -119,8 +119,8 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, stri
 
 app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName, string payerSurname) =>
 {
-    // if (amount < 10)
-    //     return Results.BadRequest("Valor mínimo de R$10,00");
+    if (amount < 10)
+        return Results.BadRequest("Valor mínimo de R$10,00");
 
     var request = new List<PreferenceItemRequest>
     {
@@ -226,6 +226,7 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
             PayerFullName = $"{payment.Payer.FirstName} {payment.Payer.LastName}".Trim(),
             Amount = payment.TransactionAmount ?? gift.Price,
             PaidAt = DateTime.UtcNow,
+            PayerEmail = payment.Payer.Email
         });
         await db.SaveChangesAsync();
 
