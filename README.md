@@ -2,7 +2,7 @@
 
 Um sistema web completo desenvolvido para o meu casamento com minha linda noiva Sara.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Frontend
 - **Astro** 5
@@ -27,7 +27,7 @@ Um sistema web completo desenvolvido para o meu casamento com minha linda noiva 
 - **Render** - Hospedagem da API e banco de dados
 - **Docker Compose** - Orquestração de containers
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - 🎊 **Countdown para o casamento** - Contador regressivo dinâmico
 - 💝 **Lista de presentes** - Sistema de lista de presentes integrado
@@ -36,14 +36,14 @@ Um sistema web completo desenvolvido para o meu casamento com minha linda noiva 
 - 📱 **Design responsivo** - Interface adaptada para todos os dispositivos
 - 🔄 **Web API** - Backend para pagamento e dados
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 O projeto segue uma arquitetura cliente-servidor com:
-📁 client/wedding-frontend/ # Frontend em Astro + Vanilla JS → Vercel
-📁 server/Wedding.API/ # Backend em ASP.NET Core → Render
-📄 docker-compose.yml # Orquestração dos serviços
+-  client/wedding-frontend/ # Frontend em Astro + Vanilla JS → Vercel
+-  server/Wedding.API/ # Backend em ASP.NET Core → Render
+-  docker-compose.yml # Orquestração dos serviços
 
-## 🎨 Destaques Técnicos
+## Destaques Técnicos
 
 - **Frontend moderno** com Astro para performance otimizada
 - **Backend escalável** com ASP.NET Core e Entity Framework
