@@ -433,10 +433,10 @@ try {
                 return;
               }
               const value = parseInt(input.value.replace(/\D/g, ''), 10) / 100;
-              // if (value < 10) {
-              //     alert('O valor mínimo é R$ 10,00');
-              //     return;
-              // }
+              if (value < 10) {
+                  alert('O valor mínimo é R$ 10,00');
+                  return;
+              }
               giftData = {
                 type: 'custom',
                 title: 'Valor Personalizado',
