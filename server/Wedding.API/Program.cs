@@ -108,7 +108,12 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, stri
         AutoReturn = "approved",
         ExternalReference = gift.Id.ToString(),
         Payer = payer,
-        PaymentMethods = GetPaymentMethodsWithoutPixAndBoleto() 
+        PaymentMethods = GetPaymentMethodsWithoutPixAndBoleto(),
+        Metadata = new Dictionary<string, object>
+        {
+            ["payerName"] = payerName,
+            ["payerSurname"] = payerSurname,
+        }
     };
 
     var preference = await client.CreateAsync(preferenceRequest);
@@ -152,7 +157,12 @@ app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName
         AutoReturn = "approved",
         ExternalReference = "custom",
         Payer = payer,
-        PaymentMethods = GetPaymentMethodsWithoutPixAndBoleto()
+        PaymentMethods = GetPaymentMethodsWithoutPixAndBoleto(),
+        Metadata = new Dictionary<string, object>
+        {
+            ["payerName"] = payerName,
+            ["payerSurname"] = payerSurname
+        }
     };
 
     var preference = await client.CreateAsync(preferenceRequest);
@@ -219,11 +229,23 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         var gift = await db.Gifts.FindAsync(giftId);
         if (gift is null) return Results.NotFound("Presente não encontrado");
 
+        var payerName = payment.Metadata != null && payment.Metadata.TryGetValue("payerName", out var metaFist) 
+            ? metaFist?.ToString()
+            : payment.Payer.FirstName;
+        
+        var payerSurname = payment.Metadata != null && payment.Metadata.TryGetValue("payerSurname", out var metaLast)
+            ? metaLast?.ToString()
+            : payment.Payer.LastName;
+
+        var payerFullName = $"{payerName} {payerSurname}".Trim();
+            
         db.GiftOrders.Add(new GiftOrder
         {
             GiftId = giftId,
             Title = gift.Title,
-            PayerFullName = $"{payment.Payer.FirstName} {payment.Payer.LastName}".Trim(),
+            PayerFullName = payerFullName,
+            PayerFirstName = payerName,
+            PayerLastName = payerSurname,
             Amount = payment.TransactionAmount ?? gift.Price,
             PaidAt = DateTime.UtcNow,
             PayerEmail = payment.Payer.Email
