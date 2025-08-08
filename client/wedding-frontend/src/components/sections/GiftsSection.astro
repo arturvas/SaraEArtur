@@ -57,13 +57,7 @@ try {
                       {category.items.map((item: GiftItem) => (
                         <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
                           <p class="text-left text-slate-700">
-                            {item.title === 'Escorregador de louça'
-                              ? 'Escorredor de louça'
-                              : item.title === 'Tapetes pro banheiro'
-                                ? 'Tapetes banheiro'
-                                : item.title === 'Kit toalhas de banho'
-                                  ? 'Toalhas banho'
-                                  : item.title}
+                            {item.title}
                           </p>
                           <div class="flex items-center space-x-4">
                             <span class="text-slate-600">
