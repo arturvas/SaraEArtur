@@ -209,7 +209,6 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
             return Results.Ok("Ignorado");
 
         var client = new PaymentClient();
-
         var payment = await client.GetAsync(long.Parse(json.Data.Id));
 
         if (payment.Status != "approved")
@@ -229,16 +228,30 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         var gift = await db.Gifts.FindAsync(giftId);
         if (gift is null) return Results.NotFound("Presente não encontrado");
 
-        var payerName = payment.Metadata != null && payment.Metadata.TryGetValue("payerName", out var metaFist) 
-            ? metaFist?.ToString()
-            : payment.Payer.FirstName;
-        
-        var payerSurname = payment.Metadata != null && payment.Metadata.TryGetValue("payerSurname", out var metaLast)
-            ? metaLast?.ToString()
-            : payment.Payer.LastName;
+        // BUSCA E LOG DE NOME/SOBRENOME DE FORMA LIMPA
+        string? payerName = null, payerSurname = null;
+        if (payment.Metadata != null)
+        {
+            payment.Metadata.TryGetValue("payerName", out var metaFirst);
+            payerName = metaFirst?.ToString();
+
+            payment.Metadata.TryGetValue("payerSurname", out var metaLast);
+            payerSurname = metaLast?.ToString();
+        }
+
+        // Se não veio nos metadados, tenta no payer
+        payerName ??= payment.Payer?.FirstName;
+        payerSurname ??= payment.Payer?.LastName;
 
         var payerFullName = $"{payerName} {payerSurname}".Trim();
-            
+
+        // LOG DE DEPURAÇÃO RESUMIDO
+        Console.WriteLine("== Dados recebidos no Webhook ==");
+        Console.WriteLine("Metadata: " + JsonSerializer.Serialize(payment.Metadata));
+        Console.WriteLine("Payer: " + JsonSerializer.Serialize(payment.Payer));
+        Console.WriteLine($"Nome obtido: {payerName}");
+        Console.WriteLine($"Sobrenome obtido: {payerSurname}");
+
         db.GiftOrders.Add(new GiftOrder
         {
             GiftId = giftId,
@@ -248,7 +261,7 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
             PayerLastName = payerSurname,
             Amount = payment.TransactionAmount ?? gift.Price,
             PaidAt = DateTime.UtcNow,
-            PayerEmail = payment.Payer.Email
+            PayerEmail = payment.Payer?.Email
         });
         await db.SaveChangesAsync();
 
