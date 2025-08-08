@@ -113,7 +113,8 @@ app.MapGet("/api/gifts/redirect/{id:int}", async (int id, string payerName, stri
         {
             ["payerName"] = payerName,
             ["payerSurname"] = payerSurname,
-        }
+        },
+        StatementDescriptor = "SARA E ARTUR"
     };
 
     var preference = await client.CreateAsync(preferenceRequest);
@@ -162,7 +163,8 @@ app.MapGet("/api/gifts/redirect/custom", async (decimal amount, string payerName
         {
             ["payerName"] = payerName,
             ["payerSurname"] = payerSurname
-        }
+        },
+        StatementDescriptor = "SARA E ARTUR"
     };
 
     var preference = await client.CreateAsync(preferenceRequest);
