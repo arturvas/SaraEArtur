@@ -11,4 +11,5 @@ public class GiftOrder
     public decimal Amount { get; set; }
     public DateTime PaidAt { get; set; }
     public string? PayerEmail { get; set; }
+    public string? PaymentType { get; set; }
 }

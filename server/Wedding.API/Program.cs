@@ -254,6 +254,8 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
         Console.WriteLine($"Nome obtido: {payerName}");
         Console.WriteLine($"Sobrenome obtido: {payerSurname}");
 
+        var typeId = payment?.PaymentTypeId;
+        
         db.GiftOrders.Add(new GiftOrder
         {
             GiftId = giftId,
@@ -263,7 +265,8 @@ app.MapPost("/api/webhook", async (HttpRequest req, AppDbContext db) =>
             PayerLastName = payerSurname,
             Amount = payment.TransactionAmount ?? gift.Price,
             PaidAt = DateTime.UtcNow,
-            PayerEmail = payment.Payer?.Email
+            PayerEmail = payment.Payer?.Email,
+            PaymentType = typeId,
         });
         await db.SaveChangesAsync();
 
