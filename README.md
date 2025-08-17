@@ -1,4 +1,4 @@
-# 💒 Sara e Artur - Sistema de Casamento
+# Sara e Artur
 
 Um sistema web completo desenvolvido para o meu casamento com minha linda noiva Sara.
 
@@ -29,12 +29,12 @@ Um sistema web completo desenvolvido para o meu casamento com minha linda noiva 
 
 ## Funcionalidades
 
-- 🎊 **Countdown para o casamento** - Contador regressivo dinâmico
-- 💝 **Lista de presentes** - Sistema de lista de presentes integrado
-- 🗺️ **Localização do evento** - Mapa interativo com Google Maps
-- 💳 **Integração com MercadoPago** - Pagamentos seguros
-- 📱 **Design responsivo** - Interface adaptada para todos os dispositivos
-- 🔄 **Web API** - Backend para pagamento e dados
+-  **Countdown para o casamento** - Contador regressivo dinâmico
+-  **Lista de presentes** - Sistema de lista de presentes integrado
+-  **Localização do evento** - Mapa interativo com Google Maps
+-  **Integração com MercadoPago** - Pagamentos seguros
+-  **Design responsivo** - Interface adaptada para todos os dispositivos
+-  **Web API** - Backend para pagamento e dados
 
 ## Arquitetura
 
