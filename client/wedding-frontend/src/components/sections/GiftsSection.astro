@@ -30,11 +30,11 @@ try {
         Como estamos nos preparando para nos <strong>mudar para outro país</strong> após o casamento,
         não poderemos receber os presentes aqui, pois seria inviável levá-los na viagem e será necessário
         comprar todos os itens da nossa casa nova lá. Sendo assim, caso queira nos presentear, pode escolher
-        um dos itens abaixo e realizar o pagamento aqui pelo site. Seu presente, independente do
-        tamanho, será profundamente apreciada e nos ajudará a estabelecer o nosso lar.
+        um dos itens abaixo e realizar o pagamento aqui pelo site. Seu presente, independente do tamanho,
+        será profundamente apreciada e nos ajudará a estabelecer o nosso lar.
       </p>
       <p class="text-base text-slate-500 max-w-3xl mx-auto">
-        Todos os pagamentos são processados com segurança através do MercadoPago, garantindo que sua 
+        Todos os pagamentos são processados com segurança através do MercadoPago, garantindo que sua
         transação seja confiável.
       </p>
       <p class="text-base text-slate-500 max-w-3xl mx-auto pt-4">
@@ -56,9 +56,7 @@ try {
                     <div class="space-y-2">
                       {category.items.map((item: GiftItem) => (
                         <div class="flex justify-between items-center space-x-4 bg-slate-100 rounded-md p-2">
-                          <p class="text-left text-slate-700">
-                            {item.title}
-                          </p>
+                          <p class="text-left text-slate-700">{item.title}</p>
                           <div class="flex items-center space-x-4">
                             <span class="text-slate-600">
                               R$ {item.price.toLocaleString('pt-BR') ?? item.price}
@@ -183,10 +181,20 @@ try {
 
           <!-- Action Buttons -->
           <div class="flex flex-col gap-3">
-            <Button id="modalCancel" variant="secondary" size="md" class="whitespace-nowrap px-8 py-4">
+            <Button
+              id="modalCancel"
+              variant="secondary"
+              size="md"
+              class="whitespace-nowrap px-8 py-4"
+            >
               Cancelar
             </Button>
-            <Button id="modalConfirm" variant="success" size="md" class="whitespace-nowrap px-8 py-4">
+            <Button
+              id="modalConfirm"
+              variant="success"
+              size="md"
+              class="whitespace-nowrap px-8 py-4"
+            >
               Pagar no Cartão (parcelado)
             </Button>
             <Button id="modalPix" variant="pix" size="md" class="whitespace-nowrap px-8 py-4">
@@ -431,8 +439,8 @@ try {
               }
               const value = parseInt(input.value.replace(/\D/g, ''), 10) / 100;
               if (value < 10) {
-                  alert('O valor mínimo é R$ 10,00');
-                  return;
+                alert('O valor mínimo é R$ 10,00');
+                return;
               }
               giftData = {
                 type: 'custom',
