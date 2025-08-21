@@ -15,18 +15,18 @@ const formattedDate = formatWeddingDate(weddingData.date);
     class="absolute inset-0 bg-cover bg-center bg-no-repeat"
     style="background-image: url('gallery/34-Pre-Wedding_insta.jpg');"
   >
-    <!-- Dark overlay for better text contrast -->
+    <!-- Dark overlay pro contrast -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20"></div>
-    <!-- Subtle blue overlay to maintain color harmony -->
+    <!-- cor suavel -->
     <div class="absolute inset-0 bg-sky-800/20"></div>
   </div>
 
-  <!-- Content Container -->
+  <!-- Container -->
   <div class="relative z-10 flex-grow flex items-center justify-center pt-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Main Title with Text Shadow -->
+      <!-- Main Title -->
       <h1
-        class="heading-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight"
+        class="heading-script-hero text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight"
         style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);"
       >
         {weddingData.couple.bride}
@@ -34,7 +34,7 @@ const formattedDate = formatWeddingDate(weddingData.date);
         {weddingData.couple.groom}
       </h1>
 
-      <!-- Subtitle with better contrast -->
+      <!-- Subtitulo -->
       <div class="mb-10">
         <p
           class="text-xl md:text-2xl text-white/90 mb-4 font-light"
@@ -44,7 +44,7 @@ const formattedDate = formatWeddingDate(weddingData.date);
         </p>
       </div>
 
-      <!-- Date Card - Redesigned with glass morphism -->
+      <!-- Date Card -->
       <div class="flex items-center justify-center mb-12">
         <div
           class="backdrop-blur-md bg-white/20 rounded-3xl shadow-2xl px-8 py-6 border border-white/30 hover:bg-white/25 transition-all duration-300 transform hover:scale-105"
@@ -53,14 +53,7 @@ const formattedDate = formatWeddingDate(weddingData.date);
             <div
               class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mr-5 backdrop-blur-sm"
             >
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                ></path>
-              </svg>
+              <Icon name={navItems.find(i => i.id === 'detalhes')?.icon} class="w-7 h-7 text-white" />
             </div>
             <div class="text-left">
               <p
@@ -80,16 +73,15 @@ const formattedDate = formatWeddingDate(weddingData.date);
         </div>
       </div>
 
-      <!-- CTA Button - Redesigned with better visibility -->
+      <!-- Botoes -->
       <div
         class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-16"
       >
         <div class="group">
           <Button
             href="#presentes"
-            variant="secondary"
+            variant="primary"
             size="lg"
-            class="bg-white/90 hover:bg-white text-slate-800 hover:text-slate-900 shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm border-2 border-white/50 hover:border-white"
           >
             <Icon name={navItems.find(i => i.id === 'presentes')?.icon} class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
             Presentes
@@ -98,9 +90,8 @@ const formattedDate = formatWeddingDate(weddingData.date);
         <div class="group">
           <Button
             href="#galeria"
-            variant="secondary"
+            variant="primary"
             size="lg"
-            class="bg-white/90 hover:bg-white text-slate-800 hover:text-slate-900 shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm border-2 border-white/50 hover:border-white"
           >
             <Icon name={navItems.find(i => i.id === 'galeria')?.icon} class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
             Galeria
@@ -108,7 +99,7 @@ const formattedDate = formatWeddingDate(weddingData.date);
         </div>
       </div>
 
-      <!-- Scroll Indicator - Melhor visibilidade -->
+      <!-- Scroll -->
       <div class="absolute bottom-8 left-0 right-0 text-center">
         <div class="animate-bounce flex items-center justify-center mx-auto mb-2">
           <div class="bg-white/20 backdrop-blur-sm rounded-full p-2">
@@ -130,7 +121,6 @@ const formattedDate = formatWeddingDate(weddingData.date);
 </section>
 
 <style>
-  /* Animação suave para o card de data */
   @keyframes float {
     0%,
     100% {
@@ -145,8 +135,8 @@ const formattedDate = formatWeddingDate(weddingData.date);
     animation: float 6s ease-in-out infinite;
   }
 
-  /* Efeito de brilho sutil no título */
-  .heading-script {
+  .heading-script-hero {
+    font-family: 'Mea Culpa', cursive;
     background: linear-gradient(45deg, #ffffff, #e0f2fe, #ffffff);
     background-size: 200% 200%;
     -webkit-background-clip: text;
