@@ -44,10 +44,13 @@ import CountdownItem from './CountdownItem.astro';
 <script define:vars={{ weddingData }}>
   function updateCountdown() {
     const now = new Date();
+    const [hour, minute] = weddingData.date.ceremony.split(':').map(Number);
     const wedding = new Date(
       weddingData.date.year,
       weddingData.date.month - 1,
-      weddingData.date.day
+      weddingData.date.day,
+      hour,
+      minute
     );
     const difference = wedding.getTime() - now.getTime();
 
