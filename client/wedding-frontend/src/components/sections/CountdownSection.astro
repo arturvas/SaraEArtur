@@ -4,6 +4,7 @@ import CountdownItem from './CountdownItem.astro';
 ---
 
 <section
+  data-section="countdown-confetti"
   class="py-20 bg-gradient-to-br from-slate-600 via-slate-700 to-blue-800 relative overflow-hidden"
 >
   <!-- Background Pattern -->
@@ -42,6 +43,20 @@ import CountdownItem from './CountdownItem.astro';
 </section>
 
 <script define:vars={{ weddingData }}>
+  let countdownFinished = false;
+  let confettiFired = false;
+  
+  async function fireConfetti() {
+    const mod = await import('https://esm.sh/canvas-confetti@1.6.0');
+    const confetti = mod.default || mod;
+    confetti({
+      particleCount: 100,
+      spread: 170,
+      origin: { y: 0.6 },
+    });
+    confettiFired = true;
+  }
+  
   function updateCountdown() {
     const now = new Date();
     const [hour, minute] = weddingData.date.ceremony.split(':').map(Number);
@@ -58,6 +73,7 @@ import CountdownItem from './CountdownItem.astro';
       document.querySelectorAll('.countdown-number').forEach((el) => {
         el.textContent = '0';
       });
+      countdownFinished = true;
       return;
     }
 
@@ -79,4 +95,22 @@ import CountdownItem from './CountdownItem.astro';
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+  
+  let hasUserScrolled = false;
+  
+  window.addEventListener('scroll', () => {
+    hasUserScrolled = true;
+  }, { once: true, passive: true });
+  
+  const sectionEl = document.querySelector('[data-section="countdown-confetti"]');
+  if (sectionEl && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && countdownFinished && !confettiFired && hasUserScrolled) {
+          fireConfetti();
+        }
+      });
+    }, { threshold: 0.9 });
+    observer.observe(sectionEl);
+  }
 </script>
