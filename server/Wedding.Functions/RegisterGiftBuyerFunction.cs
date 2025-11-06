@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
+using Azure.Storage.Blobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Functions.Worker.Http;
 using Wedding.API.Core.Models;
@@ -18,7 +19,6 @@ public class RegisterGiftBuyerFunction(ILogger<RegisterGiftBuyerFunction> logger
         
         try
         {
-            // le o corpo json enviado
             var body = await new StreamReader(req.Body).ReadToEndAsync();
 
             if (string.IsNullOrWhiteSpace(body))
@@ -32,7 +32,18 @@ public class RegisterGiftBuyerFunction(ILogger<RegisterGiftBuyerFunction> logger
             {
                 PropertyNameCaseInsensitive = true,
             });
-
+            
+            var jsonContent = JsonSerializer.Serialize(giftOrder, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+            
+            var connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+            var blobServiceClient = new BlobServiceClient(connectionString);
+            
+            var containerClient = blobServiceClient.GetBlobContainerClient("gift-orders");
+            await containerClient.CreateIfNotExistsAsync();
+            
             if (giftOrder == null)
             {
                 var badResponse = req.CreateResponse(HttpStatusCode.BadRequest);
@@ -40,7 +51,12 @@ public class RegisterGiftBuyerFunction(ILogger<RegisterGiftBuyerFunction> logger
                 return badResponse;
             }
             
-            logger.LogInformation($"Gift: '{giftOrder.Title}', Amount: '{giftOrder.Amount}, Buyer: {giftOrder.PayerFullName}");
+            var blobName = $"{DateTime.UtcNow:yyyy-MM-ddTHH-mm-ss}_{giftOrder.Title!.Replace(" ", "_")}.json";
+            
+            var blobClient = containerClient.GetBlobClient(blobName);
+            await blobClient.UploadAsync(new BinaryData(jsonContent), overwrite: true);
+            
+            logger.LogInformation($"SAVED TO BLOB:{blobName} Gift: '{giftOrder.Title}', Amount: '{giftOrder.Amount}, Buyer: {giftOrder.PayerFullName}");
             
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteStringAsync($"Gift '{giftOrder.Title}' registered successfully for {giftOrder.PayerFullName}");
