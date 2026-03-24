@@ -1,6 +1,6 @@
 ---
-import { weddingData } from '../../data/wedding-data.js';
-import { formatWeddingDate } from '../../utils/date-utils.js';
+import { weddingData } from '../../data/wedding-data';
+import { formatWeddingDate } from '../../utils/date-utils';
 import Card from '../ui/Card.astro';
 
 import { Icon } from 'astro-icon/components';
@@ -23,7 +23,6 @@ const detailItems: DetailItems[] = [
 
 <section id="detalhes" class="py-20 bg-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Title -->
     <div class="text-center mb-16">
       <h2 class="text-4xl font-semibold md:text-5xl font-bold text-slate-700 mb-6">
         Detalhes do Casamento
@@ -31,9 +30,7 @@ const detailItems: DetailItems[] = [
       <p class="text-lg text-slate-600">Todas as informações importantes sobre nosso grande dia</p>
     </div>
 
-    <!-- Details Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Date and Time -->
       {
         detailItems.map((item) => (
           <Card class={item.id === 'schedule' ? 'md:col-span-2 lg:col-span-1' : ''}>

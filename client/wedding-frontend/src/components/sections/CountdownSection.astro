@@ -1,5 +1,5 @@
 ---
-import { weddingData } from '../../data/wedding-data.js';
+import { weddingData } from '../../data/wedding-data';
 import CountdownItem from './CountdownItem.astro';
 ---
 
@@ -7,7 +7,6 @@ import CountdownItem from './CountdownItem.astro';
   data-section="countdown-confetti"
   class="py-20 bg-gradient-to-br from-slate-600 via-slate-700 to-blue-800 relative overflow-hidden"
 >
-  <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-10">
     <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl"></div>
     <div class="absolute bottom-20 right-20 w-40 h-40 bg-blue-300 rounded-full blur-3xl"></div>
@@ -15,12 +14,10 @@ import CountdownItem from './CountdownItem.astro';
   </div>
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-    <!-- Section Title -->
     <div class="mb-16">
       <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Contagem Regressiva</h2>
       <p class="text-xl text-slate-200 mb-4">para o Grande Dia!</p>
 
-      <!-- Decorative Hearts -->
       <div class="flex items-center justify-center space-x-4 mt-8">
         <div class="h-px bg-slate-300 flex-1 max-w-20"></div>
         <svg class="w-6 h-6 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
@@ -32,7 +29,6 @@ import CountdownItem from './CountdownItem.astro';
       </div>
     </div>
 
-    <!-- Countdown Display -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto">
       <CountdownItem unit="days" label="Dias" />
       <CountdownItem unit="hours" label="Horas" />
