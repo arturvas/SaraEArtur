@@ -1,11 +1,24 @@
 # Sara e Artur
 
-No front-end, foquei em performance e leveza usando **Astro 5** com **Tailwind CSS 4**. A interatividade ficou por conta do **Vanilla JS** e os ícones com **Lucide**. É um site que carrega instantaneamente e funciona perfeitamente em qualquer dispositivo.
+Este projeto começou como o site do meu casamento e hoje permanece no ar principalmente como
+portfólio e lembrança desse momento.
 
-Já o "coração" do projeto é uma **Web API** robusta em **ASP.NET Core 8** com **C# 12**. Usei o **Entity Framework Core** para gerenciar os dados no **PostgreSQL**. Para a parte de pagamentos, integrei o **SDK do MercadoPago**, garantindo que os presentes cheguem com segurança, e usei a **API do Google Maps Embed** para ninguém se perder no caminho da festa.
+A ideia atual é manter uma base simples, estática e fácil de sustentar. O frontend segue em
+Astro com TypeScript, enquanto a lista de presentes fica em arquivo local, sem depender de API,
+banco de dados ou painel administrativo.
 
-### Funcionalidades e Deploy
+## Intenção
 
-O sistema conta com um **countdown** dinâmico, uma **lista de presentes** funcional que já cai direto no checkout seguro e um **mapa interativo**.
+Quis preservar o projeto sem manter uma operação desnecessária. Como o maior volume de acessos
+aconteceu no dia do casamento, a melhor decisão foi reduzir a complexidade e deixar o site mais
+estável, leve e fácil de atualizar.
 
-Toda a infraestrutura foi pensada para ser moderna. Utilizei **Docker** e **Docker Compose** para orquestrar tudo em containers. O deploy é automatizado com CI/CD: o front-end roda na **Vercel** e a API, junto com o banco de dados, está hospedada no **Render**. É uma aplicação de produção real, feita com código limpo e muito carinho.
+## Desafios
+
+Um ponto foi organizar a navegação de forma agradável tanto no desktop quanto no mobile, sem
+transformar o site em algo pesado. Resolvi isso com componentes pequenos, scroll suave e uma
+estrutura de seções bem direta.
+
+Outro foi a lista de presentes. Antes ela dependia de backend e pagamento dinâmico. Para o novo
+momento do projeto, simplifiquei a proposta para dados estáticos e links individuais de pagamento,
+o simples que funciona. 
