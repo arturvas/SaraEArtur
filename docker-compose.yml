@@ -1,7 +1,0 @@
-services:
-  client:
-    build:
-      context: ./client/wedding-frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
